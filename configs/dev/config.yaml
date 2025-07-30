@@ -1,0 +1,56 @@
+# R3M Development Configuration - Core Document Processing Pipeline
+server:
+  port: 8080
+  host: "0.0.0.0"
+  threads: 4
+
+logging:
+  level: "debug"
+  format: "text"
+  output: "/app/data/logs/r3m.log"
+
+# Document Processing Pipeline Configuration (Core Formats Only)
+document_processing:
+  # Supported file extensions (core formats only)
+  supported_extensions:
+    plain_text: [".txt", ".md", ".mdx", ".conf", ".log", ".json", ".csv", ".tsv", ".xml", ".yml", ".yaml"]
+    pdf: [".pdf"]
+    html: [".html", ".htm"]
+  
+  # Processing settings
+  max_file_size: "100MB"
+  max_text_length: 1000000  # 1M characters
+  enable_parallel_processing: true
+  worker_threads: 4
+  
+  # Text processing
+  text_processing:
+    encoding_detection: true
+    default_encoding: "utf-8"
+    remove_html_tags: true
+    normalize_whitespace: true
+    extract_metadata: true
+  
+  # Pipeline stages (core processing only)
+  pipeline_stages:
+    - "file_validation"
+    - "text_extraction"
+    - "text_cleaning"
+    - "metadata_extraction"
+
+# Engine configuration
+engine:
+  # Performance settings
+  max_memory_mb: 2048
+  cache_memory_mb: 512
+  batch_timeout_seconds: 30
+  
+  # Monitoring settings
+  enable_metrics: true
+  metrics_interval_seconds: 5
+
+# Storage paths
+storage:
+  data_path: "/app/data"
+  temp_path: "/tmp/r3m"
+  cache_path: "/app/data/cache" 
