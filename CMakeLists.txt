@@ -307,11 +307,10 @@ target_link_libraries(r3m-advanced-features-test
     ${GUMBO_LIBRARIES}
 )
 
-
-
-# Library example executable (direct usage - zero overhead)
-add_executable(r3m-library-example
-    examples/direct_library_usage.cpp
+# Document processor integration test
+add_executable(r3m-document-processor-integration-test tests/test_document_processor_integration.cpp)
+target_include_directories(r3m-document-processor-integration-test PRIVATE include)
+target_sources(r3m-document-processor-integration-test PRIVATE 
     ${CORE_SOURCES}
     ${CHUNKING_SOURCES}
     ${PROCESSING_SOURCES}
@@ -320,13 +319,35 @@ add_executable(r3m-library-example
     ${FORMATS_SOURCES}
     ${UTILS_SOURCES}
 )
+target_link_libraries(r3m-document-processor-integration-test ${CMAKE_THREAD_LIBS_INIT} ${POPPLER_CPP_LIBRARIES} ${GUMBO_LIBRARIES})
 
-# Link libraries for the library example
-target_link_libraries(r3m-library-example
-    ${CMAKE_THREAD_LIBS_INIT}
-    ${POPPLER_CPP_LIBRARIES}
-    ${GUMBO_LIBRARIES}
+# Library example
+add_executable(r3m-library-example examples/direct_library_usage.cpp)
+target_include_directories(r3m-library-example PRIVATE include)
+target_sources(r3m-library-example PRIVATE 
+    ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
+    ${PROCESSING_SOURCES}
+    ${QUALITY_SOURCES}
+    ${PARALLEL_SOURCES}
+    ${FORMATS_SOURCES}
+    ${UTILS_SOURCES}
 )
+target_link_libraries(r3m-library-example ${CMAKE_THREAD_LIBS_INIT} ${POPPLER_CPP_LIBRARIES} ${GUMBO_LIBRARIES})
+
+# Large document chunking test
+add_executable(r3m-large-document-test tests/test_large_document_chunking.cpp)
+target_include_directories(r3m-large-document-test PRIVATE include)
+target_sources(r3m-large-document-test PRIVATE 
+    ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
+    ${PROCESSING_SOURCES}
+    ${QUALITY_SOURCES}
+    ${PARALLEL_SOURCES}
+    ${FORMATS_SOURCES}
+    ${UTILS_SOURCES}
+)
+target_link_libraries(r3m-large-document-test ${CMAKE_THREAD_LIBS_INIT} ${POPPLER_CPP_LIBRARIES} ${GUMBO_LIBRARIES})
 
 # Custom targets for build management
 add_custom_target(clean-all

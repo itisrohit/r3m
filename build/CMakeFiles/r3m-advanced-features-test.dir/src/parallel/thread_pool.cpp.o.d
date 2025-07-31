@@ -982,4 +982,11 @@ CMakeFiles/r3m-advanced-features-test.dir/src/parallel/thread_pool.cpp.o: \
   /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/include/r3m/utils/text_utils.hpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/regex \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/set \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree \
+  /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/include/r3m/chunking/advanced_chunker.hpp \
+  /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/include/r3m/chunking/chunk_models.hpp \
+  /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/include/r3m/chunking/tokenizer.hpp \
+  /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/include/r3m/chunking/metadata_processor.hpp \
+  /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/include/r3m/chunking/sentence_chunker.hpp \
+  /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/include/r3m/chunking/multipass_chunker.hpp \
+  /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/include/r3m/chunking/contextual_rag.hpp

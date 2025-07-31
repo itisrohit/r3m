@@ -83,6 +83,24 @@ public:
         const std::unordered_map<std::string, std::string>& metadata
     );
     
+    /**
+     * @brief Extract all metadata  (natural language)
+     * @param metadata Document metadata
+     * @return All metadata as natural language string
+     */
+    static std::string extract_all_metadata(
+        const std::unordered_map<std::string, std::string>& metadata
+    );
+    
+    /**
+     * @brief Extract all metadata values for keyword search
+     * @param metadata Document metadata
+     * @return All metadata values as space-separated string
+     */
+    static std::string extract_all_values(
+        const std::unordered_map<std::string, std::string>& metadata
+    );
+    
 private:
     // Metadata keys to ignore
     static const std::vector<std::string> IGNORED_METADATA_KEYS;

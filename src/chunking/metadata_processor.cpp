@@ -7,26 +7,14 @@
 namespace r3m {
 namespace chunking {
 
-// Metadata keys to ignore
+// Only ignore the specific key that Onyx ignores
 const std::vector<std::string> MetadataProcessor::IGNORED_METADATA_KEYS = {
-    "id", "created_at", "updated_at", "deleted_at", "version", "hash", "checksum",
-    "file_size", "file_path", "file_name", "file_extension", "mime_type",
-    "encoding", "language", "confidence", "score", "quality", "processed"
+    "ignore_for_qa"
 };
 
-// Metadata keys that should be treated as semantic (natural language)
-const std::vector<std::string> MetadataProcessor::SEMANTIC_METADATA_KEYS = {
-    "title", "description", "summary", "abstract", "content", "text", "body",
-    "author", "creator", "owner", "subject", "topic", "category", "tags",
-    "keywords", "labels", "notes", "comments", "remarks"
-};
-
-// Metadata keys that should be treated as keywords (structured)
-const std::vector<std::string> MetadataProcessor::KEYWORD_METADATA_KEYS = {
-    "type", "format", "source", "origin", "location", "url", "link",
-    "status", "state", "priority", "level", "version", "revision",
-    "department", "team", "project", "organization", "company"
-};
+// Remove the restrictive semantic/keyword categorization - process all metadata 
+const std::vector<std::string> MetadataProcessor::SEMANTIC_METADATA_KEYS = {};
+const std::vector<std::string> MetadataProcessor::KEYWORD_METADATA_KEYS = {};
 
 MetadataProcessor::MetadataResult MetadataProcessor::process_metadata(
     const std::unordered_map<std::string, std::string>& metadata,
@@ -38,9 +26,9 @@ MetadataProcessor::MetadataResult MetadataProcessor::process_metadata(
         return result;
     }
     
-    // Extract semantic and keyword metadata
-    std::string semantic_metadata = extract_semantic_metadata(metadata);
-    std::string keyword_metadata = extract_keyword_metadata(metadata);
+    // Extract all metadata 
+    std::string semantic_metadata = extract_all_metadata(metadata);
+    std::string keyword_metadata = extract_all_values(metadata);
     
     // Add separators if requested
     if (include_separator) {
@@ -91,72 +79,80 @@ std::string MetadataProcessor::clean_metadata_value(const std::string& value) {
     return cleaned;
 }
 
-std::string MetadataProcessor::extract_semantic_metadata(
+// New method to extract all metadata 
+std::string MetadataProcessor::extract_all_metadata(
     const std::unordered_map<std::string, std::string>& metadata) {
     
-    std::vector<std::string> semantic_parts;
+    if (metadata.empty()) {
+        return "";
+    }
+    
+    std::ostringstream oss;
+    oss << "Metadata:\n";
     
     for (const auto& [key, value] : metadata) {
         if (should_ignore_metadata_key(key)) {
             continue;
         }
         
-        if (is_semantic_metadata_key(key)) {
-            std::string cleaned_value = clean_metadata_value(value);
-            if (!cleaned_value.empty()) {
-                // Format as natural language
-                std::string formatted = key + ": " + cleaned_value;
-                semantic_parts.push_back(formatted);
-            }
+        std::string cleaned_value = clean_metadata_value(value);
+        if (!cleaned_value.empty()) {
+            oss << "\t" << key << " - " << cleaned_value << "\n";
         }
     }
     
-    if (semantic_parts.empty()) {
+    std::string result = oss.str();
+    // Remove trailing newline
+    if (!result.empty() && result.back() == '\n') {
+        result.pop_back();
+    }
+    
+    return result;
+}
+
+// New method to extract all values for keyword search
+std::string MetadataProcessor::extract_all_values(
+    const std::unordered_map<std::string, std::string>& metadata) {
+    
+    std::vector<std::string> values;
+    
+    for (const auto& [key, value] : metadata) {
+        if (should_ignore_metadata_key(key)) {
+            continue;
+        }
+        
+        std::string cleaned_value = clean_metadata_value(value);
+        if (!cleaned_value.empty()) {
+            values.push_back(cleaned_value);
+        }
+    }
+    
+    if (values.empty()) {
         return "";
     }
     
-    // Join with newlines for natural language format
+    // Join with spaces for keyword format 
     std::ostringstream oss;
-    for (size_t i = 0; i < semantic_parts.size(); ++i) {
-        if (i > 0) oss << "\n";
-        oss << semantic_parts[i];
+    for (size_t i = 0; i < values.size(); ++i) {
+        if (i > 0) oss << " ";
+        oss << values[i];
     }
     
     return oss.str();
 }
 
+std::string MetadataProcessor::extract_semantic_metadata(
+    const std::unordered_map<std::string, std::string>& metadata) {
+    
+    // Use the new method that processes all metadata
+    return extract_all_metadata(metadata);
+}
+
 std::string MetadataProcessor::extract_keyword_metadata(
     const std::unordered_map<std::string, std::string>& metadata) {
     
-    std::vector<std::string> keyword_parts;
-    
-    for (const auto& [key, value] : metadata) {
-        if (should_ignore_metadata_key(key)) {
-            continue;
-        }
-        
-        if (is_keyword_metadata_key(key)) {
-            std::string cleaned_value = clean_metadata_value(value);
-            if (!cleaned_value.empty()) {
-                // Format as structured data
-                std::string formatted = key + "=" + cleaned_value;
-                keyword_parts.push_back(formatted);
-            }
-        }
-    }
-    
-    if (keyword_parts.empty()) {
-        return "";
-    }
-    
-    // Join with spaces for keyword format
-    std::ostringstream oss;
-    for (size_t i = 0; i < keyword_parts.size(); ++i) {
-        if (i > 0) oss << " ";
-        oss << keyword_parts[i];
-    }
-    
-    return oss.str();
+    // Use the new method that processes all metadata
+    return extract_all_values(metadata);
 }
 
 bool MetadataProcessor::should_ignore_metadata_key(const std::string& key) {
@@ -168,19 +164,13 @@ bool MetadataProcessor::should_ignore_metadata_key(const std::string& key) {
 }
 
 bool MetadataProcessor::is_semantic_metadata_key(const std::string& key) {
-    std::string lower_key = key;
-    std::transform(lower_key.begin(), lower_key.end(), lower_key.begin(), ::tolower);
-    
-    return std::find(SEMANTIC_METADATA_KEYS.begin(), SEMANTIC_METADATA_KEYS.end(), lower_key) 
-           != SEMANTIC_METADATA_KEYS.end();
+    // Process all keys now 
+    return !should_ignore_metadata_key(key);
 }
 
 bool MetadataProcessor::is_keyword_metadata_key(const std::string& key) {
-    std::string lower_key = key;
-    std::transform(lower_key.begin(), lower_key.end(), lower_key.begin(), ::tolower);
-    
-    return std::find(KEYWORD_METADATA_KEYS.begin(), KEYWORD_METADATA_KEYS.end(), lower_key) 
-           != KEYWORD_METADATA_KEYS.end();
+    // Process all keys now 
+    return !should_ignore_metadata_key(key);
 }
 
 } // namespace chunking

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "r3m/core/document_processor.hpp"
+#include "r3m/chunking/chunk_models.hpp"
 #include <string>
 #include <memory>
 
@@ -21,6 +22,7 @@ public:
     crow::response handle_health_check();
     crow::response handle_process_document(const crow::request& req);
     crow::response handle_process_batch(const crow::request& req);
+    crow::response handle_chunk_document(const crow::request& req);
     crow::response handle_job_status(const std::string& job_id);
     crow::response handle_system_info();
 #endif
@@ -32,7 +34,10 @@ private:
     std::string create_response(bool success, const std::string& message, const std::string& data = "");
     std::string generate_job_id();
     std::string serialize_document_result(const core::DocumentResult& result);
+    std::string serialize_document_result_with_chunks(const core::DocumentResult& result);
     std::string serialize_batch_results(const std::vector<core::DocumentResult>& results);
+    std::string serialize_batch_results_with_chunks(const std::vector<core::DocumentResult>& results);
+    std::string serialize_chunking_result(const chunking::ChunkingResult& result);
     std::string serialize_system_info();
 };
 

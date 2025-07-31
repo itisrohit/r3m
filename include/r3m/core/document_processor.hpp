@@ -5,6 +5,8 @@
 #include "r3m/parallel/thread_pool.hpp"
 #include "r3m/formats/processor.hpp"
 #include "r3m/utils/text_utils.hpp"
+#include "r3m/chunking/advanced_chunker.hpp"
+#include "r3m/chunking/tokenizer.hpp"
 
 #include <string>
 #include <vector>
@@ -33,6 +35,13 @@ struct DocumentResult {
     double information_density = 0.0;
     bool is_high_quality = false;
     std::string quality_reason;
+    
+    // Chunking results
+    std::vector<chunking::DocumentChunk> chunks;
+    size_t total_chunks = 0;
+    size_t successful_chunks = 0;
+    double avg_chunk_quality = 0.0;
+    double avg_chunk_density = 0.0;
 };
 
 struct ProcessingStats {
@@ -64,6 +73,10 @@ public:
     std::vector<DocumentResult> process_documents_batch(const std::vector<std::string>& file_paths);
     std::vector<DocumentResult> process_documents_with_filtering(const std::vector<std::string>& file_paths);
     
+    // Chunking methods
+    chunking::ChunkingResult process_document_with_chunking(const std::string& file_path);
+    std::vector<chunking::ChunkingResult> process_documents_with_chunking(const std::vector<std::string>& file_paths);
+    
     // File type support
     bool is_supported_file_type(const std::string& file_path) const;
     std::vector<std::string> get_supported_extensions() const;
@@ -90,18 +103,32 @@ private:
     std::unique_ptr<parallel::ThreadPool> thread_pool_;
     std::unique_ptr<formats::FormatProcessor> format_processor_;
     
+    // Chunking components
+    std::shared_ptr<chunking::Tokenizer> tokenizer_;
+    std::unique_ptr<chunking::AdvancedChunker> chunker_;
+    
     // Processing settings
     int batch_size_ = 16;
     int max_workers_ = 4;
     bool enable_parallel_processing_ = true;
+    bool enable_chunking_ = true;
     
     // Statistics
     ProcessingStats stats_;
     mutable std::mutex stats_mutex_;
     
-    // Internal processing methods
+    // Private helper methods
     DocumentResult process_single_document(const std::string& file_path);
     void update_stats(const DocumentResult& result);
+    
+    // Chunking helper methods
+    chunking::AdvancedChunker::DocumentInfo create_document_info(
+        const std::string& file_path, 
+        const std::string& text_content,
+        const std::unordered_map<std::string, std::string>& metadata
+    );
+    void initialize_chunking_components();
+    chunking::AdvancedChunker::Config create_chunker_config();
 };
 
 } // namespace core

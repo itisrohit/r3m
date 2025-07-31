@@ -182,6 +182,19 @@ r3m-advanced-features-test/fast:
 .PHONY : r3m-advanced-features-test/fast
 
 #=============================================================================
+# Target rules for targets named r3m-document-processor-integration-test
+
+# Build rule for target.
+r3m-document-processor-integration-test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 r3m-document-processor-integration-test
+.PHONY : r3m-document-processor-integration-test
+
+# fast build rule for target.
+r3m-document-processor-integration-test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/build
+.PHONY : r3m-document-processor-integration-test/fast
+
+#=============================================================================
 # Target rules for targets named r3m-library-example
 
 # Build rule for target.
@@ -193,6 +206,19 @@ r3m-library-example: cmake_check_build_system
 r3m-library-example/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/build
 .PHONY : r3m-library-example/fast
+
+#=============================================================================
+# Target rules for targets named r3m-large-document-test
+
+# Build rule for target.
+r3m-large-document-test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 r3m-large-document-test
+.PHONY : r3m-large-document-test
+
+# fast build rule for target.
+r3m-large-document-test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/build
+.PHONY : r3m-large-document-test/fast
 
 #=============================================================================
 # Target rules for targets named clean-all
@@ -383,7 +409,9 @@ src/chunking/advanced_chunker.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/advanced_chunker.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/chunking/advanced_chunker.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/chunking/advanced_chunker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/chunking/advanced_chunker.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/advanced_chunker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/chunking/advanced_chunker.cpp.o
 .PHONY : src/chunking/advanced_chunker.cpp.o
 
 src/chunking/advanced_chunker.i: src/chunking/advanced_chunker.cpp.i
@@ -396,7 +424,9 @@ src/chunking/advanced_chunker.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/advanced_chunker.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/chunking/advanced_chunker.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/chunking/advanced_chunker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/chunking/advanced_chunker.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/advanced_chunker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/chunking/advanced_chunker.cpp.i
 .PHONY : src/chunking/advanced_chunker.cpp.i
 
 src/chunking/advanced_chunker.s: src/chunking/advanced_chunker.cpp.s
@@ -409,7 +439,9 @@ src/chunking/advanced_chunker.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/advanced_chunker.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/chunking/advanced_chunker.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/chunking/advanced_chunker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/chunking/advanced_chunker.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/advanced_chunker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/chunking/advanced_chunker.cpp.s
 .PHONY : src/chunking/advanced_chunker.cpp.s
 
 src/chunking/advanced_tokenizer.o: src/chunking/advanced_tokenizer.cpp.o
@@ -422,7 +454,9 @@ src/chunking/advanced_tokenizer.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/advanced_tokenizer.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/chunking/advanced_tokenizer.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/chunking/advanced_tokenizer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/chunking/advanced_tokenizer.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/advanced_tokenizer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/chunking/advanced_tokenizer.cpp.o
 .PHONY : src/chunking/advanced_tokenizer.cpp.o
 
 src/chunking/advanced_tokenizer.i: src/chunking/advanced_tokenizer.cpp.i
@@ -435,7 +469,9 @@ src/chunking/advanced_tokenizer.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/advanced_tokenizer.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/chunking/advanced_tokenizer.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/chunking/advanced_tokenizer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/chunking/advanced_tokenizer.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/advanced_tokenizer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/chunking/advanced_tokenizer.cpp.i
 .PHONY : src/chunking/advanced_tokenizer.cpp.i
 
 src/chunking/advanced_tokenizer.s: src/chunking/advanced_tokenizer.cpp.s
@@ -448,7 +484,9 @@ src/chunking/advanced_tokenizer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/advanced_tokenizer.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/chunking/advanced_tokenizer.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/chunking/advanced_tokenizer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/chunking/advanced_tokenizer.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/advanced_tokenizer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/chunking/advanced_tokenizer.cpp.s
 .PHONY : src/chunking/advanced_tokenizer.cpp.s
 
 src/chunking/contextual_rag.o: src/chunking/contextual_rag.cpp.o
@@ -461,7 +499,9 @@ src/chunking/contextual_rag.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/contextual_rag.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/chunking/contextual_rag.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/chunking/contextual_rag.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/chunking/contextual_rag.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/contextual_rag.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/chunking/contextual_rag.cpp.o
 .PHONY : src/chunking/contextual_rag.cpp.o
 
 src/chunking/contextual_rag.i: src/chunking/contextual_rag.cpp.i
@@ -474,7 +514,9 @@ src/chunking/contextual_rag.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/contextual_rag.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/chunking/contextual_rag.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/chunking/contextual_rag.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/chunking/contextual_rag.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/contextual_rag.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/chunking/contextual_rag.cpp.i
 .PHONY : src/chunking/contextual_rag.cpp.i
 
 src/chunking/contextual_rag.s: src/chunking/contextual_rag.cpp.s
@@ -487,7 +529,9 @@ src/chunking/contextual_rag.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/contextual_rag.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/chunking/contextual_rag.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/chunking/contextual_rag.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/chunking/contextual_rag.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/contextual_rag.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/chunking/contextual_rag.cpp.s
 .PHONY : src/chunking/contextual_rag.cpp.s
 
 src/chunking/metadata_processor.o: src/chunking/metadata_processor.cpp.o
@@ -500,7 +544,9 @@ src/chunking/metadata_processor.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/metadata_processor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/chunking/metadata_processor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/chunking/metadata_processor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/chunking/metadata_processor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/metadata_processor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/chunking/metadata_processor.cpp.o
 .PHONY : src/chunking/metadata_processor.cpp.o
 
 src/chunking/metadata_processor.i: src/chunking/metadata_processor.cpp.i
@@ -513,7 +559,9 @@ src/chunking/metadata_processor.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/metadata_processor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/chunking/metadata_processor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/chunking/metadata_processor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/chunking/metadata_processor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/metadata_processor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/chunking/metadata_processor.cpp.i
 .PHONY : src/chunking/metadata_processor.cpp.i
 
 src/chunking/metadata_processor.s: src/chunking/metadata_processor.cpp.s
@@ -526,7 +574,9 @@ src/chunking/metadata_processor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/metadata_processor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/chunking/metadata_processor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/chunking/metadata_processor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/chunking/metadata_processor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/metadata_processor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/chunking/metadata_processor.cpp.s
 .PHONY : src/chunking/metadata_processor.cpp.s
 
 src/chunking/multipass_chunker.o: src/chunking/multipass_chunker.cpp.o
@@ -539,7 +589,9 @@ src/chunking/multipass_chunker.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/multipass_chunker.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/chunking/multipass_chunker.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/chunking/multipass_chunker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/chunking/multipass_chunker.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/multipass_chunker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/chunking/multipass_chunker.cpp.o
 .PHONY : src/chunking/multipass_chunker.cpp.o
 
 src/chunking/multipass_chunker.i: src/chunking/multipass_chunker.cpp.i
@@ -552,7 +604,9 @@ src/chunking/multipass_chunker.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/multipass_chunker.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/chunking/multipass_chunker.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/chunking/multipass_chunker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/chunking/multipass_chunker.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/multipass_chunker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/chunking/multipass_chunker.cpp.i
 .PHONY : src/chunking/multipass_chunker.cpp.i
 
 src/chunking/multipass_chunker.s: src/chunking/multipass_chunker.cpp.s
@@ -565,7 +619,9 @@ src/chunking/multipass_chunker.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/multipass_chunker.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/chunking/multipass_chunker.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/chunking/multipass_chunker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/chunking/multipass_chunker.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/multipass_chunker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/chunking/multipass_chunker.cpp.s
 .PHONY : src/chunking/multipass_chunker.cpp.s
 
 src/chunking/sentence_chunker.o: src/chunking/sentence_chunker.cpp.o
@@ -578,7 +634,9 @@ src/chunking/sentence_chunker.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/sentence_chunker.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/chunking/sentence_chunker.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/chunking/sentence_chunker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/chunking/sentence_chunker.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/sentence_chunker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/chunking/sentence_chunker.cpp.o
 .PHONY : src/chunking/sentence_chunker.cpp.o
 
 src/chunking/sentence_chunker.i: src/chunking/sentence_chunker.cpp.i
@@ -591,7 +649,9 @@ src/chunking/sentence_chunker.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/sentence_chunker.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/chunking/sentence_chunker.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/chunking/sentence_chunker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/chunking/sentence_chunker.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/sentence_chunker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/chunking/sentence_chunker.cpp.i
 .PHONY : src/chunking/sentence_chunker.cpp.i
 
 src/chunking/sentence_chunker.s: src/chunking/sentence_chunker.cpp.s
@@ -604,7 +664,9 @@ src/chunking/sentence_chunker.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/sentence_chunker.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/chunking/sentence_chunker.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/chunking/sentence_chunker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/chunking/sentence_chunker.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/sentence_chunker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/chunking/sentence_chunker.cpp.s
 .PHONY : src/chunking/sentence_chunker.cpp.s
 
 src/chunking/tokenizer.o: src/chunking/tokenizer.cpp.o
@@ -617,7 +679,9 @@ src/chunking/tokenizer.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/tokenizer.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/chunking/tokenizer.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/chunking/tokenizer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/chunking/tokenizer.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/tokenizer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/chunking/tokenizer.cpp.o
 .PHONY : src/chunking/tokenizer.cpp.o
 
 src/chunking/tokenizer.i: src/chunking/tokenizer.cpp.i
@@ -630,7 +694,9 @@ src/chunking/tokenizer.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/tokenizer.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/chunking/tokenizer.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/chunking/tokenizer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/chunking/tokenizer.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/tokenizer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/chunking/tokenizer.cpp.i
 .PHONY : src/chunking/tokenizer.cpp.i
 
 src/chunking/tokenizer.s: src/chunking/tokenizer.cpp.s
@@ -643,7 +709,9 @@ src/chunking/tokenizer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/tokenizer.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/chunking/tokenizer.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/chunking/tokenizer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/chunking/tokenizer.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/tokenizer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/chunking/tokenizer.cpp.s
 .PHONY : src/chunking/tokenizer.cpp.s
 
 src/core/config_manager.o: src/core/config_manager.cpp.o
@@ -656,7 +724,9 @@ src/core/config_manager.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/config_manager.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/core/config_manager.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/core/config_manager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/core/config_manager.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/core/config_manager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/core/config_manager.cpp.o
 .PHONY : src/core/config_manager.cpp.o
 
 src/core/config_manager.i: src/core/config_manager.cpp.i
@@ -669,7 +739,9 @@ src/core/config_manager.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/config_manager.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/core/config_manager.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/core/config_manager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/core/config_manager.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/core/config_manager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/core/config_manager.cpp.i
 .PHONY : src/core/config_manager.cpp.i
 
 src/core/config_manager.s: src/core/config_manager.cpp.s
@@ -682,7 +754,9 @@ src/core/config_manager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/config_manager.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/core/config_manager.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/core/config_manager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/core/config_manager.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/core/config_manager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/core/config_manager.cpp.s
 .PHONY : src/core/config_manager.cpp.s
 
 src/core/document_processor.o: src/core/document_processor.cpp.o
@@ -695,7 +769,9 @@ src/core/document_processor.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/document_processor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/core/document_processor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/core/document_processor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/core/document_processor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/core/document_processor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/core/document_processor.cpp.o
 .PHONY : src/core/document_processor.cpp.o
 
 src/core/document_processor.i: src/core/document_processor.cpp.i
@@ -708,7 +784,9 @@ src/core/document_processor.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/document_processor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/core/document_processor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/core/document_processor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/core/document_processor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/core/document_processor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/core/document_processor.cpp.i
 .PHONY : src/core/document_processor.cpp.i
 
 src/core/document_processor.s: src/core/document_processor.cpp.s
@@ -721,7 +799,9 @@ src/core/document_processor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/document_processor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/core/document_processor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/core/document_processor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/core/document_processor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/core/document_processor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/core/document_processor.cpp.s
 .PHONY : src/core/document_processor.cpp.s
 
 src/core/library.o: src/core/library.cpp.o
@@ -734,7 +814,9 @@ src/core/library.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/library.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/core/library.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/core/library.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/core/library.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/core/library.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/core/library.cpp.o
 .PHONY : src/core/library.cpp.o
 
 src/core/library.i: src/core/library.cpp.i
@@ -747,7 +829,9 @@ src/core/library.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/library.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/core/library.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/core/library.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/core/library.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/core/library.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/core/library.cpp.i
 .PHONY : src/core/library.cpp.i
 
 src/core/library.s: src/core/library.cpp.s
@@ -760,7 +844,9 @@ src/core/library.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/library.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/core/library.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/core/library.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/core/library.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/core/library.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/core/library.cpp.s
 .PHONY : src/core/library.cpp.s
 
 src/formats/processor.o: src/formats/processor.cpp.o
@@ -773,7 +859,9 @@ src/formats/processor.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/formats/processor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/formats/processor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/formats/processor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/formats/processor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/formats/processor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/formats/processor.cpp.o
 .PHONY : src/formats/processor.cpp.o
 
 src/formats/processor.i: src/formats/processor.cpp.i
@@ -786,7 +874,9 @@ src/formats/processor.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/formats/processor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/formats/processor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/formats/processor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/formats/processor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/formats/processor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/formats/processor.cpp.i
 .PHONY : src/formats/processor.cpp.i
 
 src/formats/processor.s: src/formats/processor.cpp.s
@@ -799,7 +889,9 @@ src/formats/processor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/formats/processor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/formats/processor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/formats/processor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/formats/processor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/formats/processor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/formats/processor.cpp.s
 .PHONY : src/formats/processor.cpp.s
 
 src/main.o: src/main.cpp.o
@@ -836,7 +928,9 @@ src/parallel/thread_pool.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/parallel/thread_pool.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/parallel/thread_pool.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/parallel/thread_pool.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/parallel/thread_pool.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/parallel/thread_pool.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/parallel/thread_pool.cpp.o
 .PHONY : src/parallel/thread_pool.cpp.o
 
 src/parallel/thread_pool.i: src/parallel/thread_pool.cpp.i
@@ -849,7 +943,9 @@ src/parallel/thread_pool.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/parallel/thread_pool.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/parallel/thread_pool.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/parallel/thread_pool.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/parallel/thread_pool.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/parallel/thread_pool.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/parallel/thread_pool.cpp.i
 .PHONY : src/parallel/thread_pool.cpp.i
 
 src/parallel/thread_pool.s: src/parallel/thread_pool.cpp.s
@@ -862,7 +958,9 @@ src/parallel/thread_pool.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/parallel/thread_pool.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/parallel/thread_pool.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/parallel/thread_pool.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/parallel/thread_pool.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/parallel/thread_pool.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/parallel/thread_pool.cpp.s
 .PHONY : src/parallel/thread_pool.cpp.s
 
 src/processing/pipeline.o: src/processing/pipeline.cpp.o
@@ -875,7 +973,9 @@ src/processing/pipeline.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/processing/pipeline.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/processing/pipeline.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/processing/pipeline.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/processing/pipeline.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/processing/pipeline.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/processing/pipeline.cpp.o
 .PHONY : src/processing/pipeline.cpp.o
 
 src/processing/pipeline.i: src/processing/pipeline.cpp.i
@@ -888,7 +988,9 @@ src/processing/pipeline.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/processing/pipeline.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/processing/pipeline.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/processing/pipeline.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/processing/pipeline.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/processing/pipeline.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/processing/pipeline.cpp.i
 .PHONY : src/processing/pipeline.cpp.i
 
 src/processing/pipeline.s: src/processing/pipeline.cpp.s
@@ -901,7 +1003,9 @@ src/processing/pipeline.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/processing/pipeline.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/processing/pipeline.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/processing/pipeline.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/processing/pipeline.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/processing/pipeline.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/processing/pipeline.cpp.s
 .PHONY : src/processing/pipeline.cpp.s
 
 src/quality/assessor.o: src/quality/assessor.cpp.o
@@ -914,7 +1018,9 @@ src/quality/assessor.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/quality/assessor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/quality/assessor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/quality/assessor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/quality/assessor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/quality/assessor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/quality/assessor.cpp.o
 .PHONY : src/quality/assessor.cpp.o
 
 src/quality/assessor.i: src/quality/assessor.cpp.i
@@ -927,7 +1033,9 @@ src/quality/assessor.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/quality/assessor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/quality/assessor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/quality/assessor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/quality/assessor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/quality/assessor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/quality/assessor.cpp.i
 .PHONY : src/quality/assessor.cpp.i
 
 src/quality/assessor.s: src/quality/assessor.cpp.s
@@ -940,7 +1048,9 @@ src/quality/assessor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/quality/assessor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/quality/assessor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/quality/assessor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/quality/assessor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/quality/assessor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/quality/assessor.cpp.s
 .PHONY : src/quality/assessor.cpp.s
 
 src/server/http_server.o: src/server/http_server.cpp.o
@@ -983,7 +1093,9 @@ src/utils/text_processing.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/utils/text_processing.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/utils/text_processing.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/utils/text_processing.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/utils/text_processing.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/utils/text_processing.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/utils/text_processing.cpp.o
 .PHONY : src/utils/text_processing.cpp.o
 
 src/utils/text_processing.i: src/utils/text_processing.cpp.i
@@ -996,7 +1108,9 @@ src/utils/text_processing.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/utils/text_processing.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/utils/text_processing.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/utils/text_processing.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/utils/text_processing.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/utils/text_processing.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/utils/text_processing.cpp.i
 .PHONY : src/utils/text_processing.cpp.i
 
 src/utils/text_processing.s: src/utils/text_processing.cpp.s
@@ -1009,7 +1123,9 @@ src/utils/text_processing.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/utils/text_processing.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/utils/text_processing.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/utils/text_processing.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/utils/text_processing.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/utils/text_processing.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/utils/text_processing.cpp.s
 .PHONY : src/utils/text_processing.cpp.s
 
 src/utils/text_utils.o: src/utils/text_utils.cpp.o
@@ -1022,7 +1138,9 @@ src/utils/text_utils.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/utils/text_utils.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/utils/text_utils.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/utils/text_utils.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/utils/text_utils.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/utils/text_utils.cpp.o
 .PHONY : src/utils/text_utils.cpp.o
 
 src/utils/text_utils.i: src/utils/text_utils.cpp.i
@@ -1035,7 +1153,9 @@ src/utils/text_utils.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/utils/text_utils.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/utils/text_utils.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/utils/text_utils.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/utils/text_utils.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/utils/text_utils.cpp.i
 .PHONY : src/utils/text_utils.cpp.i
 
 src/utils/text_utils.s: src/utils/text_utils.cpp.s
@@ -1048,7 +1168,9 @@ src/utils/text_utils.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/utils/text_utils.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-chunking-test.dir/build.make CMakeFiles/r3m-chunking-test.dir/src/utils/text_utils.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-advanced-features-test.dir/build.make CMakeFiles/r3m-advanced-features-test.dir/src/utils/text_utils.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/src/utils/text_utils.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/src/utils/text_utils.cpp.s
 .PHONY : src/utils/text_utils.cpp.s
 
 tests/test_advanced_features.o: tests/test_advanced_features.cpp.o
@@ -1123,6 +1245,30 @@ tests/test_comprehensive.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.s
 .PHONY : tests/test_comprehensive.cpp.s
 
+tests/test_document_processor_integration.o: tests/test_document_processor_integration.cpp.o
+.PHONY : tests/test_document_processor_integration.o
+
+# target to build an object file
+tests/test_document_processor_integration.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/tests/test_document_processor_integration.cpp.o
+.PHONY : tests/test_document_processor_integration.cpp.o
+
+tests/test_document_processor_integration.i: tests/test_document_processor_integration.cpp.i
+.PHONY : tests/test_document_processor_integration.i
+
+# target to preprocess a source file
+tests/test_document_processor_integration.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/tests/test_document_processor_integration.cpp.i
+.PHONY : tests/test_document_processor_integration.cpp.i
+
+tests/test_document_processor_integration.s: tests/test_document_processor_integration.cpp.s
+.PHONY : tests/test_document_processor_integration.s
+
+# target to generate assembly for a file
+tests/test_document_processor_integration.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-document-processor-integration-test.dir/build.make CMakeFiles/r3m-document-processor-integration-test.dir/tests/test_document_processor_integration.cpp.s
+.PHONY : tests/test_document_processor_integration.cpp.s
+
 tests/test_http_server.o: tests/test_http_server.cpp.o
 .PHONY : tests/test_http_server.o
 
@@ -1147,6 +1293,30 @@ tests/test_http_server.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/tests/test_http_server.cpp.s
 .PHONY : tests/test_http_server.cpp.s
 
+tests/test_large_document_chunking.o: tests/test_large_document_chunking.cpp.o
+.PHONY : tests/test_large_document_chunking.o
+
+# target to build an object file
+tests/test_large_document_chunking.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/tests/test_large_document_chunking.cpp.o
+.PHONY : tests/test_large_document_chunking.cpp.o
+
+tests/test_large_document_chunking.i: tests/test_large_document_chunking.cpp.i
+.PHONY : tests/test_large_document_chunking.i
+
+# target to preprocess a source file
+tests/test_large_document_chunking.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/tests/test_large_document_chunking.cpp.i
+.PHONY : tests/test_large_document_chunking.cpp.i
+
+tests/test_large_document_chunking.s: tests/test_large_document_chunking.cpp.s
+.PHONY : tests/test_large_document_chunking.s
+
+# target to generate assembly for a file
+tests/test_large_document_chunking.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-large-document-test.dir/build.make CMakeFiles/r3m-large-document-test.dir/tests/test_large_document_chunking.cpp.s
+.PHONY : tests/test_large_document_chunking.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1163,7 +1333,9 @@ help:
 	@echo "... r3m"
 	@echo "... r3m-advanced-features-test"
 	@echo "... r3m-chunking-test"
+	@echo "... r3m-document-processor-integration-test"
 	@echo "... r3m-http-test"
+	@echo "... r3m-large-document-test"
 	@echo "... r3m-library-example"
 	@echo "... r3m-test"
 	@echo "... examples/direct_library_usage.o"
@@ -1241,9 +1413,15 @@ help:
 	@echo "... tests/test_comprehensive.o"
 	@echo "... tests/test_comprehensive.i"
 	@echo "... tests/test_comprehensive.s"
+	@echo "... tests/test_document_processor_integration.o"
+	@echo "... tests/test_document_processor_integration.i"
+	@echo "... tests/test_document_processor_integration.s"
 	@echo "... tests/test_http_server.o"
 	@echo "... tests/test_http_server.i"
 	@echo "... tests/test_http_server.s"
+	@echo "... tests/test_large_document_chunking.o"
+	@echo "... tests/test_large_document_chunking.i"
+	@echo "... tests/test_large_document_chunking.s"
 .PHONY : help
 
 

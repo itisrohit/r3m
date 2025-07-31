@@ -1,0 +1,241 @@
+# R3M 
+# ==========================================
+# This .gitignore file covers all build artifacts, temporary files,
+# and system-specific files that should not be tracked in version control.
+
+# Build System Artifacts
+# ======================
+build/
+cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# Compiled Object Files
+# ====================
+*.o
+*.obj
+*.elf
+*.bin
+*.exe
+*.out
+*.app
+
+# Libraries
+# =========
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+
+# Debug Files
+# ===========
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# IDE and Editor Files
+# ===================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Temporary Files
+# ===============
+*.tmp
+*.temp
+*.log
+*.bak
+*.backup
+
+# Test Data and Results
+# ====================
+data/test_results.txt
+data/chunks/
+data/*.txt
+data/*.md
+data/*.json
+data/*.html
+data/*.pdf
+data/*.log
+data/*.csv
+data/*.xml
+data/*.yml
+data/*.yaml
+
+# Keep test data directory structure but ignore content
+!data/.gitkeep
+
+# Dependencies and External Libraries
+# =================================
+third_party/
+external/
+vendor/
+deps/
+
+# Package Management
+# =================
+conan/
+vcpkg_installed/
+vcpkg_scripts/
+
+# Documentation Build
+# ==================
+docs/_build/
+docs/html/
+docs/latex/
+
+# Profiling and Performance Data
+# =============================
+*.prof
+*.gcov
+*.gcda
+*.gcno
+coverage/
+*.coverage
+
+# Memory Leak Detection
+# =====================
+valgrind-out.txt
+*.vglog
+
+# Static Analysis
+# ===============
+*.plist
+*.xml
+
+# OS Generated Files
+# ==================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+# =======
+*.lnk
+*.url
+
+# Linux
+# =====
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# macOS
+# =====
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Development Tools
+# ================
+# Clang/LLVM
+compile_commands.json
+.clangd/
+
+# GDB
+.gdb_history
+
+# CTest
+CTestTestfile.cmake
+Testing/
+
+# Doxygen
+doxygen/
+
+# Benchmark Results
+# ================
+benchmark_results/
+*.benchmark
+
+# Configuration Files (if they contain sensitive data)
+# ==================================================
+configs/local/
+configs/private/
+*.local
+*.private
+
+# Backup Files
+# ============
+*.orig
+*.rej
+*.orig.*
+*.rej.*
+
+# Archive Files
+# =============
+*.tar
+*.tar.gz
+*.tar.bz2
+*.zip
+*.rar
+*.7z
+
+# Database Files
+# ==============
+*.db
+*.sqlite
+*.sqlite3
+
+# Network and API Keys (if any)
+# =============================
+.env
+.env.local
+.env.production
+api_keys.txt
+secrets.txt
+
+# Large Binary Files
+# ==================
+*.bin
+*.dat
+*.model
+*.weights
+
+# Keep Important Directories
+# =========================
+!data/
+!configs/
+!docs/
+!examples/
+!tests/
+!scripts/
+
+# But ignore specific patterns in kept directories
+data/*.txt
+data/*.md
+data/*.json
+data/*.html
+data/*.pdf
+data/chunks/
+data/test_results.txt
+
+# Development Notes
+# ================
+TODO.md
+NOTES.md
+*.todo
+*.note
+
+# Git Hooks (if customized)
+# ========================
+.git/hooks/*
+!.git/hooks/pre-commit
+!.git/hooks/post-commit
+
+# End of R3M .gitignore 

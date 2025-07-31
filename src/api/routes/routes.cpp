@@ -90,8 +90,8 @@ crow::response Routes::handle_process_document(const crow::request& req) {
         std::cout << "Processing file: " << file_path << std::endl;
         auto result = processor_->process_document(file_path);
         
-        // Create response
-        std::string response_data = serialize_document_result(result);
+        // Create response with chunking information
+        std::string response_data = serialize_document_result_with_chunks(result);
         
         res.code = 200;
         res.body = create_response(true, "Document processed successfully", response_data);
@@ -125,8 +125,8 @@ crow::response Routes::handle_process_batch(const crow::request& req) {
         // Process batch
         auto results = processor_->process_documents_parallel(file_paths);
         
-        // Create response
-        std::string response_data = serialize_batch_results(results);
+        // Create response with chunking information
+        std::string response_data = serialize_batch_results_with_chunks(results);
         
         res.code = 200;
         res.body = create_response(true, "Batch processing completed", response_data);
@@ -134,6 +134,47 @@ crow::response Routes::handle_process_batch(const crow::request& req) {
     } catch (const std::exception& e) {
         res.code = 500;
         res.body = create_response(false, "Batch processing error: " + std::string(e.what()));
+    }
+    
+    return res;
+}
+
+crow::response Routes::handle_chunk_document(const crow::request& req) {
+    crow::response res;
+    res.set_header("Content-Type", "application/json");
+    
+    try {
+        // Parse request body
+        auto body = crow::json::load(req.body);
+        if (!body) {
+            res.code = 400;
+            res.body = create_response(false, "Invalid JSON request");
+            return res;
+        }
+        
+        // Extract file path
+        std::string file_path;
+        if (body.has("file_path")) {
+            file_path = body["file_path"].s();
+        } else {
+            res.code = 400;
+            res.body = create_response(false, "Missing file_path");
+            return res;
+        }
+        
+        // Process document with chunking
+        std::cout << "Chunking file: " << file_path << std::endl;
+        auto chunking_result = processor_->process_document_with_chunking(file_path);
+        
+        // Create response with chunking results
+        std::string response_data = serialize_chunking_result(chunking_result);
+        
+        res.code = 200;
+        res.body = create_response(true, "Document chunking completed", response_data);
+        
+    } catch (const std::exception& e) {
+        res.code = 500;
+        res.body = create_response(false, "Chunking error: " + std::string(e.what()));
     }
     
     return res;
@@ -211,6 +252,45 @@ std::string Routes::serialize_document_result(const core::DocumentResult& result
     return response_data;
 }
 
+std::string Routes::serialize_document_result_with_chunks(const core::DocumentResult& result) {
+    std::string response_data = "{\"job_id\":\"" + generate_job_id() + "\",";
+    response_data += "\"file_name\":\"" + result.file_name + "\",";
+    response_data += "\"processing_success\":" + std::string(result.processing_success ? "true" : "false") + ",";
+    response_data += "\"processing_time_ms\":" + std::to_string(result.processing_time_ms) + ",";
+    response_data += "\"text_length\":" + std::to_string(result.text_content.length()) + ",";
+    response_data += "\"content_quality_score\":" + std::to_string(result.content_quality_score) + ",";
+    response_data += "\"information_density\":" + std::to_string(result.information_density) + ",";
+    response_data += "\"is_high_quality\":" + std::string(result.is_high_quality ? "true" : "false") + ",";
+    response_data += "\"quality_reason\":\"" + result.quality_reason + "\",";
+    response_data += "\"total_chunks\":" + std::to_string(result.total_chunks) + ",";
+    response_data += "\"successful_chunks\":" + std::to_string(result.successful_chunks) + ",";
+    response_data += "\"avg_chunk_quality\":" + std::to_string(result.avg_chunk_quality) + ",";
+    response_data += "\"avg_chunk_density\":" + std::to_string(result.avg_chunk_density) + ",";
+    response_data += "\"chunks\":[";
+    
+    bool first_chunk = true;
+    for (const auto& chunk : result.chunks) {
+        if (!first_chunk) response_data += ",";
+        response_data += "{";
+        response_data += "\"chunk_id\":" + std::to_string(chunk.chunk_id) + ",";
+        response_data += "\"content\":\"" + chunk.content + "\",";
+        response_data += "\"blurb\":\"" + chunk.blurb + "\",";
+        response_data += "\"title_prefix\":\"" + chunk.title_prefix + "\",";
+        response_data += "\"metadata_suffix_semantic\":\"" + chunk.metadata_suffix_semantic + "\",";
+        response_data += "\"metadata_suffix_keyword\":\"" + chunk.metadata_suffix_keyword + "\",";
+        response_data += "\"quality_score\":" + std::to_string(chunk.quality_score) + ",";
+        response_data += "\"information_density\":" + std::to_string(chunk.information_density) + ",";
+        response_data += "\"is_high_quality\":" + std::string(chunk.is_high_quality ? "true" : "false") + ",";
+        response_data += "\"title_tokens\":" + std::to_string(chunk.title_tokens) + ",";
+        response_data += "\"metadata_tokens\":" + std::to_string(chunk.metadata_tokens) + ",";
+        response_data += "\"content_token_limit\":" + std::to_string(chunk.content_token_limit) + "}";
+        first_chunk = false;
+    }
+    response_data += "]}";
+    
+    return response_data;
+}
+
 std::string Routes::serialize_batch_results(const std::vector<core::DocumentResult>& results) {
     std::string response_data = "{\"total_files\":" + std::to_string(results.size()) + ",";
     response_data += "\"successful_processing\":" + std::to_string(std::count_if(results.begin(), results.end(),
@@ -230,6 +310,97 @@ std::string Routes::serialize_batch_results(const std::vector<core::DocumentResu
         response_data += "\"is_high_quality\":" + std::string(result.is_high_quality ? "true" : "false");
         response_data += "}";
         first = false;
+    }
+    response_data += "]}";
+    
+    return response_data;
+}
+
+std::string Routes::serialize_batch_results_with_chunks(const std::vector<core::DocumentResult>& results) {
+    std::string response_data = "{\"total_files\":" + std::to_string(results.size()) + ",";
+    response_data += "\"successful_processing\":" + std::to_string(std::count_if(results.begin(), results.end(),
+        [](const core::DocumentResult& r) { return r.processing_success; })) + ",";
+    response_data += "\"results\":[";
+    
+    bool first_result = true;
+    for (const auto& result : results) {
+        if (!first_result) response_data += ",";
+        response_data += "{";
+        response_data += "\"file_name\":\"" + result.file_name + "\",";
+        response_data += "\"processing_success\":" + std::string(result.processing_success ? "true" : "false") + ",";
+        response_data += "\"processing_time_ms\":" + std::to_string(result.processing_time_ms) + ",";
+        response_data += "\"text_length\":" + std::to_string(result.text_content.length()) + ",";
+        response_data += "\"content_quality_score\":" + std::to_string(result.content_quality_score) + ",";
+        response_data += "\"information_density\":" + std::to_string(result.information_density) + ",";
+        response_data += "\"is_high_quality\":" + std::string(result.is_high_quality ? "true" : "false") + ",";
+        response_data += "\"quality_reason\":\"" + result.quality_reason + "\",";
+        response_data += "\"total_chunks\":" + std::to_string(result.total_chunks) + ",";
+        response_data += "\"successful_chunks\":" + std::to_string(result.successful_chunks) + ",";
+        response_data += "\"avg_chunk_quality\":" + std::to_string(result.avg_chunk_quality) + ",";
+        response_data += "\"avg_chunk_density\":" + std::to_string(result.avg_chunk_density) + ",";
+        response_data += "\"chunks\":[";
+        
+        bool first_chunk = true;
+        for (const auto& chunk : result.chunks) {
+            if (!first_chunk) response_data += ",";
+            response_data += "{";
+            response_data += "\"chunk_id\":" + std::to_string(chunk.chunk_id) + ",";
+            response_data += "\"content\":\"" + chunk.content + "\",";
+            response_data += "\"blurb\":\"" + chunk.blurb + "\",";
+            response_data += "\"title_prefix\":\"" + chunk.title_prefix + "\",";
+            response_data += "\"metadata_suffix_semantic\":\"" + chunk.metadata_suffix_semantic + "\",";
+            response_data += "\"metadata_suffix_keyword\":\"" + chunk.metadata_suffix_keyword + "\",";
+            response_data += "\"quality_score\":" + std::to_string(chunk.quality_score) + ",";
+            response_data += "\"information_density\":" + std::to_string(chunk.information_density) + ",";
+            response_data += "\"is_high_quality\":" + std::string(chunk.is_high_quality ? "true" : "false") + ",";
+            response_data += "\"title_tokens\":" + std::to_string(chunk.title_tokens) + ",";
+            response_data += "\"metadata_tokens\":" + std::to_string(chunk.metadata_tokens) + ",";
+            response_data += "\"content_token_limit\":" + std::to_string(chunk.content_token_limit) + "}";
+            first_chunk = false;
+        }
+        response_data += "]}";
+        first_result = false;
+    }
+    response_data += "]}";
+    
+    return response_data;
+}
+
+std::string Routes::serialize_chunking_result(const chunking::ChunkingResult& result) {
+    std::string response_data = "{\"job_id\":\"" + generate_job_id() + "\",";
+    response_data += "\"total_chunks\":" + std::to_string(result.total_chunks) + ",";
+    response_data += "\"successful_chunks\":" + std::to_string(result.successful_chunks) + ",";
+    response_data += "\"failed_chunks\":" + std::to_string(result.failed_chunks) + ",";
+    response_data += "\"processing_time_ms\":" + std::to_string(result.processing_time_ms) + ",";
+    response_data += "\"avg_quality_score\":" + std::to_string(result.avg_quality_score) + ",";
+    response_data += "\"avg_information_density\":" + std::to_string(result.avg_information_density) + ",";
+    response_data += "\"high_quality_chunks\":" + std::to_string(result.high_quality_chunks) + ",";
+    response_data += "\"total_title_tokens\":" + std::to_string(result.total_title_tokens) + ",";
+    response_data += "\"total_metadata_tokens\":" + std::to_string(result.total_metadata_tokens) + ",";
+    response_data += "\"total_content_tokens\":" + std::to_string(result.total_content_tokens) + ",";
+    response_data += "\"total_rag_tokens\":" + std::to_string(result.total_rag_tokens) + ",";
+    response_data += "\"chunks\":[";
+    
+    bool first_chunk = true;
+    for (const auto& chunk : result.chunks) {
+        if (!first_chunk) response_data += ",";
+        response_data += "{";
+        response_data += "\"chunk_id\":" + std::to_string(chunk.chunk_id) + ",";
+        response_data += "\"content\":\"" + chunk.content + "\",";
+        response_data += "\"blurb\":\"" + chunk.blurb + "\",";
+        response_data += "\"title_prefix\":\"" + chunk.title_prefix + "\",";
+        response_data += "\"metadata_suffix_semantic\":\"" + chunk.metadata_suffix_semantic + "\",";
+        response_data += "\"metadata_suffix_keyword\":\"" + chunk.metadata_suffix_keyword + "\",";
+        response_data += "\"quality_score\":" + std::to_string(chunk.quality_score) + ",";
+        response_data += "\"information_density\":" + std::to_string(chunk.information_density) + ",";
+        response_data += "\"is_high_quality\":" + std::string(chunk.is_high_quality ? "true" : "false") + ",";
+        response_data += "\"title_tokens\":" + std::to_string(chunk.title_tokens) + ",";
+        response_data += "\"metadata_tokens\":" + std::to_string(chunk.metadata_tokens) + ",";
+        response_data += "\"content_token_limit\":" + std::to_string(chunk.content_token_limit) + ",";
+        response_data += "\"document_id\":\"" + chunk.document_id + "\",";
+        response_data += "\"source_type\":\"" + chunk.source_type + "\",";
+        response_data += "\"semantic_identifier\":\"" + chunk.semantic_identifier + "\"}";
+        first_chunk = false;
     }
     response_data += "]}";
     

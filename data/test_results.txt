@@ -2,18 +2,32 @@ R3M Comprehensive Test Results
 =============================
 
 Performance:
-- Sequential: 232 ms
-- Parallel: 63 ms
-- Speedup: 2.93671x
-- Efficiency: 73.4177%
+- Sequential: 1276 ms
+- Parallel: 352 ms
+- Speedup: 3.28021x
+- Efficiency: 82.0051%
 
 Quality Assessment:
-- Average quality score: 0.509971
+- Average quality score: 0.510614
 - Filtered documents: 4
 - High-quality documents: 3
 
+CHUNKING RESULTS:
+- Total chunks generated: 30
+- Successful chunks: 30
+- Average chunk quality: 0.567199
+- Average chunk density: 0.743259
+- Chunking-specific chunks: 30
+- Chunking-specific successful: 30
+- Chunking-specific avg quality: 0.567199
+- Chunking-specific avg density: 0.743259
+
 Processing Statistics:
-- Total files: 54
-- Successful: 54
-- Failed: 0
-- Text extracted: 2332000 characters
+- Total files: 169
+- Successful: 166
+- Failed: 3
+- Text extracted: 6850851 characters
+- Files with chunking: 4
+- Chunking integration: ✅ Working
+- Batch chunking: ✅ Working
+- Parallel chunking: ✅ Working
