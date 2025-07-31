@@ -7,7 +7,7 @@
 namespace r3m {
 namespace chunking {
 
-// Only ignore the specific key that Onyx ignores
+// Only ignore the specific key that is commonly ignored
 const std::vector<std::string> MetadataProcessor::IGNORED_METADATA_KEYS = {
     "ignore_for_qa"
 };

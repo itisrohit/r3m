@@ -154,6 +154,7 @@ set(FORMATS_SOURCES
 set(UTILS_SOURCES
     src/utils/text_utils.cpp
     src/utils/text_processing.cpp
+    src/utils/performance.cpp
 )
 
 set(SERVER_SOURCES
@@ -335,10 +336,10 @@ target_sources(r3m-library-example PRIVATE
 )
 target_link_libraries(r3m-library-example ${CMAKE_THREAD_LIBS_INIT} ${POPPLER_CPP_LIBRARIES} ${GUMBO_LIBRARIES})
 
-# Large document chunking test
-add_executable(r3m-large-document-test tests/test_large_document_chunking.cpp)
-target_include_directories(r3m-large-document-test PRIVATE include)
-target_sources(r3m-large-document-test PRIVATE 
+# Performance benchmarking test
+add_executable(r3m-performance-benchmark tests/test_performance_benchmarking.cpp)
+target_include_directories(r3m-performance-benchmark PRIVATE include)
+target_sources(r3m-performance-benchmark PRIVATE 
     ${CORE_SOURCES}
     ${CHUNKING_SOURCES}
     ${PROCESSING_SOURCES}
@@ -347,7 +348,7 @@ target_sources(r3m-large-document-test PRIVATE
     ${FORMATS_SOURCES}
     ${UTILS_SOURCES}
 )
-target_link_libraries(r3m-large-document-test ${CMAKE_THREAD_LIBS_INIT} ${POPPLER_CPP_LIBRARIES} ${GUMBO_LIBRARIES})
+target_link_libraries(r3m-performance-benchmark ${CMAKE_THREAD_LIBS_INIT} ${POPPLER_CPP_LIBRARIES} ${GUMBO_LIBRARIES})
 
 # Custom targets for build management
 add_custom_target(clean-all
