@@ -205,13 +205,10 @@ curl http://localhost:8080/health
 make build
 
 # Run comprehensive chunking tests
-./build/r3m-advanced-chunking-test
+./build/r3m-chunking-test
 
 # Run advanced features tests
 ./build/r3m-advanced-features-test
-
-# Run advanced compatibility tests
-./build/r3m-advanced-compatibility-test
 
 # Run HTTP API tests
 ./build/r3m-http-test
@@ -286,18 +283,16 @@ chunking:
 - **Batch processing**: Quality filtering
 - **Quality assessment**: Advanced algorithms
 - **Statistics tracking**: Performance metrics
-- **Advanced chunking**: 12 comprehensive chunking tests
+- **Comprehensive chunking**: 18 comprehensive chunking tests
 - **Advanced features**: 16 text processing and tokenizer tests
-- **Advanced compatibility**: 6 compatibility verification tests
 
 ### Test Results
 ```
 ✅ CORE FUNCTIONALITY: Working
 🚀 ENHANCED FEATURES: 2.88x speedup
 📊 PERFORMANCE: 54 files, 2.3M characters
-🧪 ADVANCED CHUNKING: 12/12 tests passed
+🧪 COMPREHENSIVE CHUNKING: 18/18 tests passed
 🔧 ADVANCED FEATURES: 16/16 tests passed
-✅ ADVANCED COMPATIBILITY: 6/6 tests passed
 🎉 ALL TESTS PASSED!
 ```
 

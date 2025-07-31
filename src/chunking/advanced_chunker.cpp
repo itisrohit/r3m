@@ -80,15 +80,15 @@ ChunkingResult AdvancedChunker::process_document(const DocumentInfo& document) {
         result.total_chunks = chunks.size();
         result.successful_chunks = chunks.size();
         result.failed_chunks = 0;
-        
-        // Calculate quality metrics
-        double total_quality = 0.0;
-        double total_density = 0.0;
-        size_t high_quality_count = 0;
-        
+    
+    // Calculate quality metrics
+    double total_quality = 0.0;
+    double total_density = 0.0;
+    size_t high_quality_count = 0;
+    
         for (const auto& chunk : chunks) {
-            total_quality += chunk.quality_score;
-            total_density += chunk.information_density;
+        total_quality += chunk.quality_score;
+        total_density += chunk.information_density;
             if (chunk.is_high_quality) high_quality_count++;
             
             result.total_title_tokens += chunk.title_tokens;
@@ -384,7 +384,7 @@ std::vector<std::string> AdvancedChunker::split_oversized_chunk(
         start = end;
     }
     
-    return chunks;
+        return chunks;
 }
 
 std::vector<AdvancedChunker::DocumentSection> AdvancedChunker::handle_image_sections(

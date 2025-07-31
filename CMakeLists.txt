@@ -243,9 +243,9 @@ add_executable(r3m-http-test
     ${SERVER_SOURCES}
 )
 
-# Advanced chunking test executable
-add_executable(r3m-advanced-chunking-test
-    tests/test_advanced_chunking_enhanced.cpp
+# Comprehensive chunking test executable
+add_executable(r3m-chunking-test
+    tests/test_chunking_comprehensive.cpp
     ${CORE_SOURCES}
     ${CHUNKING_SOURCES}
     ${PROCESSING_SOURCES}
@@ -281,8 +281,8 @@ if(Crow_FOUND)
     target_compile_definitions(r3m-http-test PRIVATE R3M_HTTP_ENABLED)
 endif()
 
-# Link libraries for the advanced chunking test
-target_link_libraries(r3m-advanced-chunking-test
+# Link libraries for the comprehensive chunking test
+target_link_libraries(r3m-chunking-test
     ${CMAKE_THREAD_LIBS_INIT}
     ${POPPLER_CPP_LIBRARIES}
     ${GUMBO_LIBRARIES}
@@ -307,24 +307,7 @@ target_link_libraries(r3m-advanced-features-test
     ${GUMBO_LIBRARIES}
 )
 
-# Advanced compatibility test executable
-add_executable(r3m-advanced-compatibility-test
-    tests/test_advanced_compatibility.cpp
-    ${CORE_SOURCES}
-    ${CHUNKING_SOURCES}
-    ${PROCESSING_SOURCES}
-    ${QUALITY_SOURCES}
-    ${PARALLEL_SOURCES}
-    ${FORMATS_SOURCES}
-    ${UTILS_SOURCES}
-)
 
-# Link libraries for the advanced compatibility test
-target_link_libraries(r3m-advanced-compatibility-test
-    ${CMAKE_THREAD_LIBS_INIT}
-    ${POPPLER_CPP_LIBRARIES}
-    ${GUMBO_LIBRARIES}
-)
 
 # Library example executable (direct usage - zero overhead)
 add_executable(r3m-library-example

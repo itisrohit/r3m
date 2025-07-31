@@ -1,0 +1,43 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/r3m-chunking-test.dir/src/chunking/advanced_chunker.cpp.o"
+  "CMakeFiles/r3m-chunking-test.dir/src/chunking/advanced_chunker.cpp.o.d"
+  "CMakeFiles/r3m-chunking-test.dir/src/chunking/advanced_tokenizer.cpp.o"
+  "CMakeFiles/r3m-chunking-test.dir/src/chunking/advanced_tokenizer.cpp.o.d"
+  "CMakeFiles/r3m-chunking-test.dir/src/chunking/contextual_rag.cpp.o"
+  "CMakeFiles/r3m-chunking-test.dir/src/chunking/contextual_rag.cpp.o.d"
+  "CMakeFiles/r3m-chunking-test.dir/src/chunking/metadata_processor.cpp.o"
+  "CMakeFiles/r3m-chunking-test.dir/src/chunking/metadata_processor.cpp.o.d"
+  "CMakeFiles/r3m-chunking-test.dir/src/chunking/multipass_chunker.cpp.o"
+  "CMakeFiles/r3m-chunking-test.dir/src/chunking/multipass_chunker.cpp.o.d"
+  "CMakeFiles/r3m-chunking-test.dir/src/chunking/sentence_chunker.cpp.o"
+  "CMakeFiles/r3m-chunking-test.dir/src/chunking/sentence_chunker.cpp.o.d"
+  "CMakeFiles/r3m-chunking-test.dir/src/chunking/tokenizer.cpp.o"
+  "CMakeFiles/r3m-chunking-test.dir/src/chunking/tokenizer.cpp.o.d"
+  "CMakeFiles/r3m-chunking-test.dir/src/core/config_manager.cpp.o"
+  "CMakeFiles/r3m-chunking-test.dir/src/core/config_manager.cpp.o.d"
+  "CMakeFiles/r3m-chunking-test.dir/src/core/document_processor.cpp.o"
+  "CMakeFiles/r3m-chunking-test.dir/src/core/document_processor.cpp.o.d"
+  "CMakeFiles/r3m-chunking-test.dir/src/core/library.cpp.o"
+  "CMakeFiles/r3m-chunking-test.dir/src/core/library.cpp.o.d"
+  "CMakeFiles/r3m-chunking-test.dir/src/formats/processor.cpp.o"
+  "CMakeFiles/r3m-chunking-test.dir/src/formats/processor.cpp.o.d"
+  "CMakeFiles/r3m-chunking-test.dir/src/parallel/thread_pool.cpp.o"
+  "CMakeFiles/r3m-chunking-test.dir/src/parallel/thread_pool.cpp.o.d"
+  "CMakeFiles/r3m-chunking-test.dir/src/processing/pipeline.cpp.o"
+  "CMakeFiles/r3m-chunking-test.dir/src/processing/pipeline.cpp.o.d"
+  "CMakeFiles/r3m-chunking-test.dir/src/quality/assessor.cpp.o"
+  "CMakeFiles/r3m-chunking-test.dir/src/quality/assessor.cpp.o.d"
+  "CMakeFiles/r3m-chunking-test.dir/src/utils/text_processing.cpp.o"
+  "CMakeFiles/r3m-chunking-test.dir/src/utils/text_processing.cpp.o.d"
+  "CMakeFiles/r3m-chunking-test.dir/src/utils/text_utils.cpp.o"
+  "CMakeFiles/r3m-chunking-test.dir/src/utils/text_utils.cpp.o.d"
+  "CMakeFiles/r3m-chunking-test.dir/tests/test_chunking_comprehensive.cpp.o"
+  "CMakeFiles/r3m-chunking-test.dir/tests/test_chunking_comprehensive.cpp.o.d"
+  "r3m-chunking-test"
+  "r3m-chunking-test.pdb"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/r3m-chunking-test.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

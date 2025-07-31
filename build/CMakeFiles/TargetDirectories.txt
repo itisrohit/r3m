@@ -1,9 +1,8 @@
 /Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/r3m.dir
 /Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/r3m-test.dir
 /Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/r3m-http-test.dir
-/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/r3m-advanced-chunking-test.dir
+/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/r3m-chunking-test.dir
 /Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/r3m-advanced-features-test.dir
-/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/r3m-advanced-compatibility-test.dir
 /Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/r3m-library-example.dir
 /Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/clean-all.dir
 /Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/clean-test-data.dir
