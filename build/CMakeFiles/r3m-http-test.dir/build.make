@@ -128,10 +128,80 @@ CMakeFiles/r3m-http-test.dir/src/core/library.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m-http-test.dir/src/core/library.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/core/library.cpp" -o CMakeFiles/r3m-http-test.dir/src/core/library.cpp.s
 
+CMakeFiles/r3m-http-test.dir/src/chunking/tokenizer.cpp.o: CMakeFiles/r3m-http-test.dir/flags.make
+CMakeFiles/r3m-http-test.dir/src/chunking/tokenizer.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/chunking/tokenizer.cpp
+CMakeFiles/r3m-http-test.dir/src/chunking/tokenizer.cpp.o: CMakeFiles/r3m-http-test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/r3m-http-test.dir/src/chunking/tokenizer.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-http-test.dir/src/chunking/tokenizer.cpp.o -MF CMakeFiles/r3m-http-test.dir/src/chunking/tokenizer.cpp.o.d -o CMakeFiles/r3m-http-test.dir/src/chunking/tokenizer.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/tokenizer.cpp"
+
+CMakeFiles/r3m-http-test.dir/src/chunking/tokenizer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/r3m-http-test.dir/src/chunking/tokenizer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/tokenizer.cpp" > CMakeFiles/r3m-http-test.dir/src/chunking/tokenizer.cpp.i
+
+CMakeFiles/r3m-http-test.dir/src/chunking/tokenizer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m-http-test.dir/src/chunking/tokenizer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/tokenizer.cpp" -o CMakeFiles/r3m-http-test.dir/src/chunking/tokenizer.cpp.s
+
+CMakeFiles/r3m-http-test.dir/src/chunking/sentence_chunker.cpp.o: CMakeFiles/r3m-http-test.dir/flags.make
+CMakeFiles/r3m-http-test.dir/src/chunking/sentence_chunker.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/chunking/sentence_chunker.cpp
+CMakeFiles/r3m-http-test.dir/src/chunking/sentence_chunker.cpp.o: CMakeFiles/r3m-http-test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/r3m-http-test.dir/src/chunking/sentence_chunker.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-http-test.dir/src/chunking/sentence_chunker.cpp.o -MF CMakeFiles/r3m-http-test.dir/src/chunking/sentence_chunker.cpp.o.d -o CMakeFiles/r3m-http-test.dir/src/chunking/sentence_chunker.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/sentence_chunker.cpp"
+
+CMakeFiles/r3m-http-test.dir/src/chunking/sentence_chunker.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/r3m-http-test.dir/src/chunking/sentence_chunker.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/sentence_chunker.cpp" > CMakeFiles/r3m-http-test.dir/src/chunking/sentence_chunker.cpp.i
+
+CMakeFiles/r3m-http-test.dir/src/chunking/sentence_chunker.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m-http-test.dir/src/chunking/sentence_chunker.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/sentence_chunker.cpp" -o CMakeFiles/r3m-http-test.dir/src/chunking/sentence_chunker.cpp.s
+
+CMakeFiles/r3m-http-test.dir/src/chunking/multipass_chunker.cpp.o: CMakeFiles/r3m-http-test.dir/flags.make
+CMakeFiles/r3m-http-test.dir/src/chunking/multipass_chunker.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/chunking/multipass_chunker.cpp
+CMakeFiles/r3m-http-test.dir/src/chunking/multipass_chunker.cpp.o: CMakeFiles/r3m-http-test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/r3m-http-test.dir/src/chunking/multipass_chunker.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-http-test.dir/src/chunking/multipass_chunker.cpp.o -MF CMakeFiles/r3m-http-test.dir/src/chunking/multipass_chunker.cpp.o.d -o CMakeFiles/r3m-http-test.dir/src/chunking/multipass_chunker.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/multipass_chunker.cpp"
+
+CMakeFiles/r3m-http-test.dir/src/chunking/multipass_chunker.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/r3m-http-test.dir/src/chunking/multipass_chunker.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/multipass_chunker.cpp" > CMakeFiles/r3m-http-test.dir/src/chunking/multipass_chunker.cpp.i
+
+CMakeFiles/r3m-http-test.dir/src/chunking/multipass_chunker.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m-http-test.dir/src/chunking/multipass_chunker.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/multipass_chunker.cpp" -o CMakeFiles/r3m-http-test.dir/src/chunking/multipass_chunker.cpp.s
+
+CMakeFiles/r3m-http-test.dir/src/chunking/contextual_rag.cpp.o: CMakeFiles/r3m-http-test.dir/flags.make
+CMakeFiles/r3m-http-test.dir/src/chunking/contextual_rag.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/chunking/contextual_rag.cpp
+CMakeFiles/r3m-http-test.dir/src/chunking/contextual_rag.cpp.o: CMakeFiles/r3m-http-test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/r3m-http-test.dir/src/chunking/contextual_rag.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-http-test.dir/src/chunking/contextual_rag.cpp.o -MF CMakeFiles/r3m-http-test.dir/src/chunking/contextual_rag.cpp.o.d -o CMakeFiles/r3m-http-test.dir/src/chunking/contextual_rag.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/contextual_rag.cpp"
+
+CMakeFiles/r3m-http-test.dir/src/chunking/contextual_rag.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/r3m-http-test.dir/src/chunking/contextual_rag.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/contextual_rag.cpp" > CMakeFiles/r3m-http-test.dir/src/chunking/contextual_rag.cpp.i
+
+CMakeFiles/r3m-http-test.dir/src/chunking/contextual_rag.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m-http-test.dir/src/chunking/contextual_rag.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/contextual_rag.cpp" -o CMakeFiles/r3m-http-test.dir/src/chunking/contextual_rag.cpp.s
+
+CMakeFiles/r3m-http-test.dir/src/chunking/advanced_chunker.cpp.o: CMakeFiles/r3m-http-test.dir/flags.make
+CMakeFiles/r3m-http-test.dir/src/chunking/advanced_chunker.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/chunking/advanced_chunker.cpp
+CMakeFiles/r3m-http-test.dir/src/chunking/advanced_chunker.cpp.o: CMakeFiles/r3m-http-test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/r3m-http-test.dir/src/chunking/advanced_chunker.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-http-test.dir/src/chunking/advanced_chunker.cpp.o -MF CMakeFiles/r3m-http-test.dir/src/chunking/advanced_chunker.cpp.o.d -o CMakeFiles/r3m-http-test.dir/src/chunking/advanced_chunker.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/advanced_chunker.cpp"
+
+CMakeFiles/r3m-http-test.dir/src/chunking/advanced_chunker.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/r3m-http-test.dir/src/chunking/advanced_chunker.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/advanced_chunker.cpp" > CMakeFiles/r3m-http-test.dir/src/chunking/advanced_chunker.cpp.i
+
+CMakeFiles/r3m-http-test.dir/src/chunking/advanced_chunker.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m-http-test.dir/src/chunking/advanced_chunker.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/advanced_chunker.cpp" -o CMakeFiles/r3m-http-test.dir/src/chunking/advanced_chunker.cpp.s
+
 CMakeFiles/r3m-http-test.dir/src/processing/pipeline.cpp.o: CMakeFiles/r3m-http-test.dir/flags.make
 CMakeFiles/r3m-http-test.dir/src/processing/pipeline.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/processing/pipeline.cpp
 CMakeFiles/r3m-http-test.dir/src/processing/pipeline.cpp.o: CMakeFiles/r3m-http-test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/r3m-http-test.dir/src/processing/pipeline.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/r3m-http-test.dir/src/processing/pipeline.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-http-test.dir/src/processing/pipeline.cpp.o -MF CMakeFiles/r3m-http-test.dir/src/processing/pipeline.cpp.o.d -o CMakeFiles/r3m-http-test.dir/src/processing/pipeline.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/processing/pipeline.cpp"
 
 CMakeFiles/r3m-http-test.dir/src/processing/pipeline.cpp.i: cmake_force
@@ -145,7 +215,7 @@ CMakeFiles/r3m-http-test.dir/src/processing/pipeline.cpp.s: cmake_force
 CMakeFiles/r3m-http-test.dir/src/quality/assessor.cpp.o: CMakeFiles/r3m-http-test.dir/flags.make
 CMakeFiles/r3m-http-test.dir/src/quality/assessor.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/quality/assessor.cpp
 CMakeFiles/r3m-http-test.dir/src/quality/assessor.cpp.o: CMakeFiles/r3m-http-test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/r3m-http-test.dir/src/quality/assessor.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/r3m-http-test.dir/src/quality/assessor.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-http-test.dir/src/quality/assessor.cpp.o -MF CMakeFiles/r3m-http-test.dir/src/quality/assessor.cpp.o.d -o CMakeFiles/r3m-http-test.dir/src/quality/assessor.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/quality/assessor.cpp"
 
 CMakeFiles/r3m-http-test.dir/src/quality/assessor.cpp.i: cmake_force
@@ -159,7 +229,7 @@ CMakeFiles/r3m-http-test.dir/src/quality/assessor.cpp.s: cmake_force
 CMakeFiles/r3m-http-test.dir/src/parallel/thread_pool.cpp.o: CMakeFiles/r3m-http-test.dir/flags.make
 CMakeFiles/r3m-http-test.dir/src/parallel/thread_pool.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/parallel/thread_pool.cpp
 CMakeFiles/r3m-http-test.dir/src/parallel/thread_pool.cpp.o: CMakeFiles/r3m-http-test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/r3m-http-test.dir/src/parallel/thread_pool.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/r3m-http-test.dir/src/parallel/thread_pool.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-http-test.dir/src/parallel/thread_pool.cpp.o -MF CMakeFiles/r3m-http-test.dir/src/parallel/thread_pool.cpp.o.d -o CMakeFiles/r3m-http-test.dir/src/parallel/thread_pool.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/parallel/thread_pool.cpp"
 
 CMakeFiles/r3m-http-test.dir/src/parallel/thread_pool.cpp.i: cmake_force
@@ -173,7 +243,7 @@ CMakeFiles/r3m-http-test.dir/src/parallel/thread_pool.cpp.s: cmake_force
 CMakeFiles/r3m-http-test.dir/src/formats/processor.cpp.o: CMakeFiles/r3m-http-test.dir/flags.make
 CMakeFiles/r3m-http-test.dir/src/formats/processor.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/formats/processor.cpp
 CMakeFiles/r3m-http-test.dir/src/formats/processor.cpp.o: CMakeFiles/r3m-http-test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/r3m-http-test.dir/src/formats/processor.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/r3m-http-test.dir/src/formats/processor.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-http-test.dir/src/formats/processor.cpp.o -MF CMakeFiles/r3m-http-test.dir/src/formats/processor.cpp.o.d -o CMakeFiles/r3m-http-test.dir/src/formats/processor.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/formats/processor.cpp"
 
 CMakeFiles/r3m-http-test.dir/src/formats/processor.cpp.i: cmake_force
@@ -187,7 +257,7 @@ CMakeFiles/r3m-http-test.dir/src/formats/processor.cpp.s: cmake_force
 CMakeFiles/r3m-http-test.dir/src/utils/text_utils.cpp.o: CMakeFiles/r3m-http-test.dir/flags.make
 CMakeFiles/r3m-http-test.dir/src/utils/text_utils.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/utils/text_utils.cpp
 CMakeFiles/r3m-http-test.dir/src/utils/text_utils.cpp.o: CMakeFiles/r3m-http-test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/r3m-http-test.dir/src/utils/text_utils.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/r3m-http-test.dir/src/utils/text_utils.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-http-test.dir/src/utils/text_utils.cpp.o -MF CMakeFiles/r3m-http-test.dir/src/utils/text_utils.cpp.o.d -o CMakeFiles/r3m-http-test.dir/src/utils/text_utils.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/utils/text_utils.cpp"
 
 CMakeFiles/r3m-http-test.dir/src/utils/text_utils.cpp.i: cmake_force
@@ -201,7 +271,7 @@ CMakeFiles/r3m-http-test.dir/src/utils/text_utils.cpp.s: cmake_force
 CMakeFiles/r3m-http-test.dir/src/server/http_server.cpp.o: CMakeFiles/r3m-http-test.dir/flags.make
 CMakeFiles/r3m-http-test.dir/src/server/http_server.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/server/http_server.cpp
 CMakeFiles/r3m-http-test.dir/src/server/http_server.cpp.o: CMakeFiles/r3m-http-test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/r3m-http-test.dir/src/server/http_server.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/r3m-http-test.dir/src/server/http_server.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-http-test.dir/src/server/http_server.cpp.o -MF CMakeFiles/r3m-http-test.dir/src/server/http_server.cpp.o.d -o CMakeFiles/r3m-http-test.dir/src/server/http_server.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/server/http_server.cpp"
 
 CMakeFiles/r3m-http-test.dir/src/server/http_server.cpp.i: cmake_force
@@ -215,7 +285,7 @@ CMakeFiles/r3m-http-test.dir/src/server/http_server.cpp.s: cmake_force
 CMakeFiles/r3m-http-test.dir/src/api/routes/routes.cpp.o: CMakeFiles/r3m-http-test.dir/flags.make
 CMakeFiles/r3m-http-test.dir/src/api/routes/routes.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/api/routes/routes.cpp
 CMakeFiles/r3m-http-test.dir/src/api/routes/routes.cpp.o: CMakeFiles/r3m-http-test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/r3m-http-test.dir/src/api/routes/routes.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/r3m-http-test.dir/src/api/routes/routes.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-http-test.dir/src/api/routes/routes.cpp.o -MF CMakeFiles/r3m-http-test.dir/src/api/routes/routes.cpp.o.d -o CMakeFiles/r3m-http-test.dir/src/api/routes/routes.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/api/routes/routes.cpp"
 
 CMakeFiles/r3m-http-test.dir/src/api/routes/routes.cpp.i: cmake_force
@@ -229,7 +299,7 @@ CMakeFiles/r3m-http-test.dir/src/api/routes/routes.cpp.s: cmake_force
 CMakeFiles/r3m-http-test.dir/src/api/jobs/job_manager.cpp.o: CMakeFiles/r3m-http-test.dir/flags.make
 CMakeFiles/r3m-http-test.dir/src/api/jobs/job_manager.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/api/jobs/job_manager.cpp
 CMakeFiles/r3m-http-test.dir/src/api/jobs/job_manager.cpp.o: CMakeFiles/r3m-http-test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/r3m-http-test.dir/src/api/jobs/job_manager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/r3m-http-test.dir/src/api/jobs/job_manager.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-http-test.dir/src/api/jobs/job_manager.cpp.o -MF CMakeFiles/r3m-http-test.dir/src/api/jobs/job_manager.cpp.o.d -o CMakeFiles/r3m-http-test.dir/src/api/jobs/job_manager.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/api/jobs/job_manager.cpp"
 
 CMakeFiles/r3m-http-test.dir/src/api/jobs/job_manager.cpp.i: cmake_force
@@ -243,7 +313,7 @@ CMakeFiles/r3m-http-test.dir/src/api/jobs/job_manager.cpp.s: cmake_force
 CMakeFiles/r3m-http-test.dir/src/api/config/config.cpp.o: CMakeFiles/r3m-http-test.dir/flags.make
 CMakeFiles/r3m-http-test.dir/src/api/config/config.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/api/config/config.cpp
 CMakeFiles/r3m-http-test.dir/src/api/config/config.cpp.o: CMakeFiles/r3m-http-test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/r3m-http-test.dir/src/api/config/config.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/r3m-http-test.dir/src/api/config/config.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-http-test.dir/src/api/config/config.cpp.o -MF CMakeFiles/r3m-http-test.dir/src/api/config/config.cpp.o.d -o CMakeFiles/r3m-http-test.dir/src/api/config/config.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/api/config/config.cpp"
 
 CMakeFiles/r3m-http-test.dir/src/api/config/config.cpp.i: cmake_force
@@ -260,6 +330,11 @@ r3m__http__test_OBJECTS = \
 "CMakeFiles/r3m-http-test.dir/src/core/document_processor.cpp.o" \
 "CMakeFiles/r3m-http-test.dir/src/core/config_manager.cpp.o" \
 "CMakeFiles/r3m-http-test.dir/src/core/library.cpp.o" \
+"CMakeFiles/r3m-http-test.dir/src/chunking/tokenizer.cpp.o" \
+"CMakeFiles/r3m-http-test.dir/src/chunking/sentence_chunker.cpp.o" \
+"CMakeFiles/r3m-http-test.dir/src/chunking/multipass_chunker.cpp.o" \
+"CMakeFiles/r3m-http-test.dir/src/chunking/contextual_rag.cpp.o" \
+"CMakeFiles/r3m-http-test.dir/src/chunking/advanced_chunker.cpp.o" \
 "CMakeFiles/r3m-http-test.dir/src/processing/pipeline.cpp.o" \
 "CMakeFiles/r3m-http-test.dir/src/quality/assessor.cpp.o" \
 "CMakeFiles/r3m-http-test.dir/src/parallel/thread_pool.cpp.o" \
@@ -277,6 +352,11 @@ r3m-http-test: CMakeFiles/r3m-http-test.dir/tests/test_http_server.cpp.o
 r3m-http-test: CMakeFiles/r3m-http-test.dir/src/core/document_processor.cpp.o
 r3m-http-test: CMakeFiles/r3m-http-test.dir/src/core/config_manager.cpp.o
 r3m-http-test: CMakeFiles/r3m-http-test.dir/src/core/library.cpp.o
+r3m-http-test: CMakeFiles/r3m-http-test.dir/src/chunking/tokenizer.cpp.o
+r3m-http-test: CMakeFiles/r3m-http-test.dir/src/chunking/sentence_chunker.cpp.o
+r3m-http-test: CMakeFiles/r3m-http-test.dir/src/chunking/multipass_chunker.cpp.o
+r3m-http-test: CMakeFiles/r3m-http-test.dir/src/chunking/contextual_rag.cpp.o
+r3m-http-test: CMakeFiles/r3m-http-test.dir/src/chunking/advanced_chunker.cpp.o
 r3m-http-test: CMakeFiles/r3m-http-test.dir/src/processing/pipeline.cpp.o
 r3m-http-test: CMakeFiles/r3m-http-test.dir/src/quality/assessor.cpp.o
 r3m-http-test: CMakeFiles/r3m-http-test.dir/src/parallel/thread_pool.cpp.o
@@ -288,7 +368,7 @@ r3m-http-test: CMakeFiles/r3m-http-test.dir/src/api/jobs/job_manager.cpp.o
 r3m-http-test: CMakeFiles/r3m-http-test.dir/src/api/config/config.cpp.o
 r3m-http-test: CMakeFiles/r3m-http-test.dir/build.make
 r3m-http-test: CMakeFiles/r3m-http-test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX executable r3m-http-test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_19) "Linking CXX executable r3m-http-test"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/r3m-http-test.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -9,6 +9,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/examples/direct_library_usage.cpp" "CMakeFiles/r3m-library-example.dir/examples/direct_library_usage.cpp.o" "gcc" "CMakeFiles/r3m-library-example.dir/examples/direct_library_usage.cpp.o.d"
+  "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/advanced_chunker.cpp" "CMakeFiles/r3m-library-example.dir/src/chunking/advanced_chunker.cpp.o" "gcc" "CMakeFiles/r3m-library-example.dir/src/chunking/advanced_chunker.cpp.o.d"
+  "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/contextual_rag.cpp" "CMakeFiles/r3m-library-example.dir/src/chunking/contextual_rag.cpp.o" "gcc" "CMakeFiles/r3m-library-example.dir/src/chunking/contextual_rag.cpp.o.d"
+  "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/multipass_chunker.cpp" "CMakeFiles/r3m-library-example.dir/src/chunking/multipass_chunker.cpp.o" "gcc" "CMakeFiles/r3m-library-example.dir/src/chunking/multipass_chunker.cpp.o.d"
+  "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/sentence_chunker.cpp" "CMakeFiles/r3m-library-example.dir/src/chunking/sentence_chunker.cpp.o" "gcc" "CMakeFiles/r3m-library-example.dir/src/chunking/sentence_chunker.cpp.o.d"
+  "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/tokenizer.cpp" "CMakeFiles/r3m-library-example.dir/src/chunking/tokenizer.cpp.o" "gcc" "CMakeFiles/r3m-library-example.dir/src/chunking/tokenizer.cpp.o.d"
   "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/core/config_manager.cpp" "CMakeFiles/r3m-library-example.dir/src/core/config_manager.cpp.o" "gcc" "CMakeFiles/r3m-library-example.dir/src/core/config_manager.cpp.o.d"
   "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/core/document_processor.cpp" "CMakeFiles/r3m-library-example.dir/src/core/document_processor.cpp.o" "gcc" "CMakeFiles/r3m-library-example.dir/src/core/document_processor.cpp.o.d"
   "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/core/library.cpp" "CMakeFiles/r3m-library-example.dir/src/core/library.cpp.o" "gcc" "CMakeFiles/r3m-library-example.dir/src/core/library.cpp.o.d"

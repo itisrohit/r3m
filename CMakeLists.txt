@@ -125,6 +125,14 @@ set(CORE_SOURCES
     src/core/library.cpp
 )
 
+set(CHUNKING_SOURCES
+    src/chunking/tokenizer.cpp
+    src/chunking/sentence_chunker.cpp
+    src/chunking/multipass_chunker.cpp
+    src/chunking/contextual_rag.cpp
+    src/chunking/advanced_chunker.cpp
+)
+
 set(PROCESSING_SOURCES
     src/processing/pipeline.cpp
 )
@@ -159,6 +167,7 @@ set(MAIN_SOURCES
 # Combine all sources
 set(ALL_SOURCES
     ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
     ${PROCESSING_SOURCES}
     ${QUALITY_SOURCES}
     ${PARALLEL_SOURCES}
@@ -209,6 +218,7 @@ endif()
 add_executable(r3m-test
     tests/test_comprehensive.cpp
     ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
     ${PROCESSING_SOURCES}
     ${QUALITY_SOURCES}
     ${PARALLEL_SOURCES}
@@ -221,6 +231,7 @@ add_executable(r3m-test
 add_executable(r3m-http-test
     tests/test_http_server.cpp
     ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
     ${PROCESSING_SOURCES}
     ${QUALITY_SOURCES}
     ${PARALLEL_SOURCES}
@@ -259,6 +270,7 @@ endif()
 add_executable(r3m-library-example
     examples/direct_library_usage.cpp
     ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
     ${PROCESSING_SOURCES}
     ${QUALITY_SOURCES}
     ${PARALLEL_SOURCES}

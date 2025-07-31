@@ -75,6 +75,57 @@ document_processing:
     - "metadata_extraction"
     - "quality_assessment"
     - "filtering"
+    - "chunking"
+
+# Chunking Configuration (Advanced Document Segmentation)
+chunking:
+  # Tokenizer settings
+  tokenizer:
+    type: "basic"                    # Tokenizer type: basic, bpe, sentencepiece
+    max_tokens: 8192                 # Maximum tokens per chunk
+    token_limit: 2048                # Target token limit for chunks
+    chunk_overlap: 0                 # Token overlap between chunks (0 for clean combinations)
+  
+  # Chunk size settings
+  chunk_sizes:
+    blurb_size: 100                  # Size for extracting blurbs (first sentence)
+    mini_chunk_size: 150             # Mini-chunk size for multipass mode
+    large_chunk_ratio: 4             # Number of regular chunks per large chunk
+    chunk_min_content: 256           # Minimum content tokens per chunk
+  
+  # Metadata settings
+  metadata:
+    include_metadata: true            # Include document metadata in chunks
+    max_metadata_percentage: 0.25    # Maximum metadata percentage (25%)
+    skip_metadata_in_chunk: false    # Skip metadata in chunk content
+  
+  # Advanced features
+  advanced_features:
+    enable_multipass: false          # Enable multipass indexing
+    enable_large_chunks: false       # Enable large chunk generation
+    enable_contextual_rag: false     # Enable contextual RAG (requires LLM)
+    
+    # Contextual RAG settings
+    contextual_rag:
+      reserved_tokens: 512           # Tokens reserved for contextual information
+      use_document_summary: true     # Use document-level summaries
+      use_chunk_summary: true        # Use chunk-level summaries
+      llm_model: "gpt-4o-mini"      # LLM model for summaries
+      llm_provider: "openai"         # LLM provider
+  
+  # Quality filtering for chunks
+  quality_filtering:
+    enabled: true
+    min_chunk_quality: 0.3           # Minimum chunk quality score
+    min_chunk_density: 0.1           # Minimum information density
+    min_chunk_length: 50             # Minimum chunk length (characters)
+    max_chunk_length: 10000          # Maximum chunk length (characters)
+  
+  # Processing settings
+  processing:
+    enable_parallel_chunking: true   # Enable parallel chunk processing
+    chunk_worker_threads: 4          # Number of worker threads for chunking
+    batch_chunk_size: 16             # Batch size for chunk processing
 
 # Engine configuration
 engine:

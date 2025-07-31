@@ -347,6 +347,171 @@ src/api/routes/routes.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/api/routes/routes.cpp.s
 .PHONY : src/api/routes/routes.cpp.s
 
+src/chunking/advanced_chunker.o: src/chunking/advanced_chunker.cpp.o
+.PHONY : src/chunking/advanced_chunker.o
+
+# target to build an object file
+src/chunking/advanced_chunker.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/chunking/advanced_chunker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/chunking/advanced_chunker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/advanced_chunker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/advanced_chunker.cpp.o
+.PHONY : src/chunking/advanced_chunker.cpp.o
+
+src/chunking/advanced_chunker.i: src/chunking/advanced_chunker.cpp.i
+.PHONY : src/chunking/advanced_chunker.i
+
+# target to preprocess a source file
+src/chunking/advanced_chunker.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/chunking/advanced_chunker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/chunking/advanced_chunker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/advanced_chunker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/advanced_chunker.cpp.i
+.PHONY : src/chunking/advanced_chunker.cpp.i
+
+src/chunking/advanced_chunker.s: src/chunking/advanced_chunker.cpp.s
+.PHONY : src/chunking/advanced_chunker.s
+
+# target to generate assembly for a file
+src/chunking/advanced_chunker.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/chunking/advanced_chunker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/chunking/advanced_chunker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/advanced_chunker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/advanced_chunker.cpp.s
+.PHONY : src/chunking/advanced_chunker.cpp.s
+
+src/chunking/contextual_rag.o: src/chunking/contextual_rag.cpp.o
+.PHONY : src/chunking/contextual_rag.o
+
+# target to build an object file
+src/chunking/contextual_rag.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/chunking/contextual_rag.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/chunking/contextual_rag.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/contextual_rag.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/contextual_rag.cpp.o
+.PHONY : src/chunking/contextual_rag.cpp.o
+
+src/chunking/contextual_rag.i: src/chunking/contextual_rag.cpp.i
+.PHONY : src/chunking/contextual_rag.i
+
+# target to preprocess a source file
+src/chunking/contextual_rag.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/chunking/contextual_rag.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/chunking/contextual_rag.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/contextual_rag.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/contextual_rag.cpp.i
+.PHONY : src/chunking/contextual_rag.cpp.i
+
+src/chunking/contextual_rag.s: src/chunking/contextual_rag.cpp.s
+.PHONY : src/chunking/contextual_rag.s
+
+# target to generate assembly for a file
+src/chunking/contextual_rag.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/chunking/contextual_rag.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/chunking/contextual_rag.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/contextual_rag.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/contextual_rag.cpp.s
+.PHONY : src/chunking/contextual_rag.cpp.s
+
+src/chunking/multipass_chunker.o: src/chunking/multipass_chunker.cpp.o
+.PHONY : src/chunking/multipass_chunker.o
+
+# target to build an object file
+src/chunking/multipass_chunker.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/chunking/multipass_chunker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/chunking/multipass_chunker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/multipass_chunker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/multipass_chunker.cpp.o
+.PHONY : src/chunking/multipass_chunker.cpp.o
+
+src/chunking/multipass_chunker.i: src/chunking/multipass_chunker.cpp.i
+.PHONY : src/chunking/multipass_chunker.i
+
+# target to preprocess a source file
+src/chunking/multipass_chunker.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/chunking/multipass_chunker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/chunking/multipass_chunker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/multipass_chunker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/multipass_chunker.cpp.i
+.PHONY : src/chunking/multipass_chunker.cpp.i
+
+src/chunking/multipass_chunker.s: src/chunking/multipass_chunker.cpp.s
+.PHONY : src/chunking/multipass_chunker.s
+
+# target to generate assembly for a file
+src/chunking/multipass_chunker.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/chunking/multipass_chunker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/chunking/multipass_chunker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/multipass_chunker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/multipass_chunker.cpp.s
+.PHONY : src/chunking/multipass_chunker.cpp.s
+
+src/chunking/sentence_chunker.o: src/chunking/sentence_chunker.cpp.o
+.PHONY : src/chunking/sentence_chunker.o
+
+# target to build an object file
+src/chunking/sentence_chunker.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/chunking/sentence_chunker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/chunking/sentence_chunker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/sentence_chunker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/sentence_chunker.cpp.o
+.PHONY : src/chunking/sentence_chunker.cpp.o
+
+src/chunking/sentence_chunker.i: src/chunking/sentence_chunker.cpp.i
+.PHONY : src/chunking/sentence_chunker.i
+
+# target to preprocess a source file
+src/chunking/sentence_chunker.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/chunking/sentence_chunker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/chunking/sentence_chunker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/sentence_chunker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/sentence_chunker.cpp.i
+.PHONY : src/chunking/sentence_chunker.cpp.i
+
+src/chunking/sentence_chunker.s: src/chunking/sentence_chunker.cpp.s
+.PHONY : src/chunking/sentence_chunker.s
+
+# target to generate assembly for a file
+src/chunking/sentence_chunker.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/chunking/sentence_chunker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/chunking/sentence_chunker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/sentence_chunker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/sentence_chunker.cpp.s
+.PHONY : src/chunking/sentence_chunker.cpp.s
+
+src/chunking/tokenizer.o: src/chunking/tokenizer.cpp.o
+.PHONY : src/chunking/tokenizer.o
+
+# target to build an object file
+src/chunking/tokenizer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/chunking/tokenizer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/chunking/tokenizer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/tokenizer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/tokenizer.cpp.o
+.PHONY : src/chunking/tokenizer.cpp.o
+
+src/chunking/tokenizer.i: src/chunking/tokenizer.cpp.i
+.PHONY : src/chunking/tokenizer.i
+
+# target to preprocess a source file
+src/chunking/tokenizer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/chunking/tokenizer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/chunking/tokenizer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/tokenizer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/tokenizer.cpp.i
+.PHONY : src/chunking/tokenizer.cpp.i
+
+src/chunking/tokenizer.s: src/chunking/tokenizer.cpp.s
+.PHONY : src/chunking/tokenizer.s
+
+# target to generate assembly for a file
+src/chunking/tokenizer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/chunking/tokenizer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/chunking/tokenizer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/chunking/tokenizer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/chunking/tokenizer.cpp.s
+.PHONY : src/chunking/tokenizer.cpp.s
+
 src/core/config_manager.o: src/core/config_manager.cpp.o
 .PHONY : src/core/config_manager.o
 
@@ -742,6 +907,21 @@ help:
 	@echo "... src/api/routes/routes.o"
 	@echo "... src/api/routes/routes.i"
 	@echo "... src/api/routes/routes.s"
+	@echo "... src/chunking/advanced_chunker.o"
+	@echo "... src/chunking/advanced_chunker.i"
+	@echo "... src/chunking/advanced_chunker.s"
+	@echo "... src/chunking/contextual_rag.o"
+	@echo "... src/chunking/contextual_rag.i"
+	@echo "... src/chunking/contextual_rag.s"
+	@echo "... src/chunking/multipass_chunker.o"
+	@echo "... src/chunking/multipass_chunker.i"
+	@echo "... src/chunking/multipass_chunker.s"
+	@echo "... src/chunking/sentence_chunker.o"
+	@echo "... src/chunking/sentence_chunker.i"
+	@echo "... src/chunking/sentence_chunker.s"
+	@echo "... src/chunking/tokenizer.o"
+	@echo "... src/chunking/tokenizer.i"
+	@echo "... src/chunking/tokenizer.s"
 	@echo "... src/core/config_manager.o"
 	@echo "... src/core/config_manager.i"
 	@echo "... src/core/config_manager.s"
