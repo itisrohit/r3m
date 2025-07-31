@@ -17,8 +17,7 @@ MultipassChunker::MultipassChunker(
     enable_multipass_(enable_multipass),
     enable_large_chunks_(enable_large_chunks),
     mini_chunk_size_(mini_chunk_size),
-    large_chunk_ratio_(large_chunk_ratio),
-    chunk_token_limit_(chunk_token_limit) {
+    large_chunk_ratio_(large_chunk_ratio) {
     
     // Create regular chunker
     regular_chunker_ = std::make_shared<SentenceChunker>(
@@ -130,8 +129,8 @@ std::vector<DocumentChunk> MultipassChunker::generate_mini_chunks(
                 chunk.document_id,
                 mini_texts[i],
                 chunk.title_prefix,
-                chunk.metadata_semantic,
-                chunk.metadata_keyword,
+                chunk.metadata_suffix_semantic,
+                chunk.metadata_suffix_keyword,
                 i > 0
             );
             
@@ -178,8 +177,8 @@ std::vector<DocumentChunk> MultipassChunker::generate_large_chunks(
             chunks[i].document_id,
             combined_content,
             chunks[i].title_prefix,
-            chunks[i].metadata_semantic,
-            chunks[i].metadata_keyword,
+            chunks[i].metadata_suffix_semantic,
+            chunks[i].metadata_suffix_keyword,
             false
         );
         
@@ -293,8 +292,8 @@ DocumentChunk MultipassChunker::create_chunk(
     chunk.blurb = extract_blurb(content);
     chunk.content = content;
     chunk.title_prefix = title_prefix;
-    chunk.metadata_semantic = metadata_semantic;
-    chunk.metadata_keyword = metadata_keyword;
+    chunk.metadata_suffix_semantic = metadata_semantic;
+    chunk.metadata_suffix_keyword = metadata_keyword;
     chunk.section_continuation = is_continuation;
     
     // Calculate basic quality metrics

@@ -198,10 +198,38 @@ CMakeFiles/r3m-library-example.dir/src/chunking/advanced_chunker.cpp.s: cmake_fo
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m-library-example.dir/src/chunking/advanced_chunker.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/advanced_chunker.cpp" -o CMakeFiles/r3m-library-example.dir/src/chunking/advanced_chunker.cpp.s
 
+CMakeFiles/r3m-library-example.dir/src/chunking/metadata_processor.cpp.o: CMakeFiles/r3m-library-example.dir/flags.make
+CMakeFiles/r3m-library-example.dir/src/chunking/metadata_processor.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/chunking/metadata_processor.cpp
+CMakeFiles/r3m-library-example.dir/src/chunking/metadata_processor.cpp.o: CMakeFiles/r3m-library-example.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/r3m-library-example.dir/src/chunking/metadata_processor.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-library-example.dir/src/chunking/metadata_processor.cpp.o -MF CMakeFiles/r3m-library-example.dir/src/chunking/metadata_processor.cpp.o.d -o CMakeFiles/r3m-library-example.dir/src/chunking/metadata_processor.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/metadata_processor.cpp"
+
+CMakeFiles/r3m-library-example.dir/src/chunking/metadata_processor.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/r3m-library-example.dir/src/chunking/metadata_processor.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/metadata_processor.cpp" > CMakeFiles/r3m-library-example.dir/src/chunking/metadata_processor.cpp.i
+
+CMakeFiles/r3m-library-example.dir/src/chunking/metadata_processor.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m-library-example.dir/src/chunking/metadata_processor.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/metadata_processor.cpp" -o CMakeFiles/r3m-library-example.dir/src/chunking/metadata_processor.cpp.s
+
+CMakeFiles/r3m-library-example.dir/src/chunking/advanced_tokenizer.cpp.o: CMakeFiles/r3m-library-example.dir/flags.make
+CMakeFiles/r3m-library-example.dir/src/chunking/advanced_tokenizer.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/chunking/advanced_tokenizer.cpp
+CMakeFiles/r3m-library-example.dir/src/chunking/advanced_tokenizer.cpp.o: CMakeFiles/r3m-library-example.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/r3m-library-example.dir/src/chunking/advanced_tokenizer.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-library-example.dir/src/chunking/advanced_tokenizer.cpp.o -MF CMakeFiles/r3m-library-example.dir/src/chunking/advanced_tokenizer.cpp.o.d -o CMakeFiles/r3m-library-example.dir/src/chunking/advanced_tokenizer.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/advanced_tokenizer.cpp"
+
+CMakeFiles/r3m-library-example.dir/src/chunking/advanced_tokenizer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/r3m-library-example.dir/src/chunking/advanced_tokenizer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/advanced_tokenizer.cpp" > CMakeFiles/r3m-library-example.dir/src/chunking/advanced_tokenizer.cpp.i
+
+CMakeFiles/r3m-library-example.dir/src/chunking/advanced_tokenizer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m-library-example.dir/src/chunking/advanced_tokenizer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/chunking/advanced_tokenizer.cpp" -o CMakeFiles/r3m-library-example.dir/src/chunking/advanced_tokenizer.cpp.s
+
 CMakeFiles/r3m-library-example.dir/src/processing/pipeline.cpp.o: CMakeFiles/r3m-library-example.dir/flags.make
 CMakeFiles/r3m-library-example.dir/src/processing/pipeline.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/processing/pipeline.cpp
 CMakeFiles/r3m-library-example.dir/src/processing/pipeline.cpp.o: CMakeFiles/r3m-library-example.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/r3m-library-example.dir/src/processing/pipeline.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/r3m-library-example.dir/src/processing/pipeline.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-library-example.dir/src/processing/pipeline.cpp.o -MF CMakeFiles/r3m-library-example.dir/src/processing/pipeline.cpp.o.d -o CMakeFiles/r3m-library-example.dir/src/processing/pipeline.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/processing/pipeline.cpp"
 
 CMakeFiles/r3m-library-example.dir/src/processing/pipeline.cpp.i: cmake_force
@@ -215,7 +243,7 @@ CMakeFiles/r3m-library-example.dir/src/processing/pipeline.cpp.s: cmake_force
 CMakeFiles/r3m-library-example.dir/src/quality/assessor.cpp.o: CMakeFiles/r3m-library-example.dir/flags.make
 CMakeFiles/r3m-library-example.dir/src/quality/assessor.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/quality/assessor.cpp
 CMakeFiles/r3m-library-example.dir/src/quality/assessor.cpp.o: CMakeFiles/r3m-library-example.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/r3m-library-example.dir/src/quality/assessor.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/r3m-library-example.dir/src/quality/assessor.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-library-example.dir/src/quality/assessor.cpp.o -MF CMakeFiles/r3m-library-example.dir/src/quality/assessor.cpp.o.d -o CMakeFiles/r3m-library-example.dir/src/quality/assessor.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/quality/assessor.cpp"
 
 CMakeFiles/r3m-library-example.dir/src/quality/assessor.cpp.i: cmake_force
@@ -229,7 +257,7 @@ CMakeFiles/r3m-library-example.dir/src/quality/assessor.cpp.s: cmake_force
 CMakeFiles/r3m-library-example.dir/src/parallel/thread_pool.cpp.o: CMakeFiles/r3m-library-example.dir/flags.make
 CMakeFiles/r3m-library-example.dir/src/parallel/thread_pool.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/parallel/thread_pool.cpp
 CMakeFiles/r3m-library-example.dir/src/parallel/thread_pool.cpp.o: CMakeFiles/r3m-library-example.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/r3m-library-example.dir/src/parallel/thread_pool.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/r3m-library-example.dir/src/parallel/thread_pool.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-library-example.dir/src/parallel/thread_pool.cpp.o -MF CMakeFiles/r3m-library-example.dir/src/parallel/thread_pool.cpp.o.d -o CMakeFiles/r3m-library-example.dir/src/parallel/thread_pool.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/parallel/thread_pool.cpp"
 
 CMakeFiles/r3m-library-example.dir/src/parallel/thread_pool.cpp.i: cmake_force
@@ -243,7 +271,7 @@ CMakeFiles/r3m-library-example.dir/src/parallel/thread_pool.cpp.s: cmake_force
 CMakeFiles/r3m-library-example.dir/src/formats/processor.cpp.o: CMakeFiles/r3m-library-example.dir/flags.make
 CMakeFiles/r3m-library-example.dir/src/formats/processor.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/formats/processor.cpp
 CMakeFiles/r3m-library-example.dir/src/formats/processor.cpp.o: CMakeFiles/r3m-library-example.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/r3m-library-example.dir/src/formats/processor.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/r3m-library-example.dir/src/formats/processor.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-library-example.dir/src/formats/processor.cpp.o -MF CMakeFiles/r3m-library-example.dir/src/formats/processor.cpp.o.d -o CMakeFiles/r3m-library-example.dir/src/formats/processor.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/formats/processor.cpp"
 
 CMakeFiles/r3m-library-example.dir/src/formats/processor.cpp.i: cmake_force
@@ -257,7 +285,7 @@ CMakeFiles/r3m-library-example.dir/src/formats/processor.cpp.s: cmake_force
 CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.o: CMakeFiles/r3m-library-example.dir/flags.make
 CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/utils/text_utils.cpp
 CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.o: CMakeFiles/r3m-library-example.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.o -MF CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.o.d -o CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/utils/text_utils.cpp"
 
 CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.i: cmake_force
@@ -267,6 +295,20 @@ CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.i: cmake_force
 CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/utils/text_utils.cpp" -o CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.s
+
+CMakeFiles/r3m-library-example.dir/src/utils/text_processing.cpp.o: CMakeFiles/r3m-library-example.dir/flags.make
+CMakeFiles/r3m-library-example.dir/src/utils/text_processing.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/utils/text_processing.cpp
+CMakeFiles/r3m-library-example.dir/src/utils/text_processing.cpp.o: CMakeFiles/r3m-library-example.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/r3m-library-example.dir/src/utils/text_processing.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-library-example.dir/src/utils/text_processing.cpp.o -MF CMakeFiles/r3m-library-example.dir/src/utils/text_processing.cpp.o.d -o CMakeFiles/r3m-library-example.dir/src/utils/text_processing.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/utils/text_processing.cpp"
+
+CMakeFiles/r3m-library-example.dir/src/utils/text_processing.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/r3m-library-example.dir/src/utils/text_processing.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/utils/text_processing.cpp" > CMakeFiles/r3m-library-example.dir/src/utils/text_processing.cpp.i
+
+CMakeFiles/r3m-library-example.dir/src/utils/text_processing.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m-library-example.dir/src/utils/text_processing.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/utils/text_processing.cpp" -o CMakeFiles/r3m-library-example.dir/src/utils/text_processing.cpp.s
 
 # Object files for target r3m-library-example
 r3m__library__example_OBJECTS = \
@@ -279,11 +321,14 @@ r3m__library__example_OBJECTS = \
 "CMakeFiles/r3m-library-example.dir/src/chunking/multipass_chunker.cpp.o" \
 "CMakeFiles/r3m-library-example.dir/src/chunking/contextual_rag.cpp.o" \
 "CMakeFiles/r3m-library-example.dir/src/chunking/advanced_chunker.cpp.o" \
+"CMakeFiles/r3m-library-example.dir/src/chunking/metadata_processor.cpp.o" \
+"CMakeFiles/r3m-library-example.dir/src/chunking/advanced_tokenizer.cpp.o" \
 "CMakeFiles/r3m-library-example.dir/src/processing/pipeline.cpp.o" \
 "CMakeFiles/r3m-library-example.dir/src/quality/assessor.cpp.o" \
 "CMakeFiles/r3m-library-example.dir/src/parallel/thread_pool.cpp.o" \
 "CMakeFiles/r3m-library-example.dir/src/formats/processor.cpp.o" \
-"CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.o"
+"CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.o" \
+"CMakeFiles/r3m-library-example.dir/src/utils/text_processing.cpp.o"
 
 # External object files for target r3m-library-example
 r3m__library__example_EXTERNAL_OBJECTS =
@@ -297,14 +342,17 @@ r3m-library-example: CMakeFiles/r3m-library-example.dir/src/chunking/sentence_ch
 r3m-library-example: CMakeFiles/r3m-library-example.dir/src/chunking/multipass_chunker.cpp.o
 r3m-library-example: CMakeFiles/r3m-library-example.dir/src/chunking/contextual_rag.cpp.o
 r3m-library-example: CMakeFiles/r3m-library-example.dir/src/chunking/advanced_chunker.cpp.o
+r3m-library-example: CMakeFiles/r3m-library-example.dir/src/chunking/metadata_processor.cpp.o
+r3m-library-example: CMakeFiles/r3m-library-example.dir/src/chunking/advanced_tokenizer.cpp.o
 r3m-library-example: CMakeFiles/r3m-library-example.dir/src/processing/pipeline.cpp.o
 r3m-library-example: CMakeFiles/r3m-library-example.dir/src/quality/assessor.cpp.o
 r3m-library-example: CMakeFiles/r3m-library-example.dir/src/parallel/thread_pool.cpp.o
 r3m-library-example: CMakeFiles/r3m-library-example.dir/src/formats/processor.cpp.o
 r3m-library-example: CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.o
+r3m-library-example: CMakeFiles/r3m-library-example.dir/src/utils/text_processing.cpp.o
 r3m-library-example: CMakeFiles/r3m-library-example.dir/build.make
 r3m-library-example: CMakeFiles/r3m-library-example.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX executable r3m-library-example"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_18) "Linking CXX executable r3m-library-example"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/r3m-library-example.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -131,6 +131,8 @@ set(CHUNKING_SOURCES
     src/chunking/multipass_chunker.cpp
     src/chunking/contextual_rag.cpp
     src/chunking/advanced_chunker.cpp
+    src/chunking/metadata_processor.cpp
+    src/chunking/advanced_tokenizer.cpp
 )
 
 set(PROCESSING_SOURCES
@@ -151,6 +153,7 @@ set(FORMATS_SOURCES
 
 set(UTILS_SOURCES
     src/utils/text_utils.cpp
+    src/utils/text_processing.cpp
 )
 
 set(SERVER_SOURCES
@@ -240,6 +243,18 @@ add_executable(r3m-http-test
     ${SERVER_SOURCES}
 )
 
+# Advanced chunking test executable
+add_executable(r3m-advanced-chunking-test
+    tests/test_advanced_chunking_enhanced.cpp
+    ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
+    ${PROCESSING_SOURCES}
+    ${QUALITY_SOURCES}
+    ${PARALLEL_SOURCES}
+    ${FORMATS_SOURCES}
+    ${UTILS_SOURCES}
+)
+
 # Link libraries for the main executable
 target_link_libraries(r3m-test
     ${CMAKE_THREAD_LIBS_INIT}
@@ -265,6 +280,51 @@ if(Crow_FOUND)
     target_link_libraries(r3m-http-test Crow::Crow)
     target_compile_definitions(r3m-http-test PRIVATE R3M_HTTP_ENABLED)
 endif()
+
+# Link libraries for the advanced chunking test
+target_link_libraries(r3m-advanced-chunking-test
+    ${CMAKE_THREAD_LIBS_INIT}
+    ${POPPLER_CPP_LIBRARIES}
+    ${GUMBO_LIBRARIES}
+)
+
+# Advanced features test executable
+add_executable(r3m-advanced-features-test
+    tests/test_advanced_features.cpp
+    ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
+    ${PROCESSING_SOURCES}
+    ${QUALITY_SOURCES}
+    ${PARALLEL_SOURCES}
+    ${FORMATS_SOURCES}
+    ${UTILS_SOURCES}
+)
+
+# Link libraries for the advanced features test
+target_link_libraries(r3m-advanced-features-test
+    ${CMAKE_THREAD_LIBS_INIT}
+    ${POPPLER_CPP_LIBRARIES}
+    ${GUMBO_LIBRARIES}
+)
+
+# Advanced compatibility test executable
+add_executable(r3m-advanced-compatibility-test
+    tests/test_advanced_compatibility.cpp
+    ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
+    ${PROCESSING_SOURCES}
+    ${QUALITY_SOURCES}
+    ${PARALLEL_SOURCES}
+    ${FORMATS_SOURCES}
+    ${UTILS_SOURCES}
+)
+
+# Link libraries for the advanced compatibility test
+target_link_libraries(r3m-advanced-compatibility-test
+    ${CMAKE_THREAD_LIBS_INIT}
+    ${POPPLER_CPP_LIBRARIES}
+    ${GUMBO_LIBRARIES}
+)
 
 # Library example executable (direct usage - zero overhead)
 add_executable(r3m-library-example

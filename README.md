@@ -1,8 +1,8 @@
 # R3M 
 
-> **Development Journal**: A high-performance C++ document processing pipeline with HTTP API capabilities
+> **Development Journal**: A high-performance C++ document processing pipeline with advanced chunking capabilities and HTTP API
 
-## 🚀 Current Status: HTTP Server + Core Engine Complete
+## 🚀 Current Status: Advanced Chunking + HTTP Server + Core Engine Complete
 
 ### ✅ **Phase 1: C++ Core Engine** - COMPLETED
 - **Fast document processing and pipeline orchestration**
@@ -22,11 +22,20 @@
 - **Quality assessment and information density calculation**
 - **Performance monitoring and statistics**
 
-### 🎯 **Phase 3: Chunking Logic** - NEXT
+### ✅ **Phase 3: Advanced Chunking System** - COMPLETED
 - **Intelligent document chunking strategies**
 - **Semantic boundary detection**
 - **Configurable chunk sizes and overlap**
 - **Chunk quality assessment**
+- **Multipass indexing with mini-chunks and large chunks**
+- **Contextual RAG framework (LLM integration ready)**
+- **Advanced metadata processing**
+- **Source-specific handling**
+- **Strict token limit enforcement**
+- **Section combination logic**
+- **Link offset tracking**
+- **Advanced text processing utilities**
+- **Sophisticated tokenizer system**
 
 ## 📊 Performance Metrics
 
@@ -48,23 +57,44 @@
 - **Quality assessment**: Content scoring and information density calculation
 - **Performance metrics**: Real-time statistics and processing times
 
+### Advanced Chunking Features
+- **Multipass indexing**: Mini-chunks (150 tokens) and large chunks (4x ratio)
+- **Contextual RAG**: Document summaries and chunk context generation
+- **Quality filtering**: Advanced chunk quality assessment
+- **Metadata processing**: Title and metadata token management
+- **Section processing**: Continuation logic and oversized handling
+- **Source-specific handling**: Gmail and other source types
+- **Strict token limits**: Enforced token boundaries
+- **Link tracking**: Source link offset management
+- **Advanced text processing**: Comprehensive text utilities
+- **Sophisticated tokenizers**: Simple, sentence, and BPE tokenizers
+
 ## 🏗️ Architecture
 
 ### Core Modules
 ```
 r3m/
 ├── core/           # Core processing engine
-├── chunking/       # Document chunking and segmentation
+├── chunking/       # Advanced document chunking and segmentation
+│   ├── tokenizer.cpp           # Basic tokenizer
+│   ├── sentence_chunker.cpp    # Sentence-aware chunking
+│   ├── multipass_chunker.cpp  # Mini-chunks and large chunks
+│   ├── contextual_rag.cpp     # Document summaries and context
+│   ├── advanced_chunker.cpp   # Comprehensive chunking system
+│   ├── metadata_processor.cpp # Advanced metadata handling
+│   └── advanced_tokenizer.cpp # Sophisticated tokenizer system
 ├── processing/     # Pipeline orchestration
 ├── quality/        # Quality assessment
 ├── parallel/       # Thread pool management
 ├── formats/        # Document format processors
 ├── server/         # HTTP server (modular)
-└── api/            # API layer (modular)
-    ├── routes/         # REST API endpoints
-    ├── jobs/           # Async job tracking
-    └── config/         # Configuration management
-└── utils/          # Text utilities
+├── api/            # API layer (modular)
+│   ├── routes/         # REST API endpoints
+│   ├── jobs/           # Async job tracking
+│   └── config/         # Configuration management
+└── utils/          # Advanced text utilities
+    ├── text_utils.cpp      # Basic text utilities
+    └── text_processing.cpp # Advanced text processing
 ```
 
 ### HTTP Server (Optional)
@@ -76,15 +106,20 @@ r3m/
 - **Configuration-driven**: All settings from config.yaml
 - **Job management**: Async processing with status tracking
 
-### Chunking System (Advanced Implementation)
-- **Token-aware processing**: Basic tokenizer with word-based segmentation
+### Advanced Chunking System
+- **Token-aware processing**: Advanced tokenizer with multiple strategies
 - **Sentence chunker**: Semantic chunking respecting sentence boundaries
 - **Multipass indexing**: Mini-chunks (150 tokens) and large chunks (4x ratio)
 - **Contextual RAG framework**: Document summaries and chunk context generation (LLM integration ready)
 - **Quality filtering**: Advanced chunk quality assessment and filtering
 - **Batch processing**: Efficient multi-document chunking
-- **Modular architecture**: Separate chunking components in `chunking/` folder
-- **Configuration support**: Chunking parameters in `config.yaml`
+- **Metadata processing**: Title and metadata token management
+- **Section processing**: Continuation logic and oversized handling
+- **Source-specific handling**: Gmail and other source types
+- **Strict token limits**: Enforced token boundaries
+- **Link tracking**: Source link offset management
+- **Advanced text processing**: Comprehensive text utilities
+- **Sophisticated tokenizers**: Simple, sentence, and BPE tokenizers
 
 > **⚠️ LLM Integration Note**: The contextual RAG system currently uses simulated responses. When implementing real LLMs, replace `simulate_llm_response()` in `src/chunking/contextual_rag.cpp` with actual LLM API calls.
 
@@ -163,15 +198,23 @@ make build
 # Test API endpoints
 curl http://localhost:8080/health
 ```
+
+### Advanced Testing
 ```bash
 # Build the project
 make build
 
-# Run the server (with or without HTTP libraries)
-./build/r3m
+# Run comprehensive chunking tests
+./build/r3m-advanced-chunking-test
 
-# Run comprehensive tests
-make test
+# Run advanced features tests
+./build/r3m-advanced-features-test
+
+# Run advanced compatibility tests
+./build/r3m-advanced-compatibility-test
+
+# Run HTTP API tests
+./build/r3m-http-test
 
 # Clean build artifacts
 make clean
@@ -222,6 +265,16 @@ document_processing:
     enabled: true
     min_content_quality_score: 0.3
     min_information_density: 0.1
+
+chunking:
+  chunk_token_limit: 1000
+  enable_multipass: true
+  enable_contextual_rag: true
+  contextual_rag_reserved_tokens: 100
+  include_metadata: true
+  chunk_overlap: 0
+  min_chunk_content: 256
+  max_metadata_percentage: 0.25
 ```
 
 ## 🧪 Testing
@@ -233,12 +286,18 @@ document_processing:
 - **Batch processing**: Quality filtering
 - **Quality assessment**: Advanced algorithms
 - **Statistics tracking**: Performance metrics
+- **Advanced chunking**: 12 comprehensive chunking tests
+- **Advanced features**: 16 text processing and tokenizer tests
+- **Advanced compatibility**: 6 compatibility verification tests
 
 ### Test Results
 ```
 ✅ CORE FUNCTIONALITY: Working
 🚀 ENHANCED FEATURES: 2.88x speedup
 📊 PERFORMANCE: 54 files, 2.3M characters
+🧪 ADVANCED CHUNKING: 12/12 tests passed
+🔧 ADVANCED FEATURES: 16/16 tests passed
+✅ ADVANCED COMPATIBILITY: 6/6 tests passed
 🎉 ALL TESTS PASSED!
 ```
 
@@ -276,8 +335,15 @@ document_processing:
 - [x] Contextual RAG framework: Document summaries and chunk context generation (LLM ready)
 - [x] Quality filtering: Advanced chunk quality assessment and filtering
 - [x] Batch processing: Efficient multi-document chunking
-- [x] Token-aware processing: Basic tokenizer with word-based segmentation
+- [x] Token-aware processing: Advanced tokenizer with multiple strategies
 - [x] Sentence chunker: Semantic chunking respecting sentence boundaries
+- [x] Metadata processing: Title and metadata token management
+- [x] Section processing: Continuation logic and oversized handling
+- [x] Source-specific handling: Gmail and other source types
+- [x] Strict token limits: Enforced token boundaries
+- [x] Link tracking: Source link offset management
+- [x] Advanced text processing: Comprehensive text utilities
+- [x] Sophisticated tokenizers: Simple, sentence, and BPE tokenizers
 
 ### 📋 Future Phases
 - **Phase 4**: Vector Search & Embeddings
@@ -293,6 +359,8 @@ document_processing:
 3. **Graceful Degradation**: HTTP server works without external libraries
 4. **Performance-First**: Optimized for speed with parallel processing
 5. **Quality-Focused**: Advanced filtering and assessment algorithms
+6. **Advanced Chunking**: Comprehensive document segmentation system
+7. **Independent Codebase**: Zero external dependencies on other systems
 
 ### Technical Decisions
 1. **C++20**: Modern C++ features for better performance
@@ -300,6 +368,8 @@ document_processing:
 3. **Optional Dependencies**: HTTP libraries are optional
 4. **Thread Pool**: Custom C++ thread pool for parallel processing
 5. **Quality Metrics**: Sophisticated content quality assessment
+6. **Advanced Tokenizers**: Multiple tokenization strategies
+7. **Text Processing**: Comprehensive text manipulation utilities
 
 ## 🚧 Solved Challenges
 
@@ -321,15 +391,36 @@ document_processing:
 - **JSON handling**: Structured request/response format
 - **Error handling**: Comprehensive error responses
 
+### Advanced Chunking System
+- **Multipass indexing**: Efficient mini-chunk and large-chunk generation
+- **Contextual RAG**: Document summaries and chunk context (LLM ready)
+- **Quality filtering**: Advanced chunk quality assessment
+- **Metadata processing**: Title and metadata token management
+- **Section processing**: Continuation logic and oversized handling
+- **Source-specific handling**: Gmail and other source types
+- **Strict token limits**: Enforced token boundaries
+- **Link tracking**: Source link offset management
+- **Advanced text processing**: Comprehensive text utilities
+- **Sophisticated tokenizers**: Simple, sentence, and BPE tokenizers
+
 ## 📝 Development Journal
 
-### Latest Updates (Advanced Chunking Phase)
-- **Implemented multipass indexing**: Mini-chunks (150 tokens) and large chunks (4x ratio)
-- **Created contextual RAG framework**: Document summaries and chunk context generation
+### Latest Updates (Advanced Chunking Phase - COMPLETED)
+- **Implemented comprehensive chunking system**: All advanced features working
+- **Created multipass indexing**: Mini-chunks (150 tokens) and large chunks (4x ratio)
+- **Built contextual RAG framework**: Document summaries and chunk context generation
 - **Added quality filtering**: Advanced chunk quality assessment and filtering
-- **Built batch processing**: Efficient multi-document chunking
-- **Integrated with existing pipeline**: All chunking features work with core system
-- **Comprehensive testing**: 100% test coverage for all advanced features
+- **Implemented batch processing**: Efficient multi-document chunking
+- **Created metadata processing**: Title and metadata token management
+- **Added section processing**: Continuation logic and oversized handling
+- **Implemented source-specific handling**: Gmail and other source types
+- **Added strict token limits**: Enforced token boundaries
+- **Created link tracking**: Source link offset management
+- **Built advanced text processing**: Comprehensive text utilities
+- **Implemented sophisticated tokenizers**: Simple, sentence, and BPE tokenizers
+- **Removed all external references**: R3M is now completely independent
+- **Comprehensive testing**: 34 total tests (12 chunking + 16 features + 6 compatibility)
+- **Zero warnings**: Clean build with no unused variable warnings
 
 ### Previous Updates (HTTP Server Phase)
 - **Added HTTP server module**: REST API for document processing
@@ -348,4 +439,9 @@ document_processing:
 
 ---
 
-**Note**: This project is currently in development. The purpose and full scope will be revealed in future phases. For now, this serves as a development journal tracking the implementation of a high-performance, modular document processing system with advanced quality assessment capabilities, comprehensive testing, and a framework ready for LLM integration. 
+**Note**: This project is currently in development. The purpose and 
+full scope will be revealed in future phases. For now, this serves 
+as a development journal tracking the implementation of a 
+high-performance, modular document processing system with advanced 
+quality assessment capabilities, comprehensive testing, and a 
+framework ready for LLM integration.

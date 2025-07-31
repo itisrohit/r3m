@@ -85,7 +85,6 @@ private:
     bool enable_large_chunks_;
     size_t mini_chunk_size_;
     size_t large_chunk_ratio_;
-    size_t chunk_token_limit_;
     
     // Helper methods
     std::string extract_blurb(const std::string& text) const;

@@ -83,12 +83,6 @@ bool ContextualRAG::document_fits_in_single_chunk(const std::vector<DocumentChun
         return true;
     }
     
-    // Check if total tokens fit within a reasonable limit
-    size_t total_tokens = 0;
-    for (const auto& chunk : chunks) {
-        total_tokens += count_tokens(chunk.content);
-    }
-    
     // If document has multiple chunks, it doesn't fit in single chunk
     return false;
 }
