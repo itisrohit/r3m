@@ -48,6 +48,7 @@ public:
 
 private:
     QualityConfig config_;
+    std::unordered_map<std::string, std::string> config_map_; // Store full config for weights/thresholds
     
     // Helper methods for quality calculation
     size_t count_unique_words(const std::string& text);

@@ -23,8 +23,8 @@ document_processing:
   enable_parallel_processing: true
   worker_threads: 4
   
-  # Batch processing settings (following Onyx's pattern)
-  batch_size: 16  # Default batch size (from Onyx's INDEX_BATCH_SIZE)
+  # Batch processing settings (following modern document processing patterns)
+  batch_size: 16  # Default batch size for efficient processing
   max_workers: 8  # Maximum worker threads (auto-detected if not set)
   
   # Text processing
@@ -35,7 +35,7 @@ document_processing:
     normalize_whitespace: true
     extract_metadata: true
   
-  # Quality filtering (advanced feature from Onyx)
+  # Quality filtering (advanced document processing feature)
   quality_filtering:
     enabled: true
     min_content_quality_score: 0.3      # Minimum quality score (0.0-1.0)
@@ -44,6 +44,28 @@ document_processing:
     max_content_length: 1000000         # Maximum content length
     filter_empty_documents: true        # Filter out empty documents
     filter_low_quality_documents: true  # Filter out low-quality documents
+    
+    # Quality assessment algorithm weights
+    quality_weights:
+      length_factor: 0.3                # Length factor weight (0-1.0)
+      word_diversity_factor: 0.3        # Word diversity factor weight (0-1.0)
+      sentence_structure_factor: 0.2    # Sentence structure factor weight (0-1.0)
+      information_density_factor: 0.2   # Information density factor weight (0-1.0)
+    
+    # Information density calculation weights
+    density_weights:
+      unique_word_ratio: 0.4            # Unique word ratio weight (0-1.0)
+      technical_term_density: 0.3       # Technical term density weight (0-1.0)
+      sentence_complexity: 0.3          # Sentence complexity weight (0-1.0)
+    
+    # Quality calculation thresholds
+    quality_thresholds:
+      length_normalization: 1000        # Text length for normalization
+      word_diversity_normalization: 5   # Characters per word for diversity calculation
+      sentence_normalization: 10        # Number of sentences for normalization
+      technical_term_normalization: 10  # Characters per technical term
+      sentence_complexity_normalization: 100  # Average sentence length for complexity
+      whitespace_threshold: 0.1         # Minimum non-whitespace ratio
   
   # Pipeline stages (core processing only)
   pipeline_stages:
@@ -61,6 +83,11 @@ engine:
   cache_memory_mb: 512
   batch_timeout_seconds: 30
   
+  # Thread pool settings
+  thread_pool:
+    fallback_threads: 4                 # Fallback thread count if auto-detection fails
+    hardware_concurrency_fallback: 4    # Fallback for hardware_concurrency()
+  
   # Monitoring settings
   enable_metrics: true
   metrics_interval_seconds: 5
@@ -69,4 +96,19 @@ engine:
 storage:
   data_path: "/app/data"
   temp_path: "/tmp/r3m"
-  cache_path: "/app/data/cache" 
+  cache_path: "/app/data/cache"
+
+# Test configuration
+testing:
+  # Test file creation parameters
+  test_files:
+    large_file_count: 8                 # Number of large files for parallel testing
+    large_file_lines: 500               # Lines per large file
+    enhancement_file_count: 12          # Number of files for enhancement testing
+    enhancement_file_lines: 300         # Lines per enhancement file
+  
+  # Test performance parameters
+  performance:
+    efficiency_thread_count: 4          # Thread count for efficiency calculation
+    test_batch_size: 4                  # Batch size for testing
+    test_max_workers: 4                 # Max workers for testing 

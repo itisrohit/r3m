@@ -11,9 +11,9 @@ namespace r3m {
 namespace processing {
 
 PipelineOrchestrator::PipelineOrchestrator() {
-    // Initialize default configuration
-    max_file_size_ = 100 * 1024 * 1024;  // 100MB
-    max_text_length_ = 1000000;  // 1M characters
+    // Initialize with default values (will be overridden by config)
+    max_file_size_ = 0;
+    max_text_length_ = 0;
     encoding_detection_ = true;
     default_encoding_ = "utf-8";
     remove_html_tags_ = true;

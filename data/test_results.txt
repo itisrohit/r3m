@@ -2,13 +2,13 @@ R3M Comprehensive Test Results
 =============================
 
 Performance:
-- Sequential: 229 ms
+- Sequential: 230 ms
 - Parallel: 63 ms
-- Speedup: 3.63492x
-- Efficiency: 90.873%
+- Speedup: 2.64368x
+- Efficiency: 66.092%
 
 Quality Assessment:
-- Average quality score: 0.514396
+- Average quality score: 0.509971
 - Filtered documents: 4
 - High-quality documents: 3
 
@@ -16,4 +16,4 @@ Processing Statistics:
 - Total files: 54
 - Successful: 54
 - Failed: 0
-- Text extracted: 2308826 characters
+- Text extracted: 2332000 characters

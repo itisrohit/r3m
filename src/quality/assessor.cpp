@@ -14,39 +14,41 @@ QualityAssessor::QualityAssessor() {
 }
 
 bool QualityAssessor::initialize(const std::unordered_map<std::string, std::string>& config) {
-    // Load quality filtering settings
-    auto it = config.find("document_processing.quality_filtering.enabled");
-    if (it != config.end()) {
+    config_map_ = config;
+    
+    // Load quality filtering configuration
+    auto it = config_map_.find("document_processing.quality_filtering.enabled");
+    if (it != config_map_.end()) {
         config_.enabled = (it->second == "true");
     }
     
-    it = config.find("document_processing.quality_filtering.min_content_quality_score");
-    if (it != config.end()) {
+    it = config_map_.find("document_processing.quality_filtering.min_content_quality_score");
+    if (it != config_map_.end()) {
         config_.min_content_quality_score = std::stod(it->second);
     }
     
-    it = config.find("document_processing.quality_filtering.min_information_density");
-    if (it != config.end()) {
+    it = config_map_.find("document_processing.quality_filtering.min_information_density");
+    if (it != config_map_.end()) {
         config_.min_information_density = std::stod(it->second);
     }
     
-    it = config.find("document_processing.quality_filtering.min_content_length");
-    if (it != config.end()) {
+    it = config_map_.find("document_processing.quality_filtering.min_content_length");
+    if (it != config_map_.end()) {
         config_.min_content_length = std::stoul(it->second);
     }
     
-    it = config.find("document_processing.quality_filtering.max_content_length");
-    if (it != config.end()) {
+    it = config_map_.find("document_processing.quality_filtering.max_content_length");
+    if (it != config_map_.end()) {
         config_.max_content_length = std::stoul(it->second);
     }
     
-    it = config.find("document_processing.quality_filtering.filter_empty_documents");
-    if (it != config.end()) {
+    it = config_map_.find("document_processing.quality_filtering.filter_empty_documents");
+    if (it != config_map_.end()) {
         config_.filter_empty_documents = (it->second == "true");
     }
     
-    it = config.find("document_processing.quality_filtering.filter_low_quality_documents");
-    if (it != config.end()) {
+    it = config_map_.find("document_processing.quality_filtering.filter_low_quality_documents");
+    if (it != config_map_.end()) {
         config_.filter_low_quality_documents = (it->second == "true");
     }
     
@@ -110,23 +112,69 @@ double QualityAssessor::calculate_content_quality_score(const std::string& text)
     // Simple quality scoring based on content characteristics
     double score = 0.0;
     
-    // Length factor (0-0.3)
-    double length_factor = std::min(1.0, static_cast<double>(text.length()) / 1000.0);
-    score += length_factor * 0.3;
+    // Get weights from config (with defaults)
+    double length_weight = 0.3;
+    double word_diversity_weight = 0.3;
+    double sentence_structure_weight = 0.2;
+    double info_density_weight = 0.2;
     
-    // Word diversity factor (0-0.3)
+    auto it = config_map_.find("document_processing.quality_filtering.quality_weights.length_factor");
+    if (it != config_map_.end()) {
+        length_weight = std::stod(it->second);
+    }
+    
+    it = config_map_.find("document_processing.quality_filtering.quality_weights.word_diversity_factor");
+    if (it != config_map_.end()) {
+        word_diversity_weight = std::stod(it->second);
+    }
+    
+    it = config_map_.find("document_processing.quality_filtering.quality_weights.sentence_structure_factor");
+    if (it != config_map_.end()) {
+        sentence_structure_weight = std::stod(it->second);
+    }
+    
+    it = config_map_.find("document_processing.quality_filtering.quality_weights.information_density_factor");
+    if (it != config_map_.end()) {
+        info_density_weight = std::stod(it->second);
+    }
+    
+    // Get thresholds from config (with defaults)
+    double length_normalization = 1000.0;
+    double word_diversity_normalization = 5.0;
+    double sentence_normalization = 10.0;
+    
+    it = config_map_.find("document_processing.quality_filtering.quality_thresholds.length_normalization");
+    if (it != config_map_.end()) {
+        length_normalization = std::stod(it->second);
+    }
+    
+    it = config_map_.find("document_processing.quality_filtering.quality_thresholds.word_diversity_normalization");
+    if (it != config_map_.end()) {
+        word_diversity_normalization = std::stod(it->second);
+    }
+    
+    it = config_map_.find("document_processing.quality_filtering.quality_thresholds.sentence_normalization");
+    if (it != config_map_.end()) {
+        sentence_normalization = std::stod(it->second);
+    }
+    
+    // Length factor
+    double length_factor = std::min(1.0, static_cast<double>(text.length()) / length_normalization);
+    score += length_factor * length_weight;
+    
+    // Word diversity factor
     std::set<std::string> unique_words = utils::TextUtils::get_unique_words(text);
-    double word_diversity = static_cast<double>(unique_words.size()) / std::max(1.0, static_cast<double>(text.length() / 5.0));
-    score += std::min(1.0, word_diversity) * 0.3;
+    double word_diversity = static_cast<double>(unique_words.size()) / std::max(1.0, static_cast<double>(text.length() / word_diversity_normalization));
+    score += std::min(1.0, word_diversity) * word_diversity_weight;
     
-    // Sentence structure factor (0-0.2)
+    // Sentence structure factor
     size_t sentence_count = utils::TextUtils::count_sentences(text);
-    double sentence_factor = std::min(1.0, static_cast<double>(sentence_count) / 10.0);
-    score += sentence_factor * 0.2;
+    double sentence_factor = std::min(1.0, static_cast<double>(sentence_count) / sentence_normalization);
+    score += sentence_factor * sentence_structure_weight;
     
-    // Information density factor (0-0.2)
+    // Information density factor
     double info_density = calculate_information_density(text);
-    score += info_density * 0.2;
+    score += info_density * info_density_weight;
     
     return std::min(1.0, std::max(0.0, score));
 }
@@ -136,25 +184,65 @@ double QualityAssessor::calculate_information_density(const std::string& text) {
         return 0.0;
     }
     
+    // Get weights from config (with defaults)
+    double unique_word_ratio_weight = 0.4;
+    double technical_term_density_weight = 0.3;
+    double sentence_complexity_weight = 0.3;
+    
+    auto it = config_map_.find("document_processing.quality_filtering.density_weights.unique_word_ratio");
+    if (it != config_map_.end()) {
+        unique_word_ratio_weight = std::stod(it->second);
+    }
+    
+    it = config_map_.find("document_processing.quality_filtering.density_weights.technical_term_density");
+    if (it != config_map_.end()) {
+        technical_term_density_weight = std::stod(it->second);
+    }
+    
+    it = config_map_.find("document_processing.quality_filtering.density_weights.sentence_complexity");
+    if (it != config_map_.end()) {
+        sentence_complexity_weight = std::stod(it->second);
+    }
+    
+    // Get thresholds from config (with defaults)
+    double word_diversity_normalization = 5.0;
+    double technical_term_normalization = 10.0;
+    double sentence_complexity_normalization = 100.0;
+    
+    it = config_map_.find("document_processing.quality_filtering.quality_thresholds.word_diversity_normalization");
+    if (it != config_map_.end()) {
+        word_diversity_normalization = std::stod(it->second);
+    }
+    
+    it = config_map_.find("document_processing.quality_filtering.quality_thresholds.technical_term_normalization");
+    if (it != config_map_.end()) {
+        technical_term_normalization = std::stod(it->second);
+    }
+    
+    it = config_map_.find("document_processing.quality_filtering.quality_thresholds.sentence_complexity_normalization");
+    if (it != config_map_.end()) {
+        sentence_complexity_normalization = std::stod(it->second);
+    }
+    
     // Calculate information density based on content characteristics
     double density = 0.0;
     
     // Unique word ratio
     std::set<std::string> unique_words = utils::TextUtils::get_unique_words(text);
-    double unique_word_ratio = static_cast<double>(unique_words.size()) / std::max(1.0, static_cast<double>(text.length() / 5.0));
-    density += unique_word_ratio * 0.4;
+    double unique_word_ratio = static_cast<double>(unique_words.size()) / std::max(1.0, static_cast<double>(text.length() / word_diversity_normalization));
+    density += unique_word_ratio * unique_word_ratio_weight;
     
     // Technical term density (words with numbers, special characters)
     size_t technical_terms = utils::TextUtils::count_technical_terms(text);
-    double technical_density = static_cast<double>(technical_terms) / std::max(1.0, static_cast<double>(text.length() / 10.0));
-    density += technical_density * 0.3;
+    double technical_density = static_cast<double>(technical_terms) / std::max(1.0, static_cast<double>(text.length() / technical_term_normalization));
+    density += technical_density * technical_term_density_weight;
     
     // Sentence complexity (average sentence length)
     size_t sentences = utils::TextUtils::count_sentences(text);
     if (sentences > 0) {
         double avg_sentence_length = static_cast<double>(text.length()) / sentences;
-        double complexity_factor = std::min(1.0, avg_sentence_length / 100.0);
-        density += complexity_factor * 0.3;
+        double complexity_factor = std::min(1.0, avg_sentence_length / sentence_complexity_normalization);
+        density += complexity_factor * sentence_complexity_weight;
     }
     
     return std::min(1.0, std::max(0.0, density));

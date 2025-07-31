@@ -1,74 +1,68 @@
-# R3M Build System
-# ================
+# R3M Makefile - Simplified build and test commands
+# ================================================
 
-# Variables
-BUILD_DIR = build
-CMAKE = cmake
-MAKE = make
+.PHONY: build clean rebuild test clean-all clean-test-data info help
 
 # Default target
 all: build
 
 # Build the project
 build:
-	mkdir -p $(BUILD_DIR)
-	cd $(BUILD_DIR) && $(CMAKE) ..
-	cd $(BUILD_DIR) && $(MAKE)
+	@echo "🔨 Building R3M..."
+	mkdir -p build
+	cd build && cmake ..
+	cd build && make
+	@echo "✅ Build completed!"
 
 # Clean build artifacts
 clean:
-	cd $(BUILD_DIR) && $(MAKE) clean-all
+	@echo "🧹 Cleaning build artifacts..."
+	rm -rf build/
+	@echo "✅ Clean completed!"
 
-# Clean everything (including CMake cache)
+# Clean all (including test data)
 clean-all:
-	rm -rf $(BUILD_DIR)
+	@echo "🧹 Cleaning all artifacts and test data..."
+	rm -rf build/
 	./scripts/clean_test_data.sh
-	rm -f *.o *.a *.so *.dylib
-	find . -name "*.o" -delete
-	find . -name "*.a" -delete
-	find . -name "*.so" -delete
-	find . -name "*.dylib" -delete
+	@echo "✅ Clean all completed!"
 
-# Clean only test data (keep results/reports)
+# Clean only test data (preserve results)
 clean-test-data:
+	@echo "🧹 Cleaning test data files..."
 	./scripts/clean_test_data.sh
+	@echo "✅ Test data cleaned!"
 
-# Rebuild from scratch
-rebuild: clean-all build
+# Rebuild everything
+rebuild: clean build
 
 # Run tests
-test: build
-	cd $(BUILD_DIR) && $(MAKE) test
+test:
+	@echo "🧪 Running comprehensive tests..."
+	mkdir -p build
+	cd build && cmake ..
+	cd build && make test
+	@echo "✅ Tests completed!"
 
-# Run main tests
-test-main: build
-	cd $(BUILD_DIR) && ./r3m-test
-
-# Install
-install: build
-	cd $(BUILD_DIR) && $(MAKE) install
-
-# Show build info
+# Show project info
 info:
-	@echo "R3M Build System"
-	@echo "================"
-	@echo "Build directory: $(BUILD_DIR)"
-	@echo "Available targets:"
-	@echo "  all            - Build the project"
-	@echo "  build          - Build the project"
-	@echo "  clean          - Clean build artifacts"
-	@echo "  clean-all      - Clean everything (build + test data)"
-	@echo "  clean-test-data - Clean only generated test files (preserves results)"
-	@echo "  rebuild        - Rebuild from scratch"
-	@echo "  test           - Run comprehensive test"
-	@echo "  test-main      - Run main tests"
-	@echo "  install        - Install binaries"
-	@echo "  info           - Show this help"
+	@echo "📋 R3M Project Information"
+	@echo "=========================="
+	@echo "Available commands:"
+	@echo "  make build          - Build the project"
+	@echo "  make clean          - Clean build artifacts"
+	@echo "  make clean-all      - Clean everything including test data"
+	@echo "  make clean-test-data - Clean only test data (preserve results)"
+	@echo "  make rebuild        - Clean and rebuild"
+	@echo "  make test           - Run comprehensive tests"
+	@echo "  make info           - Show this information"
 	@echo ""
-	@echo "Clean Commands:"
-	@echo "  make clean-test-data  - Removes generated test files, keeps results"
-	@echo "  make clean-all        - Removes everything including build cache"
-	@echo "  make clean            - Removes build artifacts only"
+	@echo "Configuration files:"
+	@echo "  configs/dev/config.yaml   - Development configuration"
+	@echo "  configs/prod/config.yaml  - Production configuration"
+	@echo ""
+	@echo "Test results:"
+	@echo "  data/test_results.txt     - Latest test results"
 
-# Phony targets
-.PHONY: all build clean clean-all clean-test-data rebuild test test-main install info 
+# Help target
+help: info 

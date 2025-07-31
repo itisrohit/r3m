@@ -11,20 +11,25 @@
 using namespace r3m::core;
 
 void create_test_files() {
-    // Create data directory
+    // Create data directory if it doesn't exist
     std::filesystem::create_directories("../data");
     
-    // 1. Plain text files (various formats)
-    std::vector<std::string> text_files = {
-        "sample.txt", "readme.md", "config.json", "data.csv", "log.log"
-    };
+    // Get test configuration (with defaults)
+    int large_file_count = 8;
+    int large_file_lines = 500;
+    int enhancement_file_count = 12;
+    int enhancement_file_lines = 300;
     
-    for (const auto& filename : text_files) {
-        std::ofstream file("../data/" + filename);
-        file << "This is a " << filename << " file for testing R3M document processing.\n";
-        file << "It contains multiple lines of text to test quality assessment.\n";
+    // These would normally come from config, but for testing we use defaults
+    // In a real scenario, you'd load these from config.yaml
+    
+    // 1. Plain text files (various formats)
+    std::vector<std::string> extensions = {".txt", ".md", ".json", ".html", ".conf", ".log", ".csv", ".xml", ".yml", ".yaml"};
+    for (const auto& ext : extensions) {
+        std::ofstream file("../data/test_document" + ext);
+        file << "This is a " << ext << " file for testing R3M document processing.\n";
         file << "The content includes technical terms like API_v1.2, HTTP-requests, and JSON.parse().\n";
-        file << "This document has sufficient length and quality for processing.\n";
+        file << "This file demonstrates the capabilities of the R3M system.\n";
         file.close();
     }
     
@@ -49,56 +54,49 @@ void create_test_files() {
     
     // 3. Low-quality document
     std::ofstream low_quality("../data/low_quality.txt");
-    low_quality << "Short doc.\n";
+    low_quality << "Short doc.";
     low_quality.close();
     
     // 4. Empty document
-    std::ofstream empty_doc("../data/empty.txt");
-    empty_doc.close();
+    std::ofstream empty("../data/empty.txt");
+    empty.close();
     
     // 5. HTML file
     std::ofstream html_file("../data/test.html");
-    html_file << "<!DOCTYPE html>\n";
-    html_file << "<html>\n";
+    html_file << "<!DOCTYPE html>\n<html>\n";
     html_file << "<head><title>R3M Test Page</title></head>\n";
     html_file << "<body>\n";
     html_file << "<h1>R3M Document Processing Test</h1>\n";
     html_file << "<p>This is a test HTML document for R3M processing.</p>\n";
-    html_file << "<p>It contains <strong>formatted text</strong> and <em>various elements</em>.</p>\n";
-    html_file << "<script>console.log('This should be ignored');</script>\n";
-    html_file << "<style>body { color: black; }</style>\n";
+    html_file << "<p>It contains structured content with HTML tags.</p>\n";
     html_file << "<p>Technical content includes API_v1.2, HTTP-requests, and JSON.parse().</p>\n";
-    html_file << "</body>\n";
-    html_file << "</html>\n";
+    html_file << "</body>\n</html>";
     html_file.close();
     
     // 6. Large files for parallel processing test
-    for (int i = 0; i < 8; ++i) {
+    for (int i = 0; i < large_file_count; ++i) {
         std::ofstream large_file("../data/large_file_" + std::to_string(i) + ".txt");
-        large_file << "Large test file " << i << " for parallel processing performance testing.\n";
+        large_file << "Large test file " << i << " for parallel processing testing.\n";
         large_file << "This file contains substantial content to measure processing time.\n";
         
-        // Add more content to make processing measurable
-        for (int j = 0; j < 500; ++j) {
-            large_file << "Line " << j << " of additional content for file " << i << ".\n";
+        for (int j = 0; j < large_file_lines; ++j) {
+            large_file << "Line " << j << " of additional content for large file " << i << ".\n";
             large_file << "This content includes technical terms like API_v" << j << ".0, ";
             large_file << "HTTP-request-" << j << ", and JSON.parse().\n";
             large_file << "Adding more content to increase file size and processing time.\n";
         }
-        
-        large_file << "Final line for large file " << i << ".\n";
         large_file.close();
     }
     
     // 7. Enhancement test files for focused validation
     // Create files for parallel processing test
-    for (int i = 0; i < 12; ++i) {
+    for (int i = 0; i < enhancement_file_count; ++i) {
         std::ofstream file("../data/parallel_test_" + std::to_string(i) + ".txt");
         file << "Parallel test file " << i << " for performance testing.\n";
         file << "This file contains substantial content to measure processing time.\n";
-        
+
         // Add more content to make processing measurable
-        for (int j = 0; j < 300; ++j) {
+        for (int j = 0; j < enhancement_file_lines; ++j) {
             file << "Line " << j << " of additional content for parallel test file " << i << ".\n";
             file << "This content includes technical terms like API_v" << j << ".0, ";
             file << "HTTP-request-" << j << ", and JSON.parse().\n";
@@ -106,14 +104,14 @@ void create_test_files() {
         }
         file.close();
     }
-    
+
     // Create files for quality assessment test
     std::vector<std::pair<std::string, std::string>> quality_files = {
         {"high_quality.txt", "This is a high-quality technical document with substantial content. It contains multiple paragraphs with technical terminology, detailed explanations, and comprehensive information about the R3M document processing system. The content includes API_v1.2, HTTP-requests, JSON.parse(), and other technical terms that indicate high information density and quality."},
         {"medium_quality.txt", "This is a medium-quality document with some technical content but not as comprehensive as the high-quality version. It includes basic information and some technical terms."},
         {"technical_doc.txt", "R3M Document Processing System\n=============================\n\nThis is a comprehensive technical document that demonstrates the capabilities of the R3M document processing system. The system is built using modern C++20 and provides high-performance document processing with advanced quality assessment.\n\nKey Features:\n- Parallel processing with custom thread pools\n- Batch processing with configurable sizes\n- Quality assessment and filtering\n- Support for PDF, HTML, and plain text formats\n- Modular architecture with separation of concerns\n\nTechnical Implementation:\nThe system uses poppler-cpp for PDF processing, gumbo-parser for HTML parsing, and custom C++ utilities for text analysis. Quality assessment includes content scoring (0.0-1.0), information density calculation, and technical term detection."}
     };
-    
+
     for (const auto& [filename, content] : quality_files) {
         std::ofstream file("../data/" + filename);
         file << content;
@@ -136,16 +134,22 @@ void print_subsection(const std::string& title) {
 int main() {
     std::cout << "R3M COMPREHENSIVE DOCUMENT PROCESSING TEST\n";
     std::cout << "==========================================\n";
-    std::cout << "Testing: Core Functionality + Enhanced Features\n\n";
+    std::cout << "Testing: Core Functionality + Enhanced Features\n";
     
-    // Create test files
+    // Test configuration (should come from config.yaml in real scenario)
+    int large_file_count = 8;
+    int enhancement_file_count = 12;
+    
     std::cout << "Creating test files...\n";
     create_test_files();
-    std::cout << "Test files created in ../data/\n\n";
+    std::cout << "Test files created in ../data/\n";
     
     // Initialize processor
     DocumentProcessor processor;
     std::unordered_map<std::string, std::string> config;
+    
+    // Load configuration from config file (in a real scenario)
+    // For testing, we set these manually but they should come from config.yaml
     config["document_processing.max_file_size"] = "100MB";
     config["document_processing.max_text_length"] = "1000000";
     config["document_processing.text_processing.encoding_detection"] = "true";
@@ -153,8 +157,12 @@ int main() {
     config["document_processing.text_processing.remove_html_tags"] = "true";
     config["document_processing.text_processing.normalize_whitespace"] = "true";
     config["document_processing.text_processing.extract_metadata"] = "true";
+    
+    // Test-specific configuration (should come from config.yaml)
     config["document_processing.batch_size"] = "4";
     config["document_processing.max_workers"] = "4";
+    
+    // Quality filtering configuration
     config["document_processing.quality_filtering.enabled"] = "true";
     config["document_processing.quality_filtering.min_content_quality_score"] = "0.3";
     config["document_processing.quality_filtering.min_information_density"] = "0.1";
@@ -162,6 +170,25 @@ int main() {
     config["document_processing.quality_filtering.max_content_length"] = "1000000";
     config["document_processing.quality_filtering.filter_empty_documents"] = "true";
     config["document_processing.quality_filtering.filter_low_quality_documents"] = "true";
+    
+    // Quality assessment weights
+    config["document_processing.quality_filtering.quality_weights.length_factor"] = "0.3";
+    config["document_processing.quality_filtering.quality_weights.word_diversity_factor"] = "0.3";
+    config["document_processing.quality_filtering.quality_weights.sentence_structure_factor"] = "0.2";
+    config["document_processing.quality_filtering.quality_weights.information_density_factor"] = "0.2";
+    
+    // Information density weights
+    config["document_processing.quality_filtering.density_weights.unique_word_ratio"] = "0.4";
+    config["document_processing.quality_filtering.density_weights.technical_term_density"] = "0.3";
+    config["document_processing.quality_filtering.density_weights.sentence_complexity"] = "0.3";
+    
+    // Quality calculation thresholds
+    config["document_processing.quality_filtering.quality_thresholds.length_normalization"] = "1000";
+    config["document_processing.quality_filtering.quality_thresholds.word_diversity_normalization"] = "5";
+    config["document_processing.quality_filtering.quality_thresholds.sentence_normalization"] = "10";
+    config["document_processing.quality_filtering.quality_thresholds.technical_term_normalization"] = "10";
+    config["document_processing.quality_filtering.quality_thresholds.sentence_complexity_normalization"] = "100";
+    config["document_processing.quality_filtering.quality_thresholds.whitespace_threshold"] = "0.1";
     
     processor.initialize(config);
     
@@ -189,9 +216,9 @@ int main() {
     std::cout << "-------------------------------\n";
     
     std::vector<std::string> test_files = {
-        "../data/sample.txt",
-        "../data/readme.md", 
-        "../data/config.json",
+        "../data/test_document.txt",
+        "../data/test_document.md", 
+        "../data/test_document.json",
         "../data/test.html",
         "../data/technical_document.txt"
     };
@@ -214,7 +241,7 @@ int main() {
     std::cout << "----------------------------------\n";
     
     std::vector<std::string> parallel_files;
-    for (int i = 0; i < 8; ++i) {
+    for (int i = 0; i < large_file_count; ++i) {
         parallel_files.push_back("../data/large_file_" + std::to_string(i) + ".txt");
     }
     
@@ -237,9 +264,9 @@ int main() {
         "../data/technical_document.txt",
         "../data/low_quality.txt",
         "../data/empty.txt",
-        "../data/sample.txt",
+        "../data/test_document.txt",
         "../data/test.html",
-        "../data/readme.md"
+        "../data/test_document.md"
     };
     
     auto batch_start = std::chrono::high_resolution_clock::now();
@@ -262,7 +289,7 @@ int main() {
     std::cout << "============================================\n";
     
     std::vector<std::string> enhancement_parallel_files;
-    for (int i = 0; i < 12; ++i) {
+    for (int i = 0; i < enhancement_file_count; ++i) {
         enhancement_parallel_files.push_back("../data/parallel_test_" + std::to_string(i) + ".txt");
     }
     
@@ -299,13 +326,14 @@ int main() {
     
     // Performance analysis
     print_subsection("Performance Analysis");
-    double speedup = static_cast<double>(seq_duration.count()) / enh_par_duration.count();
-    double efficiency = speedup / 4.0; // Assuming 4 worker threads
+    // Calculate performance metrics
+    double speedup = static_cast<double>(seq_duration.count()) / par_duration.count();
+    double efficiency = speedup / 4.0; // Assuming 4 worker threads - should come from config
     
     std::cout << std::fixed << std::setprecision(2);
     std::cout << "Speedup: " << speedup << "x\n";
     std::cout << "Efficiency: " << (efficiency * 100) << "%\n";
-    std::cout << "Time saved: " << (seq_duration.count() - enh_par_duration.count()) << " ms\n";
+    std::cout << "Time saved: " << (seq_duration.count() - par_duration.count()) << " ms\n";
     std::cout << "Performance improvement: " << ((speedup - 1.0) * 100) << "%\n\n";
     
     // Enhancement 2: Advanced Batch Processing

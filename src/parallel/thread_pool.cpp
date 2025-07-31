@@ -10,7 +10,8 @@ ThreadPool::ThreadPool(size_t num_threads) : shutdown_(false) {
     if (num_threads == 0) {
         num_threads = std::thread::hardware_concurrency();
         if (num_threads == 0) {
-            num_threads = 4; // Fallback
+            // This will be set from config, but we need a reasonable fallback
+            num_threads = 4; // Fallback - should be overridden by config
         }
     }
     

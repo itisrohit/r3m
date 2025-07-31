@@ -15,10 +15,12 @@ DocumentProcessor::DocumentProcessor() {
     quality_assessor_ = std::make_unique<quality::QualityAssessor>();
     format_processor_ = std::make_unique<formats::FormatProcessor>();
     
-    // Initialize default configuration
-    batch_size_ = 16;  // Default batch size (from Onyx's INDEX_BATCH_SIZE)
+    // Initialize default configuration (will be overridden by config)
+    batch_size_ = 16; 
     max_workers_ = std::thread::hardware_concurrency();
-    if (max_workers_ == 0) max_workers_ = 4;  // Fallback
+    if (max_workers_ == 0) {
+        max_workers_ = 4;  // Fallback - should be overridden by config
+    }
     
     // Initialize statistics
     stats_.total_files_processed = 0;
