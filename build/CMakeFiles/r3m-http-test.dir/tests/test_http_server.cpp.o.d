@@ -985,6 +985,8 @@ CMakeFiles/r3m-http-test.dir/tests/test_http_server.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/set \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree \
   /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/include/r3m/core/config_manager.hpp \
+  /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/include/r3m/api/config/config.hpp \
+  /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/include/r3m/api/routes/routes.hpp \
   /opt/homebrew/include/crow.h /opt/homebrew/include/crow/query_string.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream \
   /opt/homebrew/include/crow/http_parser_merged.h \
@@ -1577,4 +1579,5 @@ CMakeFiles/r3m-http-test.dir/tests/test_http_server.cpp.o: \
   /opt/homebrew/include/crow/compression.h \
   /opt/homebrew/include/crow/http_connection.h \
   /opt/homebrew/include/crow/http_server.h \
-  /opt/homebrew/include/crow/version.h /opt/homebrew/include/crow/app.h
+  /opt/homebrew/include/crow/version.h /opt/homebrew/include/crow/app.h \
+  /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/include/r3m/api/jobs/job_manager.hpp

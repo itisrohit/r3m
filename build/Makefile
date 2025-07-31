@@ -31,9 +31,6 @@ default_target: all
 
 .SUFFIXES: .hpux_make_needs_suffix_list
 
-# Produce verbose output by default.
-VERBOSE = 1
-
 # Command-line flag to silence nested $(MAKE).
 $(VERBOSE)MAKESILENT = -s
 
@@ -222,6 +219,96 @@ test: cmake_check_build_system
 test/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
 .PHONY : test/fast
+
+src/api/config/config.o: src/api/config/config.cpp.o
+.PHONY : src/api/config/config.o
+
+# target to build an object file
+src/api/config/config.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/api/config/config.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/api/config/config.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/api/config/config.cpp.o
+.PHONY : src/api/config/config.cpp.o
+
+src/api/config/config.i: src/api/config/config.cpp.i
+.PHONY : src/api/config/config.i
+
+# target to preprocess a source file
+src/api/config/config.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/api/config/config.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/api/config/config.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/api/config/config.cpp.i
+.PHONY : src/api/config/config.cpp.i
+
+src/api/config/config.s: src/api/config/config.cpp.s
+.PHONY : src/api/config/config.s
+
+# target to generate assembly for a file
+src/api/config/config.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/api/config/config.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/api/config/config.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/api/config/config.cpp.s
+.PHONY : src/api/config/config.cpp.s
+
+src/api/jobs/job_manager.o: src/api/jobs/job_manager.cpp.o
+.PHONY : src/api/jobs/job_manager.o
+
+# target to build an object file
+src/api/jobs/job_manager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/api/jobs/job_manager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/api/jobs/job_manager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/api/jobs/job_manager.cpp.o
+.PHONY : src/api/jobs/job_manager.cpp.o
+
+src/api/jobs/job_manager.i: src/api/jobs/job_manager.cpp.i
+.PHONY : src/api/jobs/job_manager.i
+
+# target to preprocess a source file
+src/api/jobs/job_manager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/api/jobs/job_manager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/api/jobs/job_manager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/api/jobs/job_manager.cpp.i
+.PHONY : src/api/jobs/job_manager.cpp.i
+
+src/api/jobs/job_manager.s: src/api/jobs/job_manager.cpp.s
+.PHONY : src/api/jobs/job_manager.s
+
+# target to generate assembly for a file
+src/api/jobs/job_manager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/api/jobs/job_manager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/api/jobs/job_manager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/api/jobs/job_manager.cpp.s
+.PHONY : src/api/jobs/job_manager.cpp.s
+
+src/api/routes/routes.o: src/api/routes/routes.cpp.o
+.PHONY : src/api/routes/routes.o
+
+# target to build an object file
+src/api/routes/routes.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/api/routes/routes.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/api/routes/routes.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/api/routes/routes.cpp.o
+.PHONY : src/api/routes/routes.cpp.o
+
+src/api/routes/routes.i: src/api/routes/routes.cpp.i
+.PHONY : src/api/routes/routes.i
+
+# target to preprocess a source file
+src/api/routes/routes.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/api/routes/routes.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/api/routes/routes.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/api/routes/routes.cpp.i
+.PHONY : src/api/routes/routes.cpp.i
+
+src/api/routes/routes.s: src/api/routes/routes.cpp.s
+.PHONY : src/api/routes/routes.s
+
+# target to generate assembly for a file
+src/api/routes/routes.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/api/routes/routes.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/api/routes/routes.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/api/routes/routes.cpp.s
+.PHONY : src/api/routes/routes.cpp.s
 
 src/core/config_manager.o: src/core/config_manager.cpp.o
 .PHONY : src/core/config_manager.o
@@ -551,6 +638,15 @@ help:
 	@echo "... r3m"
 	@echo "... r3m-http-test"
 	@echo "... r3m-test"
+	@echo "... src/api/config/config.o"
+	@echo "... src/api/config/config.i"
+	@echo "... src/api/config/config.s"
+	@echo "... src/api/jobs/job_manager.o"
+	@echo "... src/api/jobs/job_manager.i"
+	@echo "... src/api/jobs/job_manager.s"
+	@echo "... src/api/routes/routes.o"
+	@echo "... src/api/routes/routes.i"
+	@echo "... src/api/routes/routes.s"
 	@echo "... src/core/config_manager.o"
 	@echo "... src/core/config_manager.i"
 	@echo "... src/core/config_manager.s"

@@ -58,15 +58,22 @@ r3m/
 ├── quality/        # Quality assessment
 ├── parallel/       # Thread pool management
 ├── formats/        # Document format processors
-├── server/         # HTTP server (optional)
+├── server/         # HTTP server (modular)
+└── api/            # API layer (modular)
+    ├── routes/         # REST API endpoints
+    ├── jobs/           # Async job tracking
+    └── config/         # Configuration management
 └── utils/          # Text utilities
 ```
 
 ### HTTP Server (Optional)
+- **Modular Architecture**: `api::Routes`, `api::JobManager`, `api::Config` modules
+- **Organized Structure**: Separate folders for routes, jobs, and config
 - **Crow HTTP server**: Lightweight C++ web framework
-- **JSON handling**: nlohmann/json library
+- **JSON handling**: nlohmann/json library with fallback support
 - **Graceful fallback**: Works without external HTTP libraries
 - **Configuration-driven**: All settings from config.yaml
+- **Job management**: Async processing with status tracking
 
 ## 🔧 Installation & Usage
 

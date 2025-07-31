@@ -146,6 +146,9 @@ set(UTILS_SOURCES
 
 set(SERVER_SOURCES
     src/server/http_server.cpp
+    src/api/routes/routes.cpp
+    src/api/jobs/job_manager.cpp
+    src/api/config/config.cpp
 )
 
 set(MAIN_SOURCES

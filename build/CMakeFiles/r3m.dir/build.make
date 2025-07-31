@@ -27,9 +27,6 @@
 
 .SUFFIXES: .hpux_make_needs_suffix_list
 
-# Produce verbose output by default.
-VERBOSE = 1
-
 # Command-line flag to silence nested $(MAKE).
 $(VERBOSE)MAKESILENT = -s
 
@@ -187,10 +184,52 @@ CMakeFiles/r3m.dir/src/server/http_server.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m.dir/src/server/http_server.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/server/http_server.cpp" -o CMakeFiles/r3m.dir/src/server/http_server.cpp.s
 
+CMakeFiles/r3m.dir/src/api/routes/routes.cpp.o: CMakeFiles/r3m.dir/flags.make
+CMakeFiles/r3m.dir/src/api/routes/routes.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/api/routes/routes.cpp
+CMakeFiles/r3m.dir/src/api/routes/routes.cpp.o: CMakeFiles/r3m.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/r3m.dir/src/api/routes/routes.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m.dir/src/api/routes/routes.cpp.o -MF CMakeFiles/r3m.dir/src/api/routes/routes.cpp.o.d -o CMakeFiles/r3m.dir/src/api/routes/routes.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/api/routes/routes.cpp"
+
+CMakeFiles/r3m.dir/src/api/routes/routes.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/r3m.dir/src/api/routes/routes.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/api/routes/routes.cpp" > CMakeFiles/r3m.dir/src/api/routes/routes.cpp.i
+
+CMakeFiles/r3m.dir/src/api/routes/routes.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m.dir/src/api/routes/routes.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/api/routes/routes.cpp" -o CMakeFiles/r3m.dir/src/api/routes/routes.cpp.s
+
+CMakeFiles/r3m.dir/src/api/jobs/job_manager.cpp.o: CMakeFiles/r3m.dir/flags.make
+CMakeFiles/r3m.dir/src/api/jobs/job_manager.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/api/jobs/job_manager.cpp
+CMakeFiles/r3m.dir/src/api/jobs/job_manager.cpp.o: CMakeFiles/r3m.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/r3m.dir/src/api/jobs/job_manager.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m.dir/src/api/jobs/job_manager.cpp.o -MF CMakeFiles/r3m.dir/src/api/jobs/job_manager.cpp.o.d -o CMakeFiles/r3m.dir/src/api/jobs/job_manager.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/api/jobs/job_manager.cpp"
+
+CMakeFiles/r3m.dir/src/api/jobs/job_manager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/r3m.dir/src/api/jobs/job_manager.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/api/jobs/job_manager.cpp" > CMakeFiles/r3m.dir/src/api/jobs/job_manager.cpp.i
+
+CMakeFiles/r3m.dir/src/api/jobs/job_manager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m.dir/src/api/jobs/job_manager.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/api/jobs/job_manager.cpp" -o CMakeFiles/r3m.dir/src/api/jobs/job_manager.cpp.s
+
+CMakeFiles/r3m.dir/src/api/config/config.cpp.o: CMakeFiles/r3m.dir/flags.make
+CMakeFiles/r3m.dir/src/api/config/config.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/api/config/config.cpp
+CMakeFiles/r3m.dir/src/api/config/config.cpp.o: CMakeFiles/r3m.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/r3m.dir/src/api/config/config.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m.dir/src/api/config/config.cpp.o -MF CMakeFiles/r3m.dir/src/api/config/config.cpp.o.d -o CMakeFiles/r3m.dir/src/api/config/config.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/api/config/config.cpp"
+
+CMakeFiles/r3m.dir/src/api/config/config.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/r3m.dir/src/api/config/config.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/api/config/config.cpp" > CMakeFiles/r3m.dir/src/api/config/config.cpp.i
+
+CMakeFiles/r3m.dir/src/api/config/config.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m.dir/src/api/config/config.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/api/config/config.cpp" -o CMakeFiles/r3m.dir/src/api/config/config.cpp.s
+
 CMakeFiles/r3m.dir/src/main.cpp.o: CMakeFiles/r3m.dir/flags.make
 CMakeFiles/r3m.dir/src/main.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/main.cpp
 CMakeFiles/r3m.dir/src/main.cpp.o: CMakeFiles/r3m.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/r3m.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/r3m.dir/src/main.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m.dir/src/main.cpp.o -MF CMakeFiles/r3m.dir/src/main.cpp.o.d -o CMakeFiles/r3m.dir/src/main.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/main.cpp"
 
 CMakeFiles/r3m.dir/src/main.cpp.i: cmake_force
@@ -211,6 +250,9 @@ r3m_OBJECTS = \
 "CMakeFiles/r3m.dir/src/formats/processor.cpp.o" \
 "CMakeFiles/r3m.dir/src/utils/text_utils.cpp.o" \
 "CMakeFiles/r3m.dir/src/server/http_server.cpp.o" \
+"CMakeFiles/r3m.dir/src/api/routes/routes.cpp.o" \
+"CMakeFiles/r3m.dir/src/api/jobs/job_manager.cpp.o" \
+"CMakeFiles/r3m.dir/src/api/config/config.cpp.o" \
 "CMakeFiles/r3m.dir/src/main.cpp.o"
 
 # External object files for target r3m
@@ -224,10 +266,13 @@ r3m: CMakeFiles/r3m.dir/src/parallel/thread_pool.cpp.o
 r3m: CMakeFiles/r3m.dir/src/formats/processor.cpp.o
 r3m: CMakeFiles/r3m.dir/src/utils/text_utils.cpp.o
 r3m: CMakeFiles/r3m.dir/src/server/http_server.cpp.o
+r3m: CMakeFiles/r3m.dir/src/api/routes/routes.cpp.o
+r3m: CMakeFiles/r3m.dir/src/api/jobs/job_manager.cpp.o
+r3m: CMakeFiles/r3m.dir/src/api/config/config.cpp.o
 r3m: CMakeFiles/r3m.dir/src/main.cpp.o
 r3m: CMakeFiles/r3m.dir/build.make
 r3m: CMakeFiles/r3m.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable r3m"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable r3m"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/r3m.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -1,4 +1,10 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/r3m.dir/src/api/config/config.cpp.o"
+  "CMakeFiles/r3m.dir/src/api/config/config.cpp.o.d"
+  "CMakeFiles/r3m.dir/src/api/jobs/job_manager.cpp.o"
+  "CMakeFiles/r3m.dir/src/api/jobs/job_manager.cpp.o.d"
+  "CMakeFiles/r3m.dir/src/api/routes/routes.cpp.o"
+  "CMakeFiles/r3m.dir/src/api/routes/routes.cpp.o.d"
   "CMakeFiles/r3m.dir/src/core/config_manager.cpp.o"
   "CMakeFiles/r3m.dir/src/core/config_manager.cpp.o.d"
   "CMakeFiles/r3m.dir/src/core/document_processor.cpp.o"
