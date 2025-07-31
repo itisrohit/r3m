@@ -156,6 +156,19 @@ r3m-http-test/fast:
 .PHONY : r3m-http-test/fast
 
 #=============================================================================
+# Target rules for targets named r3m-library-example
+
+# Build rule for target.
+r3m-library-example: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 r3m-library-example
+.PHONY : r3m-library-example
+
+# fast build rule for target.
+r3m-library-example/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/build
+.PHONY : r3m-library-example/fast
+
+#=============================================================================
 # Target rules for targets named clean-all
 
 # Build rule for target.
@@ -219,6 +232,30 @@ test: cmake_check_build_system
 test/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
 .PHONY : test/fast
+
+examples/direct_library_usage.o: examples/direct_library_usage.cpp.o
+.PHONY : examples/direct_library_usage.o
+
+# target to build an object file
+examples/direct_library_usage.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/examples/direct_library_usage.cpp.o
+.PHONY : examples/direct_library_usage.cpp.o
+
+examples/direct_library_usage.i: examples/direct_library_usage.cpp.i
+.PHONY : examples/direct_library_usage.i
+
+# target to preprocess a source file
+examples/direct_library_usage.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/examples/direct_library_usage.cpp.i
+.PHONY : examples/direct_library_usage.cpp.i
+
+examples/direct_library_usage.s: examples/direct_library_usage.cpp.s
+.PHONY : examples/direct_library_usage.s
+
+# target to generate assembly for a file
+examples/direct_library_usage.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/examples/direct_library_usage.cpp.s
+.PHONY : examples/direct_library_usage.cpp.s
 
 src/api/config/config.o: src/api/config/config.cpp.o
 .PHONY : src/api/config/config.o
@@ -318,6 +355,7 @@ src/core/config_manager.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/core/config_manager.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/config_manager.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/config_manager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/core/config_manager.cpp.o
 .PHONY : src/core/config_manager.cpp.o
 
 src/core/config_manager.i: src/core/config_manager.cpp.i
@@ -328,6 +366,7 @@ src/core/config_manager.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/core/config_manager.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/config_manager.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/config_manager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/core/config_manager.cpp.i
 .PHONY : src/core/config_manager.cpp.i
 
 src/core/config_manager.s: src/core/config_manager.cpp.s
@@ -338,6 +377,7 @@ src/core/config_manager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/core/config_manager.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/config_manager.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/config_manager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/core/config_manager.cpp.s
 .PHONY : src/core/config_manager.cpp.s
 
 src/core/document_processor.o: src/core/document_processor.cpp.o
@@ -348,6 +388,7 @@ src/core/document_processor.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/core/document_processor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/document_processor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/document_processor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/core/document_processor.cpp.o
 .PHONY : src/core/document_processor.cpp.o
 
 src/core/document_processor.i: src/core/document_processor.cpp.i
@@ -358,6 +399,7 @@ src/core/document_processor.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/core/document_processor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/document_processor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/document_processor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/core/document_processor.cpp.i
 .PHONY : src/core/document_processor.cpp.i
 
 src/core/document_processor.s: src/core/document_processor.cpp.s
@@ -368,7 +410,41 @@ src/core/document_processor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/core/document_processor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/document_processor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/document_processor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/core/document_processor.cpp.s
 .PHONY : src/core/document_processor.cpp.s
+
+src/core/library.o: src/core/library.cpp.o
+.PHONY : src/core/library.o
+
+# target to build an object file
+src/core/library.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/core/library.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/library.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/library.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/core/library.cpp.o
+.PHONY : src/core/library.cpp.o
+
+src/core/library.i: src/core/library.cpp.i
+.PHONY : src/core/library.i
+
+# target to preprocess a source file
+src/core/library.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/core/library.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/library.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/library.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/core/library.cpp.i
+.PHONY : src/core/library.cpp.i
+
+src/core/library.s: src/core/library.cpp.s
+.PHONY : src/core/library.s
+
+# target to generate assembly for a file
+src/core/library.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/core/library.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/library.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/library.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/core/library.cpp.s
+.PHONY : src/core/library.cpp.s
 
 src/formats/processor.o: src/formats/processor.cpp.o
 .PHONY : src/formats/processor.o
@@ -378,6 +454,7 @@ src/formats/processor.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/formats/processor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/formats/processor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/formats/processor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/formats/processor.cpp.o
 .PHONY : src/formats/processor.cpp.o
 
 src/formats/processor.i: src/formats/processor.cpp.i
@@ -388,6 +465,7 @@ src/formats/processor.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/formats/processor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/formats/processor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/formats/processor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/formats/processor.cpp.i
 .PHONY : src/formats/processor.cpp.i
 
 src/formats/processor.s: src/formats/processor.cpp.s
@@ -398,6 +476,7 @@ src/formats/processor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/formats/processor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/formats/processor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/formats/processor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/formats/processor.cpp.s
 .PHONY : src/formats/processor.cpp.s
 
 src/main.o: src/main.cpp.o
@@ -432,6 +511,7 @@ src/parallel/thread_pool.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/parallel/thread_pool.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/parallel/thread_pool.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/parallel/thread_pool.cpp.o
 .PHONY : src/parallel/thread_pool.cpp.o
 
 src/parallel/thread_pool.i: src/parallel/thread_pool.cpp.i
@@ -442,6 +522,7 @@ src/parallel/thread_pool.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/parallel/thread_pool.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/parallel/thread_pool.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/parallel/thread_pool.cpp.i
 .PHONY : src/parallel/thread_pool.cpp.i
 
 src/parallel/thread_pool.s: src/parallel/thread_pool.cpp.s
@@ -452,6 +533,7 @@ src/parallel/thread_pool.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/parallel/thread_pool.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/parallel/thread_pool.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/parallel/thread_pool.cpp.s
 .PHONY : src/parallel/thread_pool.cpp.s
 
 src/processing/pipeline.o: src/processing/pipeline.cpp.o
@@ -462,6 +544,7 @@ src/processing/pipeline.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/processing/pipeline.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/processing/pipeline.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/processing/pipeline.cpp.o
 .PHONY : src/processing/pipeline.cpp.o
 
 src/processing/pipeline.i: src/processing/pipeline.cpp.i
@@ -472,6 +555,7 @@ src/processing/pipeline.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/processing/pipeline.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/processing/pipeline.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/processing/pipeline.cpp.i
 .PHONY : src/processing/pipeline.cpp.i
 
 src/processing/pipeline.s: src/processing/pipeline.cpp.s
@@ -482,6 +566,7 @@ src/processing/pipeline.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/processing/pipeline.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/processing/pipeline.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/processing/pipeline.cpp.s
 .PHONY : src/processing/pipeline.cpp.s
 
 src/quality/assessor.o: src/quality/assessor.cpp.o
@@ -492,6 +577,7 @@ src/quality/assessor.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/quality/assessor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/quality/assessor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/quality/assessor.cpp.o
 .PHONY : src/quality/assessor.cpp.o
 
 src/quality/assessor.i: src/quality/assessor.cpp.i
@@ -502,6 +588,7 @@ src/quality/assessor.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/quality/assessor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/quality/assessor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/quality/assessor.cpp.i
 .PHONY : src/quality/assessor.cpp.i
 
 src/quality/assessor.s: src/quality/assessor.cpp.s
@@ -512,6 +599,7 @@ src/quality/assessor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/quality/assessor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/quality/assessor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/quality/assessor.cpp.s
 .PHONY : src/quality/assessor.cpp.s
 
 src/server/http_server.o: src/server/http_server.cpp.o
@@ -552,6 +640,7 @@ src/utils/text_utils.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/utils/text_utils.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/utils/text_utils.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.o
 .PHONY : src/utils/text_utils.cpp.o
 
 src/utils/text_utils.i: src/utils/text_utils.cpp.i
@@ -562,6 +651,7 @@ src/utils/text_utils.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/utils/text_utils.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/utils/text_utils.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.i
 .PHONY : src/utils/text_utils.cpp.i
 
 src/utils/text_utils.s: src/utils/text_utils.cpp.s
@@ -572,6 +662,7 @@ src/utils/text_utils.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/utils/text_utils.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/utils/text_utils.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-library-example.dir/build.make CMakeFiles/r3m-library-example.dir/src/utils/text_utils.cpp.s
 .PHONY : src/utils/text_utils.cpp.s
 
 tests/test_comprehensive.o: tests/test_comprehensive.cpp.o
@@ -637,7 +728,11 @@ help:
 	@echo "... test"
 	@echo "... r3m"
 	@echo "... r3m-http-test"
+	@echo "... r3m-library-example"
 	@echo "... r3m-test"
+	@echo "... examples/direct_library_usage.o"
+	@echo "... examples/direct_library_usage.i"
+	@echo "... examples/direct_library_usage.s"
 	@echo "... src/api/config/config.o"
 	@echo "... src/api/config/config.i"
 	@echo "... src/api/config/config.s"
@@ -653,6 +748,9 @@ help:
 	@echo "... src/core/document_processor.o"
 	@echo "... src/core/document_processor.i"
 	@echo "... src/core/document_processor.s"
+	@echo "... src/core/library.o"
+	@echo "... src/core/library.i"
+	@echo "... src/core/library.s"
 	@echo "... src/formats/processor.o"
 	@echo "... src/formats/processor.i"
 	@echo "... src/formats/processor.s"

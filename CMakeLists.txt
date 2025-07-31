@@ -122,6 +122,7 @@ endif()
 set(CORE_SOURCES
     src/core/document_processor.cpp
     src/core/config_manager.cpp
+    src/core/library.cpp
 )
 
 set(PROCESSING_SOURCES
@@ -253,6 +254,24 @@ if(Crow_FOUND)
     target_link_libraries(r3m-http-test Crow::Crow)
     target_compile_definitions(r3m-http-test PRIVATE R3M_HTTP_ENABLED)
 endif()
+
+# Library example executable (direct usage - zero overhead)
+add_executable(r3m-library-example
+    examples/direct_library_usage.cpp
+    ${CORE_SOURCES}
+    ${PROCESSING_SOURCES}
+    ${QUALITY_SOURCES}
+    ${PARALLEL_SOURCES}
+    ${FORMATS_SOURCES}
+    ${UTILS_SOURCES}
+)
+
+# Link libraries for the library example
+target_link_libraries(r3m-library-example
+    ${CMAKE_THREAD_LIBS_INIT}
+    ${POPPLER_CPP_LIBRARIES}
+    ${GUMBO_LIBRARIES}
+)
 
 # Custom targets for build management
 add_custom_target(clean-all

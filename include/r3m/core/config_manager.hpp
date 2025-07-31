@@ -111,6 +111,12 @@ public:
      */
     std::string to_string() const;
 
+    /**
+     * @brief Get all configuration as map
+     * @return All configuration key-value pairs
+     */
+    std::unordered_map<std::string, std::string> get_all_config() const;
+
     // Server configuration
     struct ServerConfig {
         int port = 8080;

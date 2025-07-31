@@ -22,6 +22,8 @@ void signal_handler(int signal) {
 } // namespace r3m
 
 int main(int argc, char* argv[]) {
+    (void)argc;  // Suppress unused parameter warning
+    (void)argv;  // Suppress unused parameter warning
     std::cout << "🚀 Starting R3M Document Processing Server..." << std::endl;
     
     // Set up signal handlers

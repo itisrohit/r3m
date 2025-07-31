@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/r3m.dir/src/core/config_manager.cpp.o.d"
   "CMakeFiles/r3m.dir/src/core/document_processor.cpp.o"
   "CMakeFiles/r3m.dir/src/core/document_processor.cpp.o.d"
+  "CMakeFiles/r3m.dir/src/core/library.cpp.o"
+  "CMakeFiles/r3m.dir/src/core/library.cpp.o.d"
   "CMakeFiles/r3m.dir/src/formats/processor.cpp.o"
   "CMakeFiles/r3m.dir/src/formats/processor.cpp.o.d"
   "CMakeFiles/r3m.dir/src/main.cpp.o"

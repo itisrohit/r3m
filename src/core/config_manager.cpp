@@ -168,6 +168,10 @@ std::string ConfigManager::to_string() const {
     return ss.str();
 }
 
+std::unordered_map<std::string, std::string> ConfigManager::get_all_config() const {
+    return config_values_;
+}
+
 ConfigManager::ServerConfig ConfigManager::get_server_config() const {
     ServerConfig config;
     config.port = get_int("server.port", 8080);

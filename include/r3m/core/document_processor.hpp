@@ -75,6 +75,9 @@ public:
     
     // Configuration
     bool is_initialized() const { return initialized_; }
+    
+    // Public methods for library usage
+    bool should_filter_document(const DocumentResult& result) const;
 
 private:
     // Configuration
@@ -99,7 +102,6 @@ private:
     // Internal processing methods
     DocumentResult process_single_document(const std::string& file_path);
     void update_stats(const DocumentResult& result);
-    bool should_filter_document(const DocumentResult& result) const;
 };
 
 } // namespace core

@@ -77,6 +77,45 @@ r3m/
 
 ## 🔧 Installation & Usage
 
+### Dual Approach: Direct Library + HTTP API
+
+R3M provides **two usage modes** for maximum flexibility:
+
+#### **1. Direct Library Usage (Zero Overhead)**
+```cpp
+#include "r3m/core/library.hpp"
+
+int main() {
+    r3m::core::Library library;
+    library.initialize("configs/dev/config.yaml");
+    
+    // Zero overhead - direct function calls
+    auto result = library.process_document("document.pdf");
+    
+    // Batch processing
+    std::vector<std::string> files = {"doc1.pdf", "doc2.txt", "doc3.html"};
+    auto results = library.process_documents_parallel(files);
+    
+    return 0;
+}
+```
+
+#### **2. HTTP API Usage (For Remote/Web Integration)**
+```bash
+# Start the server
+./build/r3m
+
+# Process documents via HTTP API
+curl -X POST http://localhost:8080/process \
+  -H "Content-Type: application/json" \
+  -d '{"file_path": "document.pdf"}'
+
+# Batch processing
+curl -X POST http://localhost:8080/batch \
+  -H "Content-Type: application/json" \
+  -d '{"files": ["doc1.pdf", "doc2.txt", "doc3.html"]}'
+```
+
 ### Prerequisites
 ```bash
 # Required libraries
@@ -87,6 +126,30 @@ brew install crow nlohmann-json
 ```
 
 ### Build & Run
+
+#### **Option 1: Direct Library Usage (Recommended for Performance)**
+```bash
+# Build the project
+make build
+
+# Run direct library example
+./build/r3m-library-example
+
+# Or use in your own C++ code
+#include "r3m/core/library.hpp"
+```
+
+#### **Option 2: HTTP API Usage**
+```bash
+# Build the project
+make build
+
+# Run the server
+./build/r3m
+
+# Test API endpoints
+curl http://localhost:8080/health
+```
 ```bash
 # Build the project
 make build
