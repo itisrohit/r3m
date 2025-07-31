@@ -85,51 +85,6 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-.PHONY : list_install_components/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
-	/opt/homebrew/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
-	/opt/homebrew/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
-	/opt/homebrew/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
-	/opt/homebrew/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
-	/opt/homebrew/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
-	/opt/homebrew/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
 # The main all target
 all: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build//CMakeFiles/progress.marks"
@@ -188,6 +143,19 @@ clean-all/fast:
 .PHONY : clean-all/fast
 
 #=============================================================================
+# Target rules for targets named clean-test-data
+
+# Build rule for target.
+clean-test-data: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean-test-data
+.PHONY : clean-test-data
+
+# fast build rule for target.
+clean-test-data/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clean-test-data.dir/build.make CMakeFiles/clean-test-data.dir/build
+.PHONY : clean-test-data/fast
+
+#=============================================================================
 # Target rules for targets named clean-objs
 
 # Build rule for target.
@@ -214,69 +182,17 @@ rebuild/fast:
 .PHONY : rebuild/fast
 
 #=============================================================================
-# Target rules for targets named test-output-to-data
+# Target rules for targets named test
 
 # Build rule for target.
-test-output-to-data: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test-output-to-data
-.PHONY : test-output-to-data
+test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test
+.PHONY : test
 
 # fast build rule for target.
-test-output-to-data/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-output-to-data.dir/build.make CMakeFiles/test-output-to-data.dir/build
-.PHONY : test-output-to-data/fast
-
-#=============================================================================
-# Target rules for targets named test-parallel
-
-# Build rule for target.
-test-parallel: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test-parallel
-.PHONY : test-parallel
-
-# fast build rule for target.
-test-parallel/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-parallel.dir/build.make CMakeFiles/test-parallel.dir/build
-.PHONY : test-parallel/fast
-
-#=============================================================================
-# Target rules for targets named test-advanced-features
-
-# Build rule for target.
-test-advanced-features: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test-advanced-features
-.PHONY : test-advanced-features
-
-# fast build rule for target.
-test-advanced-features/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-advanced-features.dir/build.make CMakeFiles/test-advanced-features.dir/build
-.PHONY : test-advanced-features/fast
-
-#=============================================================================
-# Target rules for targets named run-output-to-data
-
-# Build rule for target.
-run-output-to-data: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 run-output-to-data
-.PHONY : run-output-to-data
-
-# fast build rule for target.
-run-output-to-data/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run-output-to-data.dir/build.make CMakeFiles/run-output-to-data.dir/build
-.PHONY : run-output-to-data/fast
-
-#=============================================================================
-# Target rules for targets named test-all
-
-# Build rule for target.
-test-all: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test-all
-.PHONY : test-all
-
-# fast build rule for target.
-test-all/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-all.dir/build.make CMakeFiles/test-all.dir/build
-.PHONY : test-all/fast
+test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
+.PHONY : test/fast
 
 src/core/config_manager.o: src/core/config_manager.cpp.o
 .PHONY : src/core/config_manager.o
@@ -284,9 +200,6 @@ src/core/config_manager.o: src/core/config_manager.cpp.o
 # target to build an object file
 src/core/config_manager.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/config_manager.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-output-to-data.dir/build.make CMakeFiles/test-output-to-data.dir/src/core/config_manager.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-parallel.dir/build.make CMakeFiles/test-parallel.dir/src/core/config_manager.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-advanced-features.dir/build.make CMakeFiles/test-advanced-features.dir/src/core/config_manager.cpp.o
 .PHONY : src/core/config_manager.cpp.o
 
 src/core/config_manager.i: src/core/config_manager.cpp.i
@@ -295,9 +208,6 @@ src/core/config_manager.i: src/core/config_manager.cpp.i
 # target to preprocess a source file
 src/core/config_manager.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/config_manager.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-output-to-data.dir/build.make CMakeFiles/test-output-to-data.dir/src/core/config_manager.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-parallel.dir/build.make CMakeFiles/test-parallel.dir/src/core/config_manager.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-advanced-features.dir/build.make CMakeFiles/test-advanced-features.dir/src/core/config_manager.cpp.i
 .PHONY : src/core/config_manager.cpp.i
 
 src/core/config_manager.s: src/core/config_manager.cpp.s
@@ -306,9 +216,6 @@ src/core/config_manager.s: src/core/config_manager.cpp.s
 # target to generate assembly for a file
 src/core/config_manager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/config_manager.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-output-to-data.dir/build.make CMakeFiles/test-output-to-data.dir/src/core/config_manager.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-parallel.dir/build.make CMakeFiles/test-parallel.dir/src/core/config_manager.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-advanced-features.dir/build.make CMakeFiles/test-advanced-features.dir/src/core/config_manager.cpp.s
 .PHONY : src/core/config_manager.cpp.s
 
 src/core/document_processor.o: src/core/document_processor.cpp.o
@@ -317,9 +224,6 @@ src/core/document_processor.o: src/core/document_processor.cpp.o
 # target to build an object file
 src/core/document_processor.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/document_processor.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-output-to-data.dir/build.make CMakeFiles/test-output-to-data.dir/src/core/document_processor.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-parallel.dir/build.make CMakeFiles/test-parallel.dir/src/core/document_processor.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-advanced-features.dir/build.make CMakeFiles/test-advanced-features.dir/src/core/document_processor.cpp.o
 .PHONY : src/core/document_processor.cpp.o
 
 src/core/document_processor.i: src/core/document_processor.cpp.i
@@ -328,9 +232,6 @@ src/core/document_processor.i: src/core/document_processor.cpp.i
 # target to preprocess a source file
 src/core/document_processor.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/document_processor.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-output-to-data.dir/build.make CMakeFiles/test-output-to-data.dir/src/core/document_processor.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-parallel.dir/build.make CMakeFiles/test-parallel.dir/src/core/document_processor.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-advanced-features.dir/build.make CMakeFiles/test-advanced-features.dir/src/core/document_processor.cpp.i
 .PHONY : src/core/document_processor.cpp.i
 
 src/core/document_processor.s: src/core/document_processor.cpp.s
@@ -339,85 +240,151 @@ src/core/document_processor.s: src/core/document_processor.cpp.s
 # target to generate assembly for a file
 src/core/document_processor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/document_processor.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-output-to-data.dir/build.make CMakeFiles/test-output-to-data.dir/src/core/document_processor.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-parallel.dir/build.make CMakeFiles/test-parallel.dir/src/core/document_processor.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-advanced-features.dir/build.make CMakeFiles/test-advanced-features.dir/src/core/document_processor.cpp.s
 .PHONY : src/core/document_processor.cpp.s
 
-tests/test_advanced_features.o: tests/test_advanced_features.cpp.o
-.PHONY : tests/test_advanced_features.o
+src/formats/processor.o: src/formats/processor.cpp.o
+.PHONY : src/formats/processor.o
 
 # target to build an object file
-tests/test_advanced_features.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-advanced-features.dir/build.make CMakeFiles/test-advanced-features.dir/tests/test_advanced_features.cpp.o
-.PHONY : tests/test_advanced_features.cpp.o
+src/formats/processor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/formats/processor.cpp.o
+.PHONY : src/formats/processor.cpp.o
 
-tests/test_advanced_features.i: tests/test_advanced_features.cpp.i
-.PHONY : tests/test_advanced_features.i
+src/formats/processor.i: src/formats/processor.cpp.i
+.PHONY : src/formats/processor.i
 
 # target to preprocess a source file
-tests/test_advanced_features.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-advanced-features.dir/build.make CMakeFiles/test-advanced-features.dir/tests/test_advanced_features.cpp.i
-.PHONY : tests/test_advanced_features.cpp.i
+src/formats/processor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/formats/processor.cpp.i
+.PHONY : src/formats/processor.cpp.i
 
-tests/test_advanced_features.s: tests/test_advanced_features.cpp.s
-.PHONY : tests/test_advanced_features.s
+src/formats/processor.s: src/formats/processor.cpp.s
+.PHONY : src/formats/processor.s
 
 # target to generate assembly for a file
-tests/test_advanced_features.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-advanced-features.dir/build.make CMakeFiles/test-advanced-features.dir/tests/test_advanced_features.cpp.s
-.PHONY : tests/test_advanced_features.cpp.s
+src/formats/processor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/formats/processor.cpp.s
+.PHONY : src/formats/processor.cpp.s
 
-tests/test_output_to_data.o: tests/test_output_to_data.cpp.o
-.PHONY : tests/test_output_to_data.o
+src/parallel/thread_pool.o: src/parallel/thread_pool.cpp.o
+.PHONY : src/parallel/thread_pool.o
 
 # target to build an object file
-tests/test_output_to_data.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/tests/test_output_to_data.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-output-to-data.dir/build.make CMakeFiles/test-output-to-data.dir/tests/test_output_to_data.cpp.o
-.PHONY : tests/test_output_to_data.cpp.o
+src/parallel/thread_pool.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.o
+.PHONY : src/parallel/thread_pool.cpp.o
 
-tests/test_output_to_data.i: tests/test_output_to_data.cpp.i
-.PHONY : tests/test_output_to_data.i
+src/parallel/thread_pool.i: src/parallel/thread_pool.cpp.i
+.PHONY : src/parallel/thread_pool.i
 
 # target to preprocess a source file
-tests/test_output_to_data.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/tests/test_output_to_data.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-output-to-data.dir/build.make CMakeFiles/test-output-to-data.dir/tests/test_output_to_data.cpp.i
-.PHONY : tests/test_output_to_data.cpp.i
+src/parallel/thread_pool.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.i
+.PHONY : src/parallel/thread_pool.cpp.i
 
-tests/test_output_to_data.s: tests/test_output_to_data.cpp.s
-.PHONY : tests/test_output_to_data.s
+src/parallel/thread_pool.s: src/parallel/thread_pool.cpp.s
+.PHONY : src/parallel/thread_pool.s
 
 # target to generate assembly for a file
-tests/test_output_to_data.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/tests/test_output_to_data.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-output-to-data.dir/build.make CMakeFiles/test-output-to-data.dir/tests/test_output_to_data.cpp.s
-.PHONY : tests/test_output_to_data.cpp.s
+src/parallel/thread_pool.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.s
+.PHONY : src/parallel/thread_pool.cpp.s
 
-tests/test_parallel.o: tests/test_parallel.cpp.o
-.PHONY : tests/test_parallel.o
+src/processing/pipeline.o: src/processing/pipeline.cpp.o
+.PHONY : src/processing/pipeline.o
 
 # target to build an object file
-tests/test_parallel.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-parallel.dir/build.make CMakeFiles/test-parallel.dir/tests/test_parallel.cpp.o
-.PHONY : tests/test_parallel.cpp.o
+src/processing/pipeline.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.o
+.PHONY : src/processing/pipeline.cpp.o
 
-tests/test_parallel.i: tests/test_parallel.cpp.i
-.PHONY : tests/test_parallel.i
+src/processing/pipeline.i: src/processing/pipeline.cpp.i
+.PHONY : src/processing/pipeline.i
 
 # target to preprocess a source file
-tests/test_parallel.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-parallel.dir/build.make CMakeFiles/test-parallel.dir/tests/test_parallel.cpp.i
-.PHONY : tests/test_parallel.cpp.i
+src/processing/pipeline.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.i
+.PHONY : src/processing/pipeline.cpp.i
 
-tests/test_parallel.s: tests/test_parallel.cpp.s
-.PHONY : tests/test_parallel.s
+src/processing/pipeline.s: src/processing/pipeline.cpp.s
+.PHONY : src/processing/pipeline.s
 
 # target to generate assembly for a file
-tests/test_parallel.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-parallel.dir/build.make CMakeFiles/test-parallel.dir/tests/test_parallel.cpp.s
-.PHONY : tests/test_parallel.cpp.s
+src/processing/pipeline.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.s
+.PHONY : src/processing/pipeline.cpp.s
+
+src/quality/assessor.o: src/quality/assessor.cpp.o
+.PHONY : src/quality/assessor.o
+
+# target to build an object file
+src/quality/assessor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.o
+.PHONY : src/quality/assessor.cpp.o
+
+src/quality/assessor.i: src/quality/assessor.cpp.i
+.PHONY : src/quality/assessor.i
+
+# target to preprocess a source file
+src/quality/assessor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.i
+.PHONY : src/quality/assessor.cpp.i
+
+src/quality/assessor.s: src/quality/assessor.cpp.s
+.PHONY : src/quality/assessor.s
+
+# target to generate assembly for a file
+src/quality/assessor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.s
+.PHONY : src/quality/assessor.cpp.s
+
+src/utils/text_utils.o: src/utils/text_utils.cpp.o
+.PHONY : src/utils/text_utils.o
+
+# target to build an object file
+src/utils/text_utils.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.o
+.PHONY : src/utils/text_utils.cpp.o
+
+src/utils/text_utils.i: src/utils/text_utils.cpp.i
+.PHONY : src/utils/text_utils.i
+
+# target to preprocess a source file
+src/utils/text_utils.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.i
+.PHONY : src/utils/text_utils.cpp.i
+
+src/utils/text_utils.s: src/utils/text_utils.cpp.s
+.PHONY : src/utils/text_utils.s
+
+# target to generate assembly for a file
+src/utils/text_utils.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.s
+.PHONY : src/utils/text_utils.cpp.s
+
+tests/test_comprehensive.o: tests/test_comprehensive.cpp.o
+.PHONY : tests/test_comprehensive.o
+
+# target to build an object file
+tests/test_comprehensive.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.o
+.PHONY : tests/test_comprehensive.cpp.o
+
+tests/test_comprehensive.i: tests/test_comprehensive.cpp.i
+.PHONY : tests/test_comprehensive.i
+
+# target to preprocess a source file
+tests/test_comprehensive.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.i
+.PHONY : tests/test_comprehensive.cpp.i
+
+tests/test_comprehensive.s: tests/test_comprehensive.cpp.s
+.PHONY : tests/test_comprehensive.s
+
+# target to generate assembly for a file
+tests/test_comprehensive.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.s
+.PHONY : tests/test_comprehensive.cpp.s
 
 # Help Target
 help:
@@ -426,35 +393,37 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... install"
-	@echo "... install/local"
-	@echo "... install/strip"
-	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... clean-all"
 	@echo "... clean-objs"
+	@echo "... clean-test-data"
 	@echo "... rebuild"
-	@echo "... run-output-to-data"
-	@echo "... test-all"
+	@echo "... test"
 	@echo "... r3m-test"
-	@echo "... test-advanced-features"
-	@echo "... test-output-to-data"
-	@echo "... test-parallel"
 	@echo "... src/core/config_manager.o"
 	@echo "... src/core/config_manager.i"
 	@echo "... src/core/config_manager.s"
 	@echo "... src/core/document_processor.o"
 	@echo "... src/core/document_processor.i"
 	@echo "... src/core/document_processor.s"
-	@echo "... tests/test_advanced_features.o"
-	@echo "... tests/test_advanced_features.i"
-	@echo "... tests/test_advanced_features.s"
-	@echo "... tests/test_output_to_data.o"
-	@echo "... tests/test_output_to_data.i"
-	@echo "... tests/test_output_to_data.s"
-	@echo "... tests/test_parallel.o"
-	@echo "... tests/test_parallel.i"
-	@echo "... tests/test_parallel.s"
+	@echo "... src/formats/processor.o"
+	@echo "... src/formats/processor.i"
+	@echo "... src/formats/processor.s"
+	@echo "... src/parallel/thread_pool.o"
+	@echo "... src/parallel/thread_pool.i"
+	@echo "... src/parallel/thread_pool.s"
+	@echo "... src/processing/pipeline.o"
+	@echo "... src/processing/pipeline.i"
+	@echo "... src/processing/pipeline.s"
+	@echo "... src/quality/assessor.o"
+	@echo "... src/quality/assessor.i"
+	@echo "... src/quality/assessor.s"
+	@echo "... src/utils/text_utils.o"
+	@echo "... src/utils/text_utils.i"
+	@echo "... src/utils/text_utils.s"
+	@echo "... tests/test_comprehensive.o"
+	@echo "... tests/test_comprehensive.i"
+	@echo "... tests/test_comprehensive.s"
 .PHONY : help
 
 

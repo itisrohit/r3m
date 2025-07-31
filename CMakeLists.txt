@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.20)
-project(R3M VERSION 1.0.0 LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.16)
+project(r3m VERSION 0.1.0 LANGUAGES CXX)
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 20)
@@ -11,130 +11,182 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # Compiler flags
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -O3")
-set(CMAKE_CXX_FLAGS_DEBUG "-g -O0 -DDEBUG")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -O2")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -O0")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+
+# Print build information
+message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "C++ standard: ${CMAKE_CXX_STANDARD}")
+message(STATUS "Compiler: ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
+message(STATUS "Build directory: ${CMAKE_BINARY_DIR}")
+
+# Find required packages
+find_package(PkgConfig REQUIRED)
+find_package(Threads REQUIRED)
+
+# Find poppler-cpp
+pkg_check_modules(POPPLER REQUIRED poppler-cpp)
+if(POPPLER_FOUND)
+    message(STATUS "Found poppler-cpp: ${POPPLER_VERSION}")
+    include_directories(${POPPLER_INCLUDE_DIRS})
+    link_directories(${POPPLER_LIBRARY_DIRS})
+endif()
+
+# Find gumbo
+pkg_check_modules(GUMBO REQUIRED gumbo)
+if(GUMBO_FOUND)
+    message(STATUS "Found gumbo: ${GUMBO_VERSION}")
+    include_directories(${GUMBO_INCLUDE_DIRS})
+    link_directories(${GUMBO_LIBRARY_DIRS})
+endif()
 
 # Include directories
 include_directories(${CMAKE_SOURCE_DIR}/include)
-include_directories(${CMAKE_SOURCE_DIR}/src)
 
-# Manual include paths for poppler and gumbo
-include_directories(/opt/homebrew/Cellar/poppler/25.07.0_1/include/poppler/cpp)
-include_directories(/opt/homebrew/Cellar/poppler/25.07.0_1/include/poppler)
-include_directories(/opt/homebrew/include)
+# Cross-platform stdc++fs linking
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS "9.0")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lstdc++fs")
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lstdc++fs")
+endif()
 
-# Source files
+# Source files organized by module
 set(CORE_SOURCES
     src/core/document_processor.cpp
     src/core/config_manager.cpp
 )
 
-# Main executable (comprehensive test)
+set(PROCESSING_SOURCES
+    src/processing/pipeline.cpp
+)
+
+set(QUALITY_SOURCES
+    src/quality/assessor.cpp
+)
+
+set(PARALLEL_SOURCES
+    src/parallel/thread_pool.cpp
+)
+
+set(FORMATS_SOURCES
+    src/formats/processor.cpp
+)
+
+set(UTILS_SOURCES
+    src/utils/text_utils.cpp
+)
+
+# Combine all sources
+set(ALL_SOURCES
+    ${CORE_SOURCES}
+    ${PROCESSING_SOURCES}
+    ${QUALITY_SOURCES}
+    ${PARALLEL_SOURCES}
+    ${FORMATS_SOURCES}
+    ${UTILS_SOURCES}
+)
+
+# Main comprehensive test executable
 add_executable(r3m-test
-    tests/test_output_to_data.cpp
-    ${CORE_SOURCES}
+    tests/test_comprehensive.cpp
+    ${ALL_SOURCES}
 )
 
-# Cross-platform filesystem support
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS "9.0")
-    # Older GCC versions need stdc++fs
-    target_link_libraries(r3m-test stdc++fs)
-elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    # Clang on Linux might need stdc++fs
-    target_link_libraries(r3m-test stdc++fs)
-endif()
-
-# Manual library paths and linking
+# Link libraries for the main executable
 target_link_libraries(r3m-test
-    /opt/homebrew/Cellar/poppler/25.07.0_1/lib/libpoppler-cpp.dylib
-    /opt/homebrew/lib/libgumbo.dylib
+    ${CMAKE_THREAD_LIBS_INIT}
+    ${POPPLER_LIBRARIES}
+    ${GUMBO_LIBRARIES}
 )
 
-# Enhanced clean targets
+# Custom targets for build management
 add_custom_target(clean-all
-    COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target clean
-    COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_BINARY_DIR}/CMakeFiles
-    COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/CMakeCache.txt
-    COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/cmake_install.cmake
-    COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/Makefile
-    COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/compile_commands.json
-    COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/CMakeFiles
-    COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/Testing
-    COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/CTestTestfile.cmake
-    COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/DartConfiguration.tcl
-    COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/r3m-test
-    COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/pdf-test
-    COMMENT "Cleaning all build files and artifacts"
+    COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.txt
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.md
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.json
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.csv
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.log
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.html
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.pdf
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.xml
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.yml
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.yaml
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.tsv
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.conf
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.mdx
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/large_file_*.txt
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/empty.txt
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/low_quality.txt
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/technical_document.txt
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/sample.txt
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/readme.md
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/config.json
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/test.html
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/*.o
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/*.a
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/*.so
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/*.dylib
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/CMakeFiles
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/CMakeCache.txt
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/Makefile
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/r3m-test
+    COMMENT "Cleaning all build artifacts and generated test files (keeping results/reports)"
 )
 
-# Clean object files only
+add_custom_target(clean-test-data
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.txt
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.md
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.json
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.csv
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.log
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.html
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.pdf
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.xml
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.yml
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.yaml
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.tsv
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.conf
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/*.mdx
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/large_file_*.txt
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/empty.txt
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/low_quality.txt
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/technical_document.txt
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/sample.txt
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/readme.md
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/config.json
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/data/test.html
+    COMMENT "Cleaning only generated test files (keeping results/reports)"
+)
+
 add_custom_target(clean-objs
-    COMMAND find ${CMAKE_BINARY_DIR} -name "*.o" -delete
-    COMMAND find ${CMAKE_BINARY_DIR} -name "*.a" -delete
-    COMMAND find ${CMAKE_BINARY_DIR} -name "*.so" -delete
-    COMMAND find ${CMAKE_BINARY_DIR} -name "*.dylib" -delete
-    COMMENT "Cleaning object files only"
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/*.o
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/*.a
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/*.so
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_SOURCE_DIR}/*.dylib
+    COMMENT "Cleaning object files and libraries"
 )
 
-# Rebuild target
 add_custom_target(rebuild
-    COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target clean
+    COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -S ${CMAKE_SOURCE_DIR} -B ${CMAKE_BINARY_DIR}
     COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR}
-    COMMENT "Clean rebuild"
+    COMMENT "Rebuilding from scratch"
 )
 
-# Test target
-add_executable(test-output-to-data
-    tests/test_output_to_data.cpp
-    ${CORE_SOURCES}
+add_custom_target(test
+    COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR} ./r3m-test
+    COMMENT "Building and running comprehensive test"
 )
 
-# Parallel processing test
-add_executable(test-parallel
-    tests/test_parallel.cpp
-    ${CORE_SOURCES}
-)
-
-# Advanced features test
-add_executable(test-advanced-features
-    tests/test_advanced_features.cpp
-    ${CORE_SOURCES}
-)
-
-target_link_libraries(test-output-to-data
-    /opt/homebrew/Cellar/poppler/25.07.0_1/lib/libpoppler-cpp.dylib
-    /opt/homebrew/lib/libgumbo.dylib
-)
-
-target_link_libraries(test-parallel
-    /opt/homebrew/Cellar/poppler/25.07.0_1/lib/libpoppler-cpp.dylib
-    /opt/homebrew/lib/libgumbo.dylib
-)
-
-target_link_libraries(test-advanced-features
-    /opt/homebrew/Cellar/poppler/25.07.0_1/lib/libpoppler-cpp.dylib
-    /opt/homebrew/lib/libgumbo.dylib
-)
-
-add_custom_target(run-output-to-data
-    COMMAND ${CMAKE_BINARY_DIR}/test-output-to-data
-    DEPENDS test-output-to-data
-    COMMENT "Running test-output-to-data"
-)
-
-add_custom_target(test-all
-    COMMAND ${CMAKE_BINARY_DIR}/r3m-test
-    COMMAND ${CMAKE_BINARY_DIR}/test-output-to-data
-    DEPENDS r3m-test test-output-to-data
-    COMMENT "Running all tests"
-)
-
-# Install
-install(TARGETS r3m-test test-output-to-data DESTINATION bin)
-
-# Print build info
-message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
-message(STATUS "C++ standard: ${CMAKE_CXX_STANDARD}")
-message(STATUS "Compiler: ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
-message(STATUS "Build directory: ${CMAKE_BINARY_DIR}") 
+# Print module information
+message(STATUS "Core sources: ${CORE_SOURCES}")
+message(STATUS "Processing sources: ${PROCESSING_SOURCES}")
+message(STATUS "Quality sources: ${QUALITY_SOURCES}")
+message(STATUS "Parallel sources: ${PARALLEL_SOURCES}")
+message(STATUS "Formats sources: ${FORMATS_SOURCES}")
+message(STATUS "Utils sources: ${UTILS_SOURCES}")
+message(STATUS "Total sources: ${ALL_SOURCES}") 

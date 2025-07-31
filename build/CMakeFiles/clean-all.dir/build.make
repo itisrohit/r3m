@@ -67,19 +67,37 @@ include CMakeFiles/clean-all.dir/compiler_depend.make
 include CMakeFiles/clean-all.dir/progress.make
 
 CMakeFiles/clean-all:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Cleaning all build files and artifacts"
-	/opt/homebrew/bin/cmake --build /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build --target clean
-	/opt/homebrew/bin/cmake -E remove_directory /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build/CMakeFiles
-	/opt/homebrew/bin/cmake -E remove /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build/CMakeCache.txt
-	/opt/homebrew/bin/cmake -E remove /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build/cmake_install.cmake
-	/opt/homebrew/bin/cmake -E remove /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build/Makefile
-	/opt/homebrew/bin/cmake -E remove /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build/compile_commands.json
-	/opt/homebrew/bin/cmake -E remove /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build/CMakeFiles
-	/opt/homebrew/bin/cmake -E remove /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build/Testing
-	/opt/homebrew/bin/cmake -E remove /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build/CTestTestfile.cmake
-	/opt/homebrew/bin/cmake -E remove /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build/DartConfiguration.tcl
-	/opt/homebrew/bin/cmake -E remove /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build/r3m-test
-	/opt/homebrew/bin/cmake -E remove /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build/pdf-test
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Cleaning all build artifacts and generated test files (keeping results/reports)"
+	/opt/homebrew/bin/cmake -E remove_directory /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/data/*.txt
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/data/*.md
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/data/*.json
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/data/*.csv
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/data/*.log
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/data/*.html
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/data/*.pdf
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/data/*.xml
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/data/*.yml
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/data/*.yaml
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/data/*.tsv
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/data/*.conf
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/data/*.mdx
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/data/large_file_*.txt
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/data/empty.txt
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/data/low_quality.txt
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/data/technical_document.txt
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/data/sample.txt
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/data/readme.md
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/data/config.json
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/data/test.html
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/*.o
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/*.a
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/*.so
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/*.dylib
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/CMakeFiles
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/CMakeCache.txt
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/Makefile
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/r3m-test
 
 CMakeFiles/clean-all.dir/codegen:
 .PHONY : CMakeFiles/clean-all.dir/codegen

@@ -1,1 +1,0 @@
-Another high-quality document containing detailed specifications and technical requirements for the document processing pipeline.

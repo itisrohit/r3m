@@ -1,1 +1,0 @@
-This is a well-structured technical document with comprehensive information about R3M system architecture and implementation details.

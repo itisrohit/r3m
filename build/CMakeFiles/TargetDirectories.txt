@@ -1,15 +1,8 @@
 /Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/r3m-test.dir
 /Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/clean-all.dir
+/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/clean-test-data.dir
 /Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/clean-objs.dir
 /Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/rebuild.dir
-/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/test-output-to-data.dir
-/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/test-parallel.dir
-/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/test-advanced-features.dir
-/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/run-output-to-data.dir
-/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/test-all.dir
+/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/test.dir
 /Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/edit_cache.dir
 /Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/rebuild_cache.dir
-/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/list_install_components.dir
-/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/install.dir
-/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/install/local.dir
-/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/install/strip.dir

@@ -10,7 +10,12 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/core/config_manager.cpp" "CMakeFiles/r3m-test.dir/src/core/config_manager.cpp.o" "gcc" "CMakeFiles/r3m-test.dir/src/core/config_manager.cpp.o.d"
   "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/core/document_processor.cpp" "CMakeFiles/r3m-test.dir/src/core/document_processor.cpp.o" "gcc" "CMakeFiles/r3m-test.dir/src/core/document_processor.cpp.o.d"
-  "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/tests/test_output_to_data.cpp" "CMakeFiles/r3m-test.dir/tests/test_output_to_data.cpp.o" "gcc" "CMakeFiles/r3m-test.dir/tests/test_output_to_data.cpp.o.d"
+  "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/formats/processor.cpp" "CMakeFiles/r3m-test.dir/src/formats/processor.cpp.o" "gcc" "CMakeFiles/r3m-test.dir/src/formats/processor.cpp.o.d"
+  "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/parallel/thread_pool.cpp" "CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.o" "gcc" "CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.o.d"
+  "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/processing/pipeline.cpp" "CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.o" "gcc" "CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.o.d"
+  "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/quality/assessor.cpp" "CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.o" "gcc" "CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.o.d"
+  "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/utils/text_utils.cpp" "CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.o" "gcc" "CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.o.d"
+  "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/tests/test_comprehensive.cpp" "CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.o" "gcc" "CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

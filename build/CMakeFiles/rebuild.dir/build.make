@@ -67,8 +67,10 @@ include CMakeFiles/rebuild.dir/compiler_depend.make
 include CMakeFiles/rebuild.dir/progress.make
 
 CMakeFiles/rebuild:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Clean rebuild"
-	/opt/homebrew/bin/cmake --build /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build --target clean
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Rebuilding from scratch"
+	/opt/homebrew/bin/cmake -E remove_directory /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build
+	/opt/homebrew/bin/cmake -E make_directory /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build
+	/opt/homebrew/bin/cmake -S /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m -B /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build
 	/opt/homebrew/bin/cmake --build /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build
 
 CMakeFiles/rebuild.dir/codegen:

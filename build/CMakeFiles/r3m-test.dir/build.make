@@ -72,19 +72,19 @@ include CMakeFiles/r3m-test.dir/flags.make
 CMakeFiles/r3m-test.dir/codegen:
 .PHONY : CMakeFiles/r3m-test.dir/codegen
 
-CMakeFiles/r3m-test.dir/tests/test_output_to_data.cpp.o: CMakeFiles/r3m-test.dir/flags.make
-CMakeFiles/r3m-test.dir/tests/test_output_to_data.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/tests/test_output_to_data.cpp
-CMakeFiles/r3m-test.dir/tests/test_output_to_data.cpp.o: CMakeFiles/r3m-test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/r3m-test.dir/tests/test_output_to_data.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-test.dir/tests/test_output_to_data.cpp.o -MF CMakeFiles/r3m-test.dir/tests/test_output_to_data.cpp.o.d -o CMakeFiles/r3m-test.dir/tests/test_output_to_data.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/tests/test_output_to_data.cpp"
+CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.o: CMakeFiles/r3m-test.dir/flags.make
+CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/tests/test_comprehensive.cpp
+CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.o: CMakeFiles/r3m-test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.o -MF CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.o.d -o CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/tests/test_comprehensive.cpp"
 
-CMakeFiles/r3m-test.dir/tests/test_output_to_data.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/r3m-test.dir/tests/test_output_to_data.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/tests/test_output_to_data.cpp" > CMakeFiles/r3m-test.dir/tests/test_output_to_data.cpp.i
+CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/tests/test_comprehensive.cpp" > CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.i
 
-CMakeFiles/r3m-test.dir/tests/test_output_to_data.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m-test.dir/tests/test_output_to_data.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/tests/test_output_to_data.cpp" -o CMakeFiles/r3m-test.dir/tests/test_output_to_data.cpp.s
+CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/tests/test_comprehensive.cpp" -o CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.s
 
 CMakeFiles/r3m-test.dir/src/core/document_processor.cpp.o: CMakeFiles/r3m-test.dir/flags.make
 CMakeFiles/r3m-test.dir/src/core/document_processor.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/core/document_processor.cpp
@@ -114,23 +114,101 @@ CMakeFiles/r3m-test.dir/src/core/config_manager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m-test.dir/src/core/config_manager.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/core/config_manager.cpp" -o CMakeFiles/r3m-test.dir/src/core/config_manager.cpp.s
 
+CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.o: CMakeFiles/r3m-test.dir/flags.make
+CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/processing/pipeline.cpp
+CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.o: CMakeFiles/r3m-test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.o -MF CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.o.d -o CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/processing/pipeline.cpp"
+
+CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/processing/pipeline.cpp" > CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.i
+
+CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/processing/pipeline.cpp" -o CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.s
+
+CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.o: CMakeFiles/r3m-test.dir/flags.make
+CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/quality/assessor.cpp
+CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.o: CMakeFiles/r3m-test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.o -MF CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.o.d -o CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/quality/assessor.cpp"
+
+CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/quality/assessor.cpp" > CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.i
+
+CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/quality/assessor.cpp" -o CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.s
+
+CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.o: CMakeFiles/r3m-test.dir/flags.make
+CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/parallel/thread_pool.cpp
+CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.o: CMakeFiles/r3m-test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.o -MF CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.o.d -o CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/parallel/thread_pool.cpp"
+
+CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/parallel/thread_pool.cpp" > CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.i
+
+CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/parallel/thread_pool.cpp" -o CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.s
+
+CMakeFiles/r3m-test.dir/src/formats/processor.cpp.o: CMakeFiles/r3m-test.dir/flags.make
+CMakeFiles/r3m-test.dir/src/formats/processor.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/formats/processor.cpp
+CMakeFiles/r3m-test.dir/src/formats/processor.cpp.o: CMakeFiles/r3m-test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/r3m-test.dir/src/formats/processor.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-test.dir/src/formats/processor.cpp.o -MF CMakeFiles/r3m-test.dir/src/formats/processor.cpp.o.d -o CMakeFiles/r3m-test.dir/src/formats/processor.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/formats/processor.cpp"
+
+CMakeFiles/r3m-test.dir/src/formats/processor.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/r3m-test.dir/src/formats/processor.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/formats/processor.cpp" > CMakeFiles/r3m-test.dir/src/formats/processor.cpp.i
+
+CMakeFiles/r3m-test.dir/src/formats/processor.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m-test.dir/src/formats/processor.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/formats/processor.cpp" -o CMakeFiles/r3m-test.dir/src/formats/processor.cpp.s
+
+CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.o: CMakeFiles/r3m-test.dir/flags.make
+CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.o: /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/src/utils/text_utils.cpp
+CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.o: CMakeFiles/r3m-test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.o -MF CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.o.d -o CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.o -c "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/utils/text_utils.cpp"
+
+CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/utils/text_utils.cpp" > CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.i
+
+CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/src/utils/text_utils.cpp" -o CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.s
+
 # Object files for target r3m-test
 r3m__test_OBJECTS = \
-"CMakeFiles/r3m-test.dir/tests/test_output_to_data.cpp.o" \
+"CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.o" \
 "CMakeFiles/r3m-test.dir/src/core/document_processor.cpp.o" \
-"CMakeFiles/r3m-test.dir/src/core/config_manager.cpp.o"
+"CMakeFiles/r3m-test.dir/src/core/config_manager.cpp.o" \
+"CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.o" \
+"CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.o" \
+"CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.o" \
+"CMakeFiles/r3m-test.dir/src/formats/processor.cpp.o" \
+"CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.o"
 
 # External object files for target r3m-test
 r3m__test_EXTERNAL_OBJECTS =
 
-r3m-test: CMakeFiles/r3m-test.dir/tests/test_output_to_data.cpp.o
+r3m-test: CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.o
 r3m-test: CMakeFiles/r3m-test.dir/src/core/document_processor.cpp.o
 r3m-test: CMakeFiles/r3m-test.dir/src/core/config_manager.cpp.o
+r3m-test: CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.o
+r3m-test: CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.o
+r3m-test: CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.o
+r3m-test: CMakeFiles/r3m-test.dir/src/formats/processor.cpp.o
+r3m-test: CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.o
 r3m-test: CMakeFiles/r3m-test.dir/build.make
-r3m-test: /opt/homebrew/Cellar/poppler/25.07.0_1/lib/libpoppler-cpp.dylib
-r3m-test: /opt/homebrew/lib/libgumbo.dylib
 r3m-test: CMakeFiles/r3m-test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable r3m-test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable r3m-test"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/r3m-test.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

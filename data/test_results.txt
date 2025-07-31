@@ -1,170 +1,19 @@
-R3M Comprehensive Test Results - Parallel & Batch Processing
-============================================================
-
-1. PLAIN TEXT FORMATS TESTING
+R3M Comprehensive Test Results
 =============================
 
-Format: .txt
-File: test_document.txt
-Success: YES
-Processing time: 0.141875 ms
-Text length: 92 characters
-Extracted text: This is a test .txt file for R3M. Testing format: .txt Content should be extracted properly.
----
+Performance:
+- Sequential: 229 ms
+- Parallel: 63 ms
+- Speedup: 3.63492x
+- Efficiency: 90.873%
 
-Format: .md
-File: test_document.md
-Success: YES
-Processing time: 0.056166 ms
-Text length: 90 characters
-Extracted text: This is a test .md file for R3M. Testing format: .md Content should be extracted properly.
----
+Quality Assessment:
+- Average quality score: 0.514396
+- Filtered documents: 4
+- High-quality documents: 3
 
-Format: .mdx
-File: test_document.mdx
-Success: YES
-Processing time: 0.285459 ms
-Text length: 92 characters
-Extracted text: This is a test .mdx file for R3M. Testing format: .mdx Content should be extracted properly.
----
-
-Format: .conf
-File: test_document.conf
-Success: YES
-Processing time: 0.060334 ms
-Text length: 94 characters
-Extracted text: This is a test .conf file for R3M. Testing format: .conf Content should be extracted properly.
----
-
-Format: .log
-File: test_document.log
-Success: YES
-Processing time: 0.064542 ms
-Text length: 92 characters
-Extracted text: This is a test .log file for R3M. Testing format: .log Content should be extracted properly.
----
-
-Format: .json
-File: test_document.json
-Success: YES
-Processing time: 0.134041 ms
-Text length: 94 characters
-Extracted text: This is a test .json file for R3M. Testing format: .json Content should be extracted properly.
----
-
-Format: .csv
-File: test_document.csv
-Success: YES
-Processing time: 0.099917 ms
-Text length: 92 characters
-Extracted text: This is a test .csv file for R3M. Testing format: .csv Content should be extracted properly.
----
-
-Format: .tsv
-File: test_document.tsv
-Success: YES
-Processing time: 0.058083 ms
-Text length: 92 characters
-Extracted text: This is a test .tsv file for R3M. Testing format: .tsv Content should be extracted properly.
----
-
-Format: .xml
-File: test_document.xml
-Success: YES
-Processing time: 0.105959 ms
-Text length: 92 characters
-Extracted text: This is a test .xml file for R3M. Testing format: .xml Content should be extracted properly.
----
-
-Format: .yml
-File: test_document.yml
-Success: YES
-Processing time: 0.054583 ms
-Text length: 92 characters
-Extracted text: This is a test .yml file for R3M. Testing format: .yml Content should be extracted properly.
----
-
-Format: .yaml
-File: test_document.yaml
-Success: YES
-Processing time: 0.176208 ms
-Text length: 94 characters
-Extracted text: This is a test .yaml file for R3M. Testing format: .yaml Content should be extracted properly.
----
-
-2. HTML FORMAT TESTING
-======================
-
-HTML Test Case 1 (Simple HTML):
-Success: YES
-Processing time: 0.633375 ms
-Text length: 184 characters
-Extracted text: R3M HTML TestR3M HTML Processing TestThis is a test HTML document for R3M document processing.Features to Test:Text extraction from HTMLRemoval of HTML tagsPreservation of text content
----
-
-HTML Test Case 2 (Complex HTML):
-Success: YES
-Processing time: 0.61225 ms
-Text length: 563 characters
-Extracted text: R3M Complex HTML TestR3M Advanced HTML Processing TestTesting complex HTML structure with various elementsDocument Structure TestingThis document contains multiple sections to test HTML processing capabilities.Text ElementsTesting various text elements including bold text, italic text, and code snippets.Lists and TablesUnordered list item 1Unordered list item 2Unordered list item 3Ordered list item 1Ordered list item 2Ordered list item 3Header 1Header 2Data 1Data 2Data 3Data 4Footer content with additional information.This should be extracted as plain text.
----
-
-3. PDF FORMAT TESTING
-=====================
-
-PDF Processing Results:
-Success: YES
-Processing time: 5.15846 ms
-Text length: 595 characters
-Extracted text: R3M PDF Processing Test This is a test PDF document for R3M document processing. The PDF processor should extract this text content successfully from the PDF file. Features to Test: " Text extraction from PDF documents " Multi-page PDF processing " Preservation of text content " Fast processing performance This document contains various text elements including: " Headings and subheadings " Paragraphs with different formatting " Lists and bullet points " Styled content with CSS The R3M PDF processor uses poppler-cpp library to extract text content from PDF files efficiently and accurately.
----
-
-4. PARALLEL PROCESSING TEST
-==========================
-
-Parallel Processing Results:
-Files processed: 10
-Total processing time: 0 ms
-Average time per file: 0 ms
-Successful processing: 10/10
----
-
-5. BATCH PROCESSING TEST
-========================
-
-Batch Processing Results:
-Files processed: 20
-Total processing time: 0 ms
-Average time per file: 0 ms
-Successful processing: 20/20
----
-
-6. PROCESSING STATISTICS
-========================
-Total files processed: 44
-Successful processing: 44
-Failed processing: 0
-Average processing time: 0.20668 ms
-Total text extracted: 5198 characters
-Text files processed: 41
-PDF files processed: 1
-HTML files processed: 2
-
-7. PERFORMANCE COMPARISON
-=========================
-Parallel processing time: 0 ms for 10 files
-Batch processing time: 0 ms for 20 files
-Parallel throughput: 0 files/second
-Batch throughput: 0 files/second
-
-8. SUMMARY
-==========
-Total formats tested: 14
-Text formats: 11
-HTML formats: 2 (simple + complex)
-PDF format: 1
-Parallel processing: 10 files
-Batch processing: 20 files
-
-All test files created in: ../data/
-Main result file: ../data/test_results.txt
+Processing Statistics:
+- Total files: 54
+- Successful: 54
+- Failed: 0
+- Text extracted: 2308826 characters

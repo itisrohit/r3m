@@ -67,11 +67,11 @@ include CMakeFiles/clean-objs.dir/compiler_depend.make
 include CMakeFiles/clean-objs.dir/progress.make
 
 CMakeFiles/clean-objs:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Cleaning object files only"
-	find /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build -name *.o -delete
-	find /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build -name *.a -delete
-	find /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build -name *.so -delete
-	find /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/build -name *.dylib -delete
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir="/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Cleaning object files and libraries"
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/*.o
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/*.a
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/*.so
+	/opt/homebrew/bin/cmake -E remove -f /Users/RohitKumar/Desktop/GItHub\ Projects/onyx/r3m/*.dylib
 
 CMakeFiles/clean-objs.dir/codegen:
 .PHONY : CMakeFiles/clean-objs.dir/codegen
