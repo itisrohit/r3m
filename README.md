@@ -1,4 +1,4 @@
-# R3M - Rapid Document Processing Engine
+# R3M 
 
 > **Development Journal**: A high-performance C++ document processing pipeline with HTTP API capabilities
 
