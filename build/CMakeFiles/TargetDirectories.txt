@@ -3,6 +3,8 @@
 /Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/clean-objs.dir
 /Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/rebuild.dir
 /Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/test-output-to-data.dir
+/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/test-parallel.dir
+/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/test-advanced-features.dir
 /Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/run-output-to-data.dir
 /Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/test-all.dir
 /Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/build/CMakeFiles/edit_cache.dir

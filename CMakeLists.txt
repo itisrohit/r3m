@@ -90,7 +90,29 @@ add_executable(test-output-to-data
     ${CORE_SOURCES}
 )
 
+# Parallel processing test
+add_executable(test-parallel
+    tests/test_parallel.cpp
+    ${CORE_SOURCES}
+)
+
+# Advanced features test
+add_executable(test-advanced-features
+    tests/test_advanced_features.cpp
+    ${CORE_SOURCES}
+)
+
 target_link_libraries(test-output-to-data
+    /opt/homebrew/Cellar/poppler/25.07.0_1/lib/libpoppler-cpp.dylib
+    /opt/homebrew/lib/libgumbo.dylib
+)
+
+target_link_libraries(test-parallel
+    /opt/homebrew/Cellar/poppler/25.07.0_1/lib/libpoppler-cpp.dylib
+    /opt/homebrew/lib/libgumbo.dylib
+)
+
+target_link_libraries(test-advanced-features
     /opt/homebrew/Cellar/poppler/25.07.0_1/lib/libpoppler-cpp.dylib
     /opt/homebrew/lib/libgumbo.dylib
 )

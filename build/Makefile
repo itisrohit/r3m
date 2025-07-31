@@ -227,6 +227,32 @@ test-output-to-data/fast:
 .PHONY : test-output-to-data/fast
 
 #=============================================================================
+# Target rules for targets named test-parallel
+
+# Build rule for target.
+test-parallel: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test-parallel
+.PHONY : test-parallel
+
+# fast build rule for target.
+test-parallel/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-parallel.dir/build.make CMakeFiles/test-parallel.dir/build
+.PHONY : test-parallel/fast
+
+#=============================================================================
+# Target rules for targets named test-advanced-features
+
+# Build rule for target.
+test-advanced-features: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test-advanced-features
+.PHONY : test-advanced-features
+
+# fast build rule for target.
+test-advanced-features/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-advanced-features.dir/build.make CMakeFiles/test-advanced-features.dir/build
+.PHONY : test-advanced-features/fast
+
+#=============================================================================
 # Target rules for targets named run-output-to-data
 
 # Build rule for target.
@@ -259,6 +285,8 @@ src/core/config_manager.o: src/core/config_manager.cpp.o
 src/core/config_manager.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/config_manager.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-output-to-data.dir/build.make CMakeFiles/test-output-to-data.dir/src/core/config_manager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-parallel.dir/build.make CMakeFiles/test-parallel.dir/src/core/config_manager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-advanced-features.dir/build.make CMakeFiles/test-advanced-features.dir/src/core/config_manager.cpp.o
 .PHONY : src/core/config_manager.cpp.o
 
 src/core/config_manager.i: src/core/config_manager.cpp.i
@@ -268,6 +296,8 @@ src/core/config_manager.i: src/core/config_manager.cpp.i
 src/core/config_manager.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/config_manager.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-output-to-data.dir/build.make CMakeFiles/test-output-to-data.dir/src/core/config_manager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-parallel.dir/build.make CMakeFiles/test-parallel.dir/src/core/config_manager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-advanced-features.dir/build.make CMakeFiles/test-advanced-features.dir/src/core/config_manager.cpp.i
 .PHONY : src/core/config_manager.cpp.i
 
 src/core/config_manager.s: src/core/config_manager.cpp.s
@@ -277,6 +307,8 @@ src/core/config_manager.s: src/core/config_manager.cpp.s
 src/core/config_manager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/config_manager.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-output-to-data.dir/build.make CMakeFiles/test-output-to-data.dir/src/core/config_manager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-parallel.dir/build.make CMakeFiles/test-parallel.dir/src/core/config_manager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-advanced-features.dir/build.make CMakeFiles/test-advanced-features.dir/src/core/config_manager.cpp.s
 .PHONY : src/core/config_manager.cpp.s
 
 src/core/document_processor.o: src/core/document_processor.cpp.o
@@ -286,6 +318,8 @@ src/core/document_processor.o: src/core/document_processor.cpp.o
 src/core/document_processor.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/document_processor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-output-to-data.dir/build.make CMakeFiles/test-output-to-data.dir/src/core/document_processor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-parallel.dir/build.make CMakeFiles/test-parallel.dir/src/core/document_processor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-advanced-features.dir/build.make CMakeFiles/test-advanced-features.dir/src/core/document_processor.cpp.o
 .PHONY : src/core/document_processor.cpp.o
 
 src/core/document_processor.i: src/core/document_processor.cpp.i
@@ -295,6 +329,8 @@ src/core/document_processor.i: src/core/document_processor.cpp.i
 src/core/document_processor.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/document_processor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-output-to-data.dir/build.make CMakeFiles/test-output-to-data.dir/src/core/document_processor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-parallel.dir/build.make CMakeFiles/test-parallel.dir/src/core/document_processor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-advanced-features.dir/build.make CMakeFiles/test-advanced-features.dir/src/core/document_processor.cpp.i
 .PHONY : src/core/document_processor.cpp.i
 
 src/core/document_processor.s: src/core/document_processor.cpp.s
@@ -304,7 +340,33 @@ src/core/document_processor.s: src/core/document_processor.cpp.s
 src/core/document_processor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/document_processor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-output-to-data.dir/build.make CMakeFiles/test-output-to-data.dir/src/core/document_processor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-parallel.dir/build.make CMakeFiles/test-parallel.dir/src/core/document_processor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-advanced-features.dir/build.make CMakeFiles/test-advanced-features.dir/src/core/document_processor.cpp.s
 .PHONY : src/core/document_processor.cpp.s
+
+tests/test_advanced_features.o: tests/test_advanced_features.cpp.o
+.PHONY : tests/test_advanced_features.o
+
+# target to build an object file
+tests/test_advanced_features.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-advanced-features.dir/build.make CMakeFiles/test-advanced-features.dir/tests/test_advanced_features.cpp.o
+.PHONY : tests/test_advanced_features.cpp.o
+
+tests/test_advanced_features.i: tests/test_advanced_features.cpp.i
+.PHONY : tests/test_advanced_features.i
+
+# target to preprocess a source file
+tests/test_advanced_features.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-advanced-features.dir/build.make CMakeFiles/test-advanced-features.dir/tests/test_advanced_features.cpp.i
+.PHONY : tests/test_advanced_features.cpp.i
+
+tests/test_advanced_features.s: tests/test_advanced_features.cpp.s
+.PHONY : tests/test_advanced_features.s
+
+# target to generate assembly for a file
+tests/test_advanced_features.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-advanced-features.dir/build.make CMakeFiles/test-advanced-features.dir/tests/test_advanced_features.cpp.s
+.PHONY : tests/test_advanced_features.cpp.s
 
 tests/test_output_to_data.o: tests/test_output_to_data.cpp.o
 .PHONY : tests/test_output_to_data.o
@@ -333,6 +395,30 @@ tests/test_output_to_data.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-output-to-data.dir/build.make CMakeFiles/test-output-to-data.dir/tests/test_output_to_data.cpp.s
 .PHONY : tests/test_output_to_data.cpp.s
 
+tests/test_parallel.o: tests/test_parallel.cpp.o
+.PHONY : tests/test_parallel.o
+
+# target to build an object file
+tests/test_parallel.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-parallel.dir/build.make CMakeFiles/test-parallel.dir/tests/test_parallel.cpp.o
+.PHONY : tests/test_parallel.cpp.o
+
+tests/test_parallel.i: tests/test_parallel.cpp.i
+.PHONY : tests/test_parallel.i
+
+# target to preprocess a source file
+tests/test_parallel.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-parallel.dir/build.make CMakeFiles/test-parallel.dir/tests/test_parallel.cpp.i
+.PHONY : tests/test_parallel.cpp.i
+
+tests/test_parallel.s: tests/test_parallel.cpp.s
+.PHONY : tests/test_parallel.s
+
+# target to generate assembly for a file
+tests/test_parallel.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-parallel.dir/build.make CMakeFiles/test-parallel.dir/tests/test_parallel.cpp.s
+.PHONY : tests/test_parallel.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -351,16 +437,24 @@ help:
 	@echo "... run-output-to-data"
 	@echo "... test-all"
 	@echo "... r3m-test"
+	@echo "... test-advanced-features"
 	@echo "... test-output-to-data"
+	@echo "... test-parallel"
 	@echo "... src/core/config_manager.o"
 	@echo "... src/core/config_manager.i"
 	@echo "... src/core/config_manager.s"
 	@echo "... src/core/document_processor.o"
 	@echo "... src/core/document_processor.i"
 	@echo "... src/core/document_processor.s"
+	@echo "... tests/test_advanced_features.o"
+	@echo "... tests/test_advanced_features.i"
+	@echo "... tests/test_advanced_features.s"
 	@echo "... tests/test_output_to_data.o"
 	@echo "... tests/test_output_to_data.i"
 	@echo "... tests/test_output_to_data.s"
+	@echo "... tests/test_parallel.o"
+	@echo "... tests/test_parallel.i"
+	@echo "... tests/test_parallel.s"
 .PHONY : help
 
 

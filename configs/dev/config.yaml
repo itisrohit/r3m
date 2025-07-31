@@ -23,6 +23,10 @@ document_processing:
   enable_parallel_processing: true
   worker_threads: 4
   
+  # Batch processing settings (following Onyx's pattern)
+  batch_size: 16  # Default batch size (from Onyx's INDEX_BATCH_SIZE)
+  max_workers: 8  # Maximum worker threads (auto-detected if not set)
+  
   # Text processing
   text_processing:
     encoding_detection: true
@@ -31,12 +35,24 @@ document_processing:
     normalize_whitespace: true
     extract_metadata: true
   
+  # Quality filtering (advanced feature from Onyx)
+  quality_filtering:
+    enabled: true
+    min_content_quality_score: 0.3      # Minimum quality score (0.0-1.0)
+    min_information_density: 0.1        # Minimum information density
+    min_content_length: 50              # Minimum content length
+    max_content_length: 1000000         # Maximum content length
+    filter_empty_documents: true        # Filter out empty documents
+    filter_low_quality_documents: true  # Filter out low-quality documents
+  
   # Pipeline stages (core processing only)
   pipeline_stages:
     - "file_validation"
     - "text_extraction"
     - "text_cleaning"
     - "metadata_extraction"
+    - "quality_assessment"
+    - "filtering"
 
 # Engine configuration
 engine:

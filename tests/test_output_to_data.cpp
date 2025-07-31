@@ -3,6 +3,7 @@
 #include <filesystem>
 #include <vector>
 #include <string>
+#include <chrono>
 #include "r3m/core/document_processor.hpp"
 
 using namespace r3m::core;
@@ -20,11 +21,13 @@ int main() {
     config["document_processing.text_processing.remove_html_tags"] = "true";
     config["document_processing.text_processing.normalize_whitespace"] = "true";
     config["document_processing.text_processing.extract_metadata"] = "true";
+    config["document_processing.batch_size"] = "8";  // Smaller batch for testing
+    config["document_processing.max_workers"] = "4"; // 4 worker threads
     processor.initialize(config);
 
     std::ofstream results_file("../data/test_results.txt");
-    results_file << "R3M Comprehensive Test Results\n";
-    results_file << "==============================\n\n";
+    results_file << "R3M Comprehensive Test Results - Parallel & Batch Processing\n";
+    results_file << "============================================================\n\n";
 
     // Test 1: Plain Text Files (all supported formats)
     std::vector<std::string> text_formats = {
@@ -259,8 +262,88 @@ int main() {
     // Clean up temporary HTML file
     std::filesystem::remove(pdf_html_filepath);
 
-    // Test 4: Processing Statistics
-    results_file << "\n4. PROCESSING STATISTICS\n";
+    // Test 4: Parallel Processing Test
+    results_file << "\n4. PARALLEL PROCESSING TEST\n";
+    results_file << "==========================\n";
+
+    // Create multiple test files for parallel processing
+    std::vector<std::string> parallel_test_files;
+    for (int i = 0; i < 10; ++i) {
+        std::string filename = "parallel_test_" + std::to_string(i) + ".txt";
+        std::string filepath = "../data/" + filename;
+        
+        std::ofstream test_file(filepath);
+        test_file << "This is parallel test file " << i << " for R3M.\n";
+        test_file << "Testing parallel processing capabilities.\n";
+        test_file << "File number: " << i << "\n";
+        test_file.close();
+        
+        parallel_test_files.push_back(filepath);
+    }
+
+    // Test parallel processing
+    auto parallel_start = std::chrono::high_resolution_clock::now();
+    auto parallel_results = processor.process_documents_parallel(parallel_test_files);
+    auto parallel_end = std::chrono::high_resolution_clock::now();
+    
+    auto parallel_duration = std::chrono::duration_cast<std::chrono::milliseconds>(parallel_end - parallel_start);
+    
+    results_file << "\nParallel Processing Results:\n";
+    results_file << "Files processed: " << parallel_results.size() << "\n";
+    results_file << "Total processing time: " << parallel_duration.count() << " ms\n";
+    results_file << "Average time per file: " << (parallel_duration.count() > 0 ? parallel_duration.count() / parallel_results.size() : 0) << " ms\n";
+    
+    int successful_parallel = 0;
+    for (const auto& result : parallel_results) {
+        if (result.processing_success) {
+            successful_parallel++;
+        }
+    }
+    results_file << "Successful processing: " << successful_parallel << "/" << parallel_results.size() << "\n";
+    results_file << "---\n";
+
+    // Test 5: Batch Processing Test
+    results_file << "\n5. BATCH PROCESSING TEST\n";
+    results_file << "========================\n";
+
+    // Create more test files for batch processing
+    std::vector<std::string> batch_test_files;
+    for (int i = 0; i < 20; ++i) {
+        std::string filename = "batch_test_" + std::to_string(i) + ".txt";
+        std::string filepath = "../data/" + filename;
+        
+        std::ofstream test_file(filepath);
+        test_file << "This is batch test file " << i << " for R3M.\n";
+        test_file << "Testing batch processing capabilities.\n";
+        test_file << "Batch file number: " << i << "\n";
+        test_file.close();
+        
+        batch_test_files.push_back(filepath);
+    }
+
+    // Test batch processing
+    auto batch_start = std::chrono::high_resolution_clock::now();
+    auto batch_results = processor.process_documents_batch(batch_test_files);
+    auto batch_end = std::chrono::high_resolution_clock::now();
+    
+    auto batch_duration = std::chrono::duration_cast<std::chrono::milliseconds>(batch_end - batch_start);
+    
+    results_file << "\nBatch Processing Results:\n";
+    results_file << "Files processed: " << batch_results.size() << "\n";
+    results_file << "Total processing time: " << batch_duration.count() << " ms\n";
+    results_file << "Average time per file: " << (batch_duration.count() > 0 ? batch_duration.count() / batch_results.size() : 0) << " ms\n";
+    
+    int successful_batch = 0;
+    for (const auto& result : batch_results) {
+        if (result.processing_success) {
+            successful_batch++;
+        }
+    }
+    results_file << "Successful processing: " << successful_batch << "/" << batch_results.size() << "\n";
+    results_file << "---\n";
+
+    // Test 6: Processing Statistics
+    results_file << "\n6. PROCESSING STATISTICS\n";
     results_file << "========================\n";
     
     auto stats = processor.get_processing_stats();
@@ -273,13 +356,29 @@ int main() {
     results_file << "PDF files processed: " << stats.pdf_files_processed << "\n";
     results_file << "HTML files processed: " << stats.html_files_processed << "\n";
 
+    // Performance comparison
+    results_file << "\n7. PERFORMANCE COMPARISON\n";
+    results_file << "=========================\n";
+    results_file << "Parallel processing time: " << parallel_duration.count() << " ms for " << parallel_results.size() << " files\n";
+    results_file << "Batch processing time: " << batch_duration.count() << " ms for " << batch_results.size() << " files\n";
+    
+    double parallel_throughput = (parallel_duration.count() > 0) ? 
+        (parallel_results.size() * 1000.0 / parallel_duration.count()) : 0;
+    double batch_throughput = (batch_duration.count() > 0) ? 
+        (batch_results.size() * 1000.0 / batch_duration.count()) : 0;
+    
+    results_file << "Parallel throughput: " << parallel_throughput << " files/second\n";
+    results_file << "Batch throughput: " << batch_throughput << " files/second\n";
+
     // Summary
-    results_file << "\n5. SUMMARY\n";
+    results_file << "\n8. SUMMARY\n";
     results_file << "==========\n";
     results_file << "Total formats tested: " << (text_formats.size() + 3) << "\n";
     results_file << "Text formats: " << text_formats.size() << "\n";
     results_file << "HTML formats: 2 (simple + complex)\n";
     results_file << "PDF format: 1\n";
+    results_file << "Parallel processing: " << parallel_results.size() << " files\n";
+    results_file << "Batch processing: " << batch_results.size() << " files\n";
     results_file << "\nAll test files created in: ../data/\n";
     results_file << "Main result file: ../data/test_results.txt\n";
 
@@ -293,6 +392,8 @@ int main() {
     std::cout << "  Text files: " << stats.text_files_processed << "\n";
     std::cout << "  HTML files: " << stats.html_files_processed << "\n";
     std::cout << "  PDF files: " << stats.pdf_files_processed << "\n";
+    std::cout << "  Parallel processing: " << parallel_results.size() << " files\n";
+    std::cout << "  Batch processing: " << batch_results.size() << " files\n";
 
     return 0;
 }
