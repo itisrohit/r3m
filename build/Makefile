@@ -31,6 +31,9 @@ default_target: all
 
 .SUFFIXES: .hpux_make_needs_suffix_list
 
+# Produce verbose output by default.
+VERBOSE = 1
+
 # Command-line flag to silence nested $(MAKE).
 $(VERBOSE)MAKESILENT = -s
 
@@ -117,6 +120,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named r3m
+
+# Build rule for target.
+r3m: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 r3m
+.PHONY : r3m
+
+# fast build rule for target.
+r3m/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/build
+.PHONY : r3m/fast
+
+#=============================================================================
 # Target rules for targets named r3m-test
 
 # Build rule for target.
@@ -128,6 +144,19 @@ r3m-test: cmake_check_build_system
 r3m-test/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/build
 .PHONY : r3m-test/fast
+
+#=============================================================================
+# Target rules for targets named r3m-http-test
+
+# Build rule for target.
+r3m-http-test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 r3m-http-test
+.PHONY : r3m-http-test
+
+# fast build rule for target.
+r3m-http-test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/build
+.PHONY : r3m-http-test/fast
 
 #=============================================================================
 # Target rules for targets named clean-all
@@ -199,7 +228,9 @@ src/core/config_manager.o: src/core/config_manager.cpp.o
 
 # target to build an object file
 src/core/config_manager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/core/config_manager.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/config_manager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/config_manager.cpp.o
 .PHONY : src/core/config_manager.cpp.o
 
 src/core/config_manager.i: src/core/config_manager.cpp.i
@@ -207,7 +238,9 @@ src/core/config_manager.i: src/core/config_manager.cpp.i
 
 # target to preprocess a source file
 src/core/config_manager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/core/config_manager.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/config_manager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/config_manager.cpp.i
 .PHONY : src/core/config_manager.cpp.i
 
 src/core/config_manager.s: src/core/config_manager.cpp.s
@@ -215,7 +248,9 @@ src/core/config_manager.s: src/core/config_manager.cpp.s
 
 # target to generate assembly for a file
 src/core/config_manager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/core/config_manager.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/config_manager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/config_manager.cpp.s
 .PHONY : src/core/config_manager.cpp.s
 
 src/core/document_processor.o: src/core/document_processor.cpp.o
@@ -223,7 +258,9 @@ src/core/document_processor.o: src/core/document_processor.cpp.o
 
 # target to build an object file
 src/core/document_processor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/core/document_processor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/document_processor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/document_processor.cpp.o
 .PHONY : src/core/document_processor.cpp.o
 
 src/core/document_processor.i: src/core/document_processor.cpp.i
@@ -231,7 +268,9 @@ src/core/document_processor.i: src/core/document_processor.cpp.i
 
 # target to preprocess a source file
 src/core/document_processor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/core/document_processor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/document_processor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/document_processor.cpp.i
 .PHONY : src/core/document_processor.cpp.i
 
 src/core/document_processor.s: src/core/document_processor.cpp.s
@@ -239,7 +278,9 @@ src/core/document_processor.s: src/core/document_processor.cpp.s
 
 # target to generate assembly for a file
 src/core/document_processor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/core/document_processor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/core/document_processor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/core/document_processor.cpp.s
 .PHONY : src/core/document_processor.cpp.s
 
 src/formats/processor.o: src/formats/processor.cpp.o
@@ -247,7 +288,9 @@ src/formats/processor.o: src/formats/processor.cpp.o
 
 # target to build an object file
 src/formats/processor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/formats/processor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/formats/processor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/formats/processor.cpp.o
 .PHONY : src/formats/processor.cpp.o
 
 src/formats/processor.i: src/formats/processor.cpp.i
@@ -255,7 +298,9 @@ src/formats/processor.i: src/formats/processor.cpp.i
 
 # target to preprocess a source file
 src/formats/processor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/formats/processor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/formats/processor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/formats/processor.cpp.i
 .PHONY : src/formats/processor.cpp.i
 
 src/formats/processor.s: src/formats/processor.cpp.s
@@ -263,15 +308,43 @@ src/formats/processor.s: src/formats/processor.cpp.s
 
 # target to generate assembly for a file
 src/formats/processor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/formats/processor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/formats/processor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/formats/processor.cpp.s
 .PHONY : src/formats/processor.cpp.s
+
+src/main.o: src/main.cpp.o
+.PHONY : src/main.o
+
+# target to build an object file
+src/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
+
+src/main.i: src/main.cpp.i
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
+
+src/main.s: src/main.cpp.s
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
 
 src/parallel/thread_pool.o: src/parallel/thread_pool.cpp.o
 .PHONY : src/parallel/thread_pool.o
 
 # target to build an object file
 src/parallel/thread_pool.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/parallel/thread_pool.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/parallel/thread_pool.cpp.o
 .PHONY : src/parallel/thread_pool.cpp.o
 
 src/parallel/thread_pool.i: src/parallel/thread_pool.cpp.i
@@ -279,7 +352,9 @@ src/parallel/thread_pool.i: src/parallel/thread_pool.cpp.i
 
 # target to preprocess a source file
 src/parallel/thread_pool.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/parallel/thread_pool.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/parallel/thread_pool.cpp.i
 .PHONY : src/parallel/thread_pool.cpp.i
 
 src/parallel/thread_pool.s: src/parallel/thread_pool.cpp.s
@@ -287,7 +362,9 @@ src/parallel/thread_pool.s: src/parallel/thread_pool.cpp.s
 
 # target to generate assembly for a file
 src/parallel/thread_pool.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/parallel/thread_pool.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/parallel/thread_pool.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/parallel/thread_pool.cpp.s
 .PHONY : src/parallel/thread_pool.cpp.s
 
 src/processing/pipeline.o: src/processing/pipeline.cpp.o
@@ -295,7 +372,9 @@ src/processing/pipeline.o: src/processing/pipeline.cpp.o
 
 # target to build an object file
 src/processing/pipeline.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/processing/pipeline.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/processing/pipeline.cpp.o
 .PHONY : src/processing/pipeline.cpp.o
 
 src/processing/pipeline.i: src/processing/pipeline.cpp.i
@@ -303,7 +382,9 @@ src/processing/pipeline.i: src/processing/pipeline.cpp.i
 
 # target to preprocess a source file
 src/processing/pipeline.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/processing/pipeline.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/processing/pipeline.cpp.i
 .PHONY : src/processing/pipeline.cpp.i
 
 src/processing/pipeline.s: src/processing/pipeline.cpp.s
@@ -311,7 +392,9 @@ src/processing/pipeline.s: src/processing/pipeline.cpp.s
 
 # target to generate assembly for a file
 src/processing/pipeline.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/processing/pipeline.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/processing/pipeline.cpp.s
 .PHONY : src/processing/pipeline.cpp.s
 
 src/quality/assessor.o: src/quality/assessor.cpp.o
@@ -319,7 +402,9 @@ src/quality/assessor.o: src/quality/assessor.cpp.o
 
 # target to build an object file
 src/quality/assessor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/quality/assessor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/quality/assessor.cpp.o
 .PHONY : src/quality/assessor.cpp.o
 
 src/quality/assessor.i: src/quality/assessor.cpp.i
@@ -327,7 +412,9 @@ src/quality/assessor.i: src/quality/assessor.cpp.i
 
 # target to preprocess a source file
 src/quality/assessor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/quality/assessor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/quality/assessor.cpp.i
 .PHONY : src/quality/assessor.cpp.i
 
 src/quality/assessor.s: src/quality/assessor.cpp.s
@@ -335,15 +422,49 @@ src/quality/assessor.s: src/quality/assessor.cpp.s
 
 # target to generate assembly for a file
 src/quality/assessor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/quality/assessor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/quality/assessor.cpp.s
 .PHONY : src/quality/assessor.cpp.s
+
+src/server/http_server.o: src/server/http_server.cpp.o
+.PHONY : src/server/http_server.o
+
+# target to build an object file
+src/server/http_server.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/server/http_server.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/server/http_server.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/server/http_server.cpp.o
+.PHONY : src/server/http_server.cpp.o
+
+src/server/http_server.i: src/server/http_server.cpp.i
+.PHONY : src/server/http_server.i
+
+# target to preprocess a source file
+src/server/http_server.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/server/http_server.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/server/http_server.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/server/http_server.cpp.i
+.PHONY : src/server/http_server.cpp.i
+
+src/server/http_server.s: src/server/http_server.cpp.s
+.PHONY : src/server/http_server.s
+
+# target to generate assembly for a file
+src/server/http_server.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/server/http_server.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/server/http_server.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/server/http_server.cpp.s
+.PHONY : src/server/http_server.cpp.s
 
 src/utils/text_utils.o: src/utils/text_utils.cpp.o
 .PHONY : src/utils/text_utils.o
 
 # target to build an object file
 src/utils/text_utils.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/utils/text_utils.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/utils/text_utils.cpp.o
 .PHONY : src/utils/text_utils.cpp.o
 
 src/utils/text_utils.i: src/utils/text_utils.cpp.i
@@ -351,7 +472,9 @@ src/utils/text_utils.i: src/utils/text_utils.cpp.i
 
 # target to preprocess a source file
 src/utils/text_utils.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/utils/text_utils.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/utils/text_utils.cpp.i
 .PHONY : src/utils/text_utils.cpp.i
 
 src/utils/text_utils.s: src/utils/text_utils.cpp.s
@@ -359,7 +482,9 @@ src/utils/text_utils.s: src/utils/text_utils.cpp.s
 
 # target to generate assembly for a file
 src/utils/text_utils.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m.dir/build.make CMakeFiles/r3m.dir/src/utils/text_utils.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/src/utils/text_utils.cpp.s
 .PHONY : src/utils/text_utils.cpp.s
 
 tests/test_comprehensive.o: tests/test_comprehensive.cpp.o
@@ -386,6 +511,30 @@ tests/test_comprehensive.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-test.dir/build.make CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.s
 .PHONY : tests/test_comprehensive.cpp.s
 
+tests/test_http_server.o: tests/test_http_server.cpp.o
+.PHONY : tests/test_http_server.o
+
+# target to build an object file
+tests/test_http_server.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/tests/test_http_server.cpp.o
+.PHONY : tests/test_http_server.cpp.o
+
+tests/test_http_server.i: tests/test_http_server.cpp.i
+.PHONY : tests/test_http_server.i
+
+# target to preprocess a source file
+tests/test_http_server.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/tests/test_http_server.cpp.i
+.PHONY : tests/test_http_server.cpp.i
+
+tests/test_http_server.s: tests/test_http_server.cpp.s
+.PHONY : tests/test_http_server.s
+
+# target to generate assembly for a file
+tests/test_http_server.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/r3m-http-test.dir/build.make CMakeFiles/r3m-http-test.dir/tests/test_http_server.cpp.s
+.PHONY : tests/test_http_server.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -399,6 +548,8 @@ help:
 	@echo "... clean-test-data"
 	@echo "... rebuild"
 	@echo "... test"
+	@echo "... r3m"
+	@echo "... r3m-http-test"
 	@echo "... r3m-test"
 	@echo "... src/core/config_manager.o"
 	@echo "... src/core/config_manager.i"
@@ -409,6 +560,9 @@ help:
 	@echo "... src/formats/processor.o"
 	@echo "... src/formats/processor.i"
 	@echo "... src/formats/processor.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 	@echo "... src/parallel/thread_pool.o"
 	@echo "... src/parallel/thread_pool.i"
 	@echo "... src/parallel/thread_pool.s"
@@ -418,12 +572,18 @@ help:
 	@echo "... src/quality/assessor.o"
 	@echo "... src/quality/assessor.i"
 	@echo "... src/quality/assessor.s"
+	@echo "... src/server/http_server.o"
+	@echo "... src/server/http_server.i"
+	@echo "... src/server/http_server.s"
 	@echo "... src/utils/text_utils.o"
 	@echo "... src/utils/text_utils.i"
 	@echo "... src/utils/text_utils.s"
 	@echo "... tests/test_comprehensive.o"
 	@echo "... tests/test_comprehensive.i"
 	@echo "... tests/test_comprehensive.s"
+	@echo "... tests/test_http_server.o"
+	@echo "... tests/test_http_server.i"
+	@echo "... tests/test_http_server.s"
 .PHONY : help
 
 

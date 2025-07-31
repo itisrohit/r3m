@@ -25,12 +25,79 @@ message(STATUS "Build directory: ${CMAKE_BINARY_DIR}")
 find_package(PkgConfig REQUIRED)
 find_package(Threads REQUIRED)
 
+# Find Crow HTTP server
+find_package(Crow QUIET)
+if(NOT Crow_FOUND)
+    # Try to find Crow via pkg-config
+    pkg_check_modules(CROW QUIET crow)
+    if(CROW_FOUND)
+        set(Crow_INCLUDE_DIRS ${CROW_INCLUDE_DIRS})
+        set(Crow_LIBRARIES ${CROW_LIBRARIES})
+        set(Crow_FOUND TRUE)
+    endif()
+endif()
+
+# Manual Crow detection if pkg-config fails
+if(NOT Crow_FOUND)
+    find_path(Crow_INCLUDE_DIRS NAMES crow.h
+        PATHS /opt/homebrew/Cellar/crow/*/include
+        NO_DEFAULT_PATH
+    )
+    if(Crow_INCLUDE_DIRS)
+        set(Crow_FOUND TRUE)
+        set(Crow_LIBRARIES "")
+        message(STATUS "Found Crow manually: ${Crow_INCLUDE_DIRS}")
+    endif()
+endif()
+
+# Find ONNX Runtime (for future use)
+find_package(ONNXRuntime QUIET)
+
+# Find nlohmann_json (for JSON handling)
+find_package(nlohmann_json QUIET)
+if(NOT nlohmann_json_FOUND)
+    # Try to find via pkg-config
+    pkg_check_modules(NLOHMANN_JSON QUIET nlohmann_json)
+    if(NLOHMANN_JSON_FOUND)
+        set(nlohmann_json_INCLUDE_DIRS ${NLOHMANN_JSON_INCLUDE_DIRS})
+        set(nlohmann_json_LIBRARIES ${NLOHMANN_JSON_LIBRARIES})
+        set(nlohmann_json_FOUND TRUE)
+    endif()
+endif()
+
+# Set conditional compilation definitions
+if(Crow_FOUND)
+    add_definitions(-DR3M_HTTP_ENABLED)
+    message(STATUS "HTTP server enabled (Crow found)")
+else()
+    message(STATUS "HTTP server disabled (Crow not found)")
+endif()
+
+# Only enable JSON if we can actually find the headers
+if(nlohmann_json_FOUND)
+    # Test if we can actually include the header
+    include(CheckCXXSourceCompiles)
+    set(CMAKE_REQUIRED_INCLUDES ${nlohmann_json_INCLUDE_DIRS})
+    set(CMAKE_REQUIRED_LIBRARIES ${nlohmann_json_LIBRARIES})
+    check_cxx_source_compiles("#include <nlohmann/json.hpp>\nint main() { return 0; }" NLOHMANN_JSON_WORKS)
+    
+    if(NLOHMANN_JSON_WORKS)
+        add_definitions(-DR3M_JSON_ENABLED)
+        message(STATUS "JSON library enabled (nlohmann_json found and working)")
+    else()
+        set(nlohmann_json_FOUND FALSE)
+        message(STATUS "JSON library disabled (nlohmann_json headers not found)")
+    endif()
+else()
+    message(STATUS "JSON library disabled (nlohmann_json not found)")
+endif()
+
 # Find poppler-cpp
-pkg_check_modules(POPPLER REQUIRED poppler-cpp)
-if(POPPLER_FOUND)
-    message(STATUS "Found poppler-cpp: ${POPPLER_VERSION}")
-    include_directories(${POPPLER_INCLUDE_DIRS})
-    link_directories(${POPPLER_LIBRARY_DIRS})
+pkg_check_modules(POPPLER_CPP REQUIRED poppler-cpp)
+if(POPPLER_CPP_FOUND)
+    message(STATUS "Found poppler-cpp: ${POPPLER_CPP_VERSION}")
+    include_directories(${POPPLER_CPP_INCLUDE_DIRS})
+    link_directories(${POPPLER_CPP_LIBRARY_DIRS})
 endif()
 
 # Find gumbo
@@ -51,7 +118,7 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND CMAKE_SYSTEM_NAME STREQUAL "Li
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lstdc++fs")
 endif()
 
-# Source files organized by module
+# Source files
 set(CORE_SOURCES
     src/core/document_processor.cpp
     src/core/config_manager.cpp
@@ -77,6 +144,14 @@ set(UTILS_SOURCES
     src/utils/text_utils.cpp
 )
 
+set(SERVER_SOURCES
+    src/server/http_server.cpp
+)
+
+set(MAIN_SOURCES
+    src/main.cpp
+)
+
 # Combine all sources
 set(ALL_SOURCES
     ${CORE_SOURCES}
@@ -85,20 +160,96 @@ set(ALL_SOURCES
     ${PARALLEL_SOURCES}
     ${FORMATS_SOURCES}
     ${UTILS_SOURCES}
+    ${SERVER_SOURCES}
+    ${MAIN_SOURCES}
 )
+
+# Create main R3M executable
+add_executable(r3m ${ALL_SOURCES})
+
+# Set include directories
+target_include_directories(r3m PRIVATE 
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${POPPLER_CPP_INCLUDE_DIRS}
+    ${GUMBO_INCLUDE_DIRS}
+)
+
+# Link libraries
+target_link_libraries(r3m 
+    ${POPPLER_CPP_LIBRARIES}
+    ${GUMBO_LIBRARIES}
+    Threads::Threads
+)
+
+# Add Crow HTTP server if found
+if(Crow_FOUND)
+    target_link_libraries(r3m Crow::Crow)
+    target_compile_definitions(r3m PRIVATE R3M_HTTP_ENABLED)
+endif()
+
+# Add JSON library if found
+if(nlohmann_json_FOUND)
+    target_include_directories(r3m PRIVATE ${nlohmann_json_INCLUDE_DIRS})
+    target_link_libraries(r3m ${nlohmann_json_LIBRARIES})
+    target_compile_definitions(r3m PRIVATE R3M_JSON_ENABLED)
+endif()
+
+# Cross-platform compatibility
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    target_link_libraries(r3m stdc++fs)
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    target_link_libraries(r3m stdc++fs)
+endif()
 
 # Main comprehensive test executable
 add_executable(r3m-test
     tests/test_comprehensive.cpp
-    ${ALL_SOURCES}
+    ${CORE_SOURCES}
+    ${PROCESSING_SOURCES}
+    ${QUALITY_SOURCES}
+    ${PARALLEL_SOURCES}
+    ${FORMATS_SOURCES}
+    ${UTILS_SOURCES}
+    ${SERVER_SOURCES}
+)
+
+# HTTP server test executable
+add_executable(r3m-http-test
+    tests/test_http_server.cpp
+    ${CORE_SOURCES}
+    ${PROCESSING_SOURCES}
+    ${QUALITY_SOURCES}
+    ${PARALLEL_SOURCES}
+    ${FORMATS_SOURCES}
+    ${UTILS_SOURCES}
+    ${SERVER_SOURCES}
 )
 
 # Link libraries for the main executable
 target_link_libraries(r3m-test
     ${CMAKE_THREAD_LIBS_INIT}
-    ${POPPLER_LIBRARIES}
+    ${POPPLER_CPP_LIBRARIES}
     ${GUMBO_LIBRARIES}
 )
+
+# Add Crow to test executables if found
+if(Crow_FOUND)
+    target_link_libraries(r3m-test Crow::Crow)
+    target_compile_definitions(r3m-test PRIVATE R3M_HTTP_ENABLED)
+endif()
+
+# Link libraries for the HTTP server test
+target_link_libraries(r3m-http-test
+    ${CMAKE_THREAD_LIBS_INIT}
+    ${POPPLER_CPP_LIBRARIES}
+    ${GUMBO_LIBRARIES}
+)
+
+# Add Crow to HTTP test executable if found
+if(Crow_FOUND)
+    target_link_libraries(r3m-http-test Crow::Crow)
+    target_compile_definitions(r3m-http-test PRIVATE R3M_HTTP_ENABLED)
+endif()
 
 # Custom targets for build management
 add_custom_target(clean-all

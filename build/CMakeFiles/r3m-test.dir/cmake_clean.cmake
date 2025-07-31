@@ -11,6 +11,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/r3m-test.dir/src/processing/pipeline.cpp.o.d"
   "CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.o"
   "CMakeFiles/r3m-test.dir/src/quality/assessor.cpp.o.d"
+  "CMakeFiles/r3m-test.dir/src/server/http_server.cpp.o"
+  "CMakeFiles/r3m-test.dir/src/server/http_server.cpp.o.d"
   "CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.o"
   "CMakeFiles/r3m-test.dir/src/utils/text_utils.cpp.o.d"
   "CMakeFiles/r3m-test.dir/tests/test_comprehensive.cpp.o"

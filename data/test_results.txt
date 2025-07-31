@@ -4,8 +4,8 @@ R3M Comprehensive Test Results
 Performance:
 - Sequential: 230 ms
 - Parallel: 63 ms
-- Speedup: 2.64368x
-- Efficiency: 66.092%
+- Speedup: 2.875x
+- Efficiency: 71.875%
 
 Quality Assessment:
 - Average quality score: 0.509971

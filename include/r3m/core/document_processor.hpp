@@ -11,6 +11,7 @@
 #include <unordered_map>
 #include <chrono>
 #include <memory>
+#include <mutex>
 
 namespace r3m {
 namespace core {
@@ -70,22 +71,30 @@ public:
     // Statistics and metrics
     ProcessingStats get_processing_stats() const;
     void reset_stats();
+    ProcessingStats get_statistics() const { return stats_; }
+    
+    // Configuration
+    bool is_initialized() const { return initialized_; }
 
 private:
-    // Modular components
+    // Configuration
+    std::unordered_map<std::string, std::string> config_;
+    bool initialized_ = false;
+    
+    // Processing components
     std::unique_ptr<processing::PipelineOrchestrator> pipeline_;
     std::unique_ptr<quality::QualityAssessor> quality_assessor_;
     std::unique_ptr<parallel::ThreadPool> thread_pool_;
     std::unique_ptr<formats::FormatProcessor> format_processor_;
     
-    // Configuration
-    std::unordered_map<std::string, std::string> config_;
-    size_t batch_size_;
-    size_t max_workers_;
+    // Processing settings
+    int batch_size_ = 16;
+    int max_workers_ = 4;
+    bool enable_parallel_processing_ = true;
     
     // Statistics
-    mutable std::mutex stats_mutex_;
     ProcessingStats stats_;
+    mutable std::mutex stats_mutex_;
     
     // Internal processing methods
     DocumentResult process_single_document(const std::string& file_path);

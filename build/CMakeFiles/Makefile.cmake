@@ -10,8 +10,16 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/Users/RohitKumar/Desktop/GItHub Projects/onyx/r3m/CMakeLists.txt"
   "CMakeFiles/4.0.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/4.0.3/CMakeSystem.cmake"
+  "/opt/homebrew/lib/cmake/Crow/CrowConfig.cmake"
+  "/opt/homebrew/lib/cmake/Crow/CrowTargets.cmake"
+  "/opt/homebrew/lib/cmake/Crow/Findasio.cmake"
+  "/opt/homebrew/lib/cmake/onnxruntime/ONNXRuntimeConfigVersion.cmake"
+  "/opt/homebrew/lib/cmake/onnxruntime/onnxruntimeConfig.cmake"
+  "/opt/homebrew/lib/cmake/onnxruntime/onnxruntimeTargets-release.cmake"
+  "/opt/homebrew/lib/cmake/onnxruntime/onnxruntimeTargets.cmake"
   "/opt/homebrew/share/cmake/Modules/CMakeCXXInformation.cmake"
   "/opt/homebrew/share/cmake/Modules/CMakeCommonLanguageInclude.cmake"
+  "/opt/homebrew/share/cmake/Modules/CMakeFindDependencyMacro.cmake"
   "/opt/homebrew/share/cmake/Modules/CMakeGenericSystem.cmake"
   "/opt/homebrew/share/cmake/Modules/CMakeInitializeConfigs.cmake"
   "/opt/homebrew/share/cmake/Modules/CMakeLanguageInformation.cmake"
@@ -41,6 +49,9 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/opt/homebrew/share/cmake/Modules/Platform/Linker/Apple-AppleClang-CXX.cmake"
   "/opt/homebrew/share/cmake/Modules/Platform/Linker/Apple-AppleClang.cmake"
   "/opt/homebrew/share/cmake/Modules/Platform/UnixPaths.cmake"
+  "/opt/homebrew/share/cmake/nlohmann_json/nlohmann_jsonConfig.cmake"
+  "/opt/homebrew/share/cmake/nlohmann_json/nlohmann_jsonConfigVersion.cmake"
+  "/opt/homebrew/share/cmake/nlohmann_json/nlohmann_jsonTargets.cmake"
   )
 
 # The corresponding makefile is:
@@ -56,7 +67,9 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
+  "CMakeFiles/r3m.dir/DependInfo.cmake"
   "CMakeFiles/r3m-test.dir/DependInfo.cmake"
+  "CMakeFiles/r3m-http-test.dir/DependInfo.cmake"
   "CMakeFiles/clean-all.dir/DependInfo.cmake"
   "CMakeFiles/clean-test-data.dir/DependInfo.cmake"
   "CMakeFiles/clean-objs.dir/DependInfo.cmake"
