@@ -6,6 +6,7 @@
 #include <thread>
 #include <sys/resource.h>
 #include <unistd.h>
+#include <filesystem>
 
 namespace r3m {
 namespace utils {
@@ -97,6 +98,13 @@ void PerformanceUtils::PerformanceMonitor::print_summary() const {
 }
 
 void PerformanceUtils::PerformanceMonitor::export_to_csv(const std::string& filename) const {
+    // Create directory if it doesn't exist
+    std::filesystem::path filepath(filename);
+    std::filesystem::path dir = filepath.parent_path();
+    if (!dir.empty()) {
+        std::filesystem::create_directories(dir);
+    }
+    
     std::ofstream file(filename);
     if (!file.is_open()) {
         std::cerr << "❌ Failed to open file: " << filename << std::endl;

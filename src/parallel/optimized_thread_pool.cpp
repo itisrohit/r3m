@@ -16,9 +16,11 @@ OptimizedThreadPool::MemoryPool::MemoryPool(size_t pool_size) {
     for (size_t i = 0; i < num_blocks; ++i) {
         Block block;
         block.data = malloc(block_size);
-        block.size = block_size;
-        block.used = false;
-        blocks_.push_back(block);
+        if (block.data) {  // Only add block if malloc succeeded
+            block.size = block_size;
+            block.used = false;
+            blocks_.push_back(block);
+        }
     }
 }
 
@@ -42,10 +44,16 @@ void* OptimizedThreadPool::MemoryPool::allocate(size_t size) {
     }
     
     // If no suitable block found, fallback to malloc
-    return malloc(size);
+    void* ptr = malloc(size);
+    return ptr;  // Can be nullptr if malloc fails
 }
 
 void OptimizedThreadPool::MemoryPool::deallocate(void* ptr) {
+    // Check for null pointer
+    if (!ptr) {
+        return;
+    }
+    
     std::lock_guard<std::mutex> lock(pool_mutex_);
     
     // Find the block and mark it as available
@@ -57,7 +65,10 @@ void OptimizedThreadPool::MemoryPool::deallocate(void* ptr) {
     }
     
     // If not found in pool, fallback to free
-    free(ptr);
+    // Only free if ptr is not null and not already freed
+    if (ptr) {
+        free(ptr);
+    }
 }
 
 // OptimizedThreadPool implementation
