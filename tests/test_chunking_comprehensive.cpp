@@ -9,6 +9,7 @@
 #include "r3m/chunking/tokenizer.hpp"
 #include "r3m/chunking/metadata_processor.hpp"
 #include "r3m/chunking/chunk_models.hpp"
+#include "r3m/chunking/section_processing/section_processor.hpp"
 
 using namespace r3m::chunking;
 
@@ -82,7 +83,7 @@ void test_title_and_metadata_token_management() {
     doc.metadata["status"] = "active";
 
     // Add sections
-    doc.sections.push_back(AdvancedChunker::DocumentSection(
+    doc.sections.push_back(section_processing::DocumentSection(
         "This is the first section of the document. It contains important information about the topic.",
         "https://example.com/section1"
     ));
@@ -133,7 +134,7 @@ void test_token_management() {
     doc.metadata["tags"] = "testing, chunking, token management";
     
     // Add sections
-    doc.sections.push_back(AdvancedChunker::DocumentSection(
+    doc.sections.push_back(section_processing::DocumentSection(
         "This is the first section of the document. It contains important information about the topic.",
         "https://example.com/section1"
     ));
@@ -172,15 +173,15 @@ void test_section_processing_with_continuation() {
     doc.full_content = "This document has multiple sections that should be processed correctly.";
 
     // Add multiple sections
-    doc.sections.push_back(AdvancedChunker::DocumentSection(
+    doc.sections.push_back(section_processing::DocumentSection(
         "This is the first section. It contains some content that should be processed.",
         "https://example.com/section1"
     ));
-    doc.sections.push_back(AdvancedChunker::DocumentSection(
+    doc.sections.push_back(section_processing::DocumentSection(
         "This is the second section. It continues from the first section.",
         "https://example.com/section2"
     ));
-    doc.sections.push_back(AdvancedChunker::DocumentSection(
+    doc.sections.push_back(section_processing::DocumentSection(
         "This is the third section. It should be processed as a continuation.",
         "https://example.com/section3"
     ));
@@ -269,7 +270,7 @@ void test_oversized_chunk_handling() {
     large_section += "This is important for maintaining the quality of the chunking process. ";
     large_section += "The system should handle oversized content gracefully and efficiently.";
 
-    doc.sections.push_back(AdvancedChunker::DocumentSection(large_section, "https://example.com/large_section"));
+    doc.sections.push_back(section_processing::DocumentSection(large_section, "https://example.com/large_section"));
 
     auto result = chunker->process_document(doc);
 
@@ -343,7 +344,7 @@ void test_token_limit_enforcement() {
     doc.full_content = "This document tests the token limit enforcement mechanism.";
 
     // Add content that should be split
-    doc.sections.push_back(AdvancedChunker::DocumentSection(
+    doc.sections.push_back(section_processing::DocumentSection(
         "This is a section that should be split into multiple chunks due to the strict token limit. "
         "The chunking system should enforce the token limit and create appropriate chunks. "
         "Each chunk should respect the maximum token count while maintaining semantic coherence.",
@@ -388,7 +389,7 @@ void test_blurb_extraction() {
     doc.full_content = "This document tests the blurb extraction functionality.";
 
     // Add content for blurb extraction
-    doc.sections.push_back(AdvancedChunker::DocumentSection(
+    doc.sections.push_back(section_processing::DocumentSection(
         "This is the first sentence of the document. It should be extracted as a blurb. "
         "The blurb should contain the most important information from the beginning of the content. "
         "This helps in providing a quick summary of what the chunk contains.",
@@ -432,7 +433,7 @@ void test_mini_chunk_generation() {
     doc.full_content = "This document tests the mini-chunk generation functionality.";
 
     // Add content for mini-chunk generation
-    doc.sections.push_back(AdvancedChunker::DocumentSection(
+    doc.sections.push_back(section_processing::DocumentSection(
         "This is a section that should be split into mini-chunks. "
         "Mini-chunks are smaller chunks used for more detailed processing. "
         "They help in providing finer granularity for certain applications. "
@@ -489,7 +490,7 @@ void test_single_document_handling() {
     doc.full_content = "This document tests the single document handling functionality.";
 
     // Add content
-    doc.sections.push_back(AdvancedChunker::DocumentSection(
+    doc.sections.push_back(section_processing::DocumentSection(
         "This is a single document that should be processed correctly. "
         "The chunking system should handle it appropriately and create the necessary chunks.",
         "https://example.com/single_doc_test"
@@ -608,13 +609,13 @@ void test_multipass_indexing() {
     doc.full_content = "This document tests the multipass indexing functionality.";
 
     // Add content for multipass indexing
-    doc.sections.push_back(AdvancedChunker::DocumentSection(
+    doc.sections.push_back(section_processing::DocumentSection(
         "This is the first section for multipass indexing. "
         "Multipass indexing creates both regular chunks and large chunks. "
         "Large chunks combine multiple regular chunks for different processing needs.",
         "https://example.com/multipass_test_1"
     ));
-    doc.sections.push_back(AdvancedChunker::DocumentSection(
+    doc.sections.push_back(section_processing::DocumentSection(
         "This is the second section for multipass indexing. "
         "The system should create both mini-chunks and large chunks. "
         "This provides different levels of granularity for various applications.",
@@ -659,7 +660,7 @@ void test_contextual_rag() {
     doc.full_content = "This document tests the contextual RAG functionality.";
 
     // Add content for contextual RAG
-    doc.sections.push_back(AdvancedChunker::DocumentSection(
+    doc.sections.push_back(section_processing::DocumentSection(
         "This is a section for testing contextual RAG. "
         "Contextual RAG reserves tokens for document summaries and chunk context. "
         "This helps in providing better context for language model processing.",
@@ -747,7 +748,7 @@ void test_quality_filtering() {
     doc.full_content = "This document tests the quality filtering functionality.";
 
     // Add content for quality filtering
-    doc.sections.push_back(AdvancedChunker::DocumentSection(
+    doc.sections.push_back(section_processing::DocumentSection(
         "This is a section for testing quality filtering. "
         "Quality filtering ensures that only high-quality chunks are retained. "
         "This helps in maintaining the overall quality of the chunking process.",
@@ -791,7 +792,7 @@ void test_batch_processing() {
         doc.source_type = "file";
         doc.full_content = "This is document " + std::to_string(i) + " for batch processing.";
 
-        doc.sections.push_back(AdvancedChunker::DocumentSection(
+        doc.sections.push_back(section_processing::DocumentSection(
             "This is section " + std::to_string(i) + " for batch processing. "
             "The batch processing should handle multiple documents efficiently.",
             "https://example.com/batch_test_" + std::to_string(i)

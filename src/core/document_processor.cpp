@@ -180,7 +180,7 @@ chunking::AdvancedChunker::DocumentInfo DocumentProcessor::create_document_info(
     // Create sections from text content
     // For now, treat the entire content as one section
     // In a more sophisticated implementation, this would parse the document structure
-    chunking::AdvancedChunker::DocumentSection section;
+    chunking::section_processing::DocumentSection section;
     section.content = text_content;
     section.link = file_path;
     section.token_count = doc_info.total_tokens;

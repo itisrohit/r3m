@@ -189,7 +189,7 @@ void benchmark_chunking_performance() {
         doc_info.total_tokens = static_cast<int>(tokenizer->count_tokens(doc_content));
         
         // Create sections
-        chunking::AdvancedChunker::DocumentSection section;
+        chunking::section_processing::DocumentSection section;
         section.content = doc_content;
         section.link = "perf_test_link";
         section.token_count = doc_info.total_tokens;
@@ -282,7 +282,7 @@ void benchmark_memory_usage() {
         doc_info.full_content = content;
         doc_info.total_tokens = static_cast<int>(tokenizer->count_tokens(content));
         
-        chunking::AdvancedChunker::DocumentSection section;
+        chunking::section_processing::DocumentSection section;
         section.content = content;
         doc_info.sections.push_back(section);
         

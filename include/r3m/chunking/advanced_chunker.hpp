@@ -7,6 +7,8 @@
 #include "r3m/chunking/multipass_chunker.hpp"
 #include "r3m/chunking/contextual_rag.hpp"
 #include "r3m/chunking/quality_assessment/quality_calculator.hpp"
+#include "r3m/chunking/token_management/token_cache.hpp"
+#include "r3m/chunking/section_processing/section_processor.hpp"
 #include <memory>
 #include <unordered_map>
 #include <string>
@@ -17,33 +19,9 @@ namespace r3m {
 namespace chunking {
 
 // Forward declarations
-struct DocumentSection;
 struct DocumentInfo;
 
-// Optimized token cache with string_view
-class OptimizedTokenCache {
-private:
-    std::unordered_map<std::string_view, int> cache_;
-    std::shared_ptr<Tokenizer> tokenizer_;
-    std::vector<std::string> string_storage_; // Keep strings alive
-    
-public:
-    OptimizedTokenCache(std::shared_ptr<Tokenizer> tokenizer);
-    int get_token_count(std::string_view text);
-    void clear();
-};
 
-// Token cache for performance optimization
-class TokenCache {
-private:
-    std::unordered_map<std::string, int> cache_;
-    std::shared_ptr<Tokenizer> tokenizer_;
-    
-public:
-    TokenCache(std::shared_ptr<Tokenizer> tokenizer);
-    int get_token_count(const std::string& text);
-    void clear();
-};
 
 /**
  * @brief Advanced chunker with sophisticated token management
@@ -74,22 +52,6 @@ public:
     };
     
     /**
-     * @brief Document section information
-     */
-    struct DocumentSection {
-        std::string content;
-        std::string link;
-        bool is_image = false;
-        std::string image_file_id;
-        bool is_oversized = false;
-        int token_count = 0;
-        
-        DocumentSection() = default;
-        DocumentSection(const std::string& c, const std::string& l = "")
-            : content(c), link(l) {}
-    };
-    
-    /**
      * @brief Document information
      */
     struct DocumentInfo {
@@ -98,28 +60,11 @@ public:
         std::string semantic_identifier;
         std::string source_type;
         std::unordered_map<std::string, std::string> metadata;
-        std::vector<DocumentSection> sections;
+        std::vector<section_processing::DocumentSection> sections;
         std::string full_content;
         int total_tokens = 0;
         
         DocumentInfo() = default;
-    };
-    
-    /**
-     * @brief Token management result
-     */
-    struct TokenManagementResult {
-        std::string title_prefix;
-        std::string metadata_suffix_semantic;
-        std::string metadata_suffix_keyword;
-        int title_tokens = 0;
-        int metadata_tokens = 0;
-        int content_token_limit = 0;
-        int contextual_rag_reserved_tokens = 0;
-        bool single_chunk_fits = true;
-        bool metadata_too_large = false;
-        
-        TokenManagementResult() = default;
     };
     
     explicit AdvancedChunker(std::shared_ptr<Tokenizer> tokenizer, const Config& config = Config());
@@ -159,15 +104,16 @@ private:
     std::unique_ptr<SentenceChunker> mini_chunk_splitter_;
     std::unique_ptr<MultipassChunker> multipass_chunker_;
     std::unique_ptr<ContextualRAG> contextual_rag_;
-    std::unique_ptr<TokenCache> token_cache_; // Forward declaration for performance optimization
-    std::unique_ptr<OptimizedTokenCache> optimized_cache_; // Optimized token cache
+    std::unique_ptr<token_management::TokenCache> token_cache_; // Token cache for performance optimization
+    std::unique_ptr<token_management::OptimizedTokenCache> optimized_cache_; // Optimized token cache
+    std::unique_ptr<section_processing::SectionProcessor> section_processor_; // Section processor
     
     /**
      * @brief Manage token allocation for title, metadata, and content
      * @param document Document information
      * @return Token management result
      */
-    TokenManagementResult manage_tokens(const DocumentInfo& document);
+    section_processing::TokenManagementResult manage_tokens(const DocumentInfo& document);
     
     /**
      * @brief Extract title blurb from document
@@ -184,80 +130,7 @@ private:
      */
     std::vector<DocumentChunk> process_sections(
         const DocumentInfo& document,
-        const TokenManagementResult& token_result
-    );
-    
-    /**
-     * @brief Process sections with advanced section combination logic
-     */
-    std::vector<DocumentChunk> process_sections_with_combinations(
-        const DocumentInfo& document,
-        const TokenManagementResult& token_result
-    );
-    
-    /**
-     * @brief Split oversized sections
-     * @param sections Document sections
-     * @param content_token_limit Content token limit
-     * @return Processed sections
-     */
-    std::vector<DocumentSection> split_oversized_sections(
-        const std::vector<DocumentSection>& sections,
-        int content_token_limit
-    );
-
-    /**
-     * @brief Split oversized chunk into smaller chunks
-     * @param text Text to split
-     * @param content_token_limit Token limit for each chunk
-     * @return Vector of smaller chunks
-     */
-    std::vector<std::string> split_oversized_chunk(
-        const std::string& text,
-        int content_token_limit
-    );
-    
-    std::vector<std::string> split_oversized_chunk_optimized(
-        const std::string& text,
-        int content_token_limit
-    );
-
-    /**
-     * @brief Handle image sections (force separate chunks)
-     * @param sections Document sections
-     * @param content_token_limit Content token limit
-     * @return Processed sections with image handling
-     */
-    std::vector<DocumentSection> handle_image_sections(
-        const std::vector<DocumentSection>& sections,
-        int content_token_limit
-    );
-
-    /**
-     * @brief Create chunk from section content
-     * @param section Document section
-     * @param chunk_id Chunk ID
-     * @param document_id Document ID
-     * @param title_prefix Title prefix
-     * @param metadata_suffix_semantic Semantic metadata suffix
-     * @param metadata_suffix_keyword Keyword metadata suffix
-     * @param content_token_limit Content token limit
-     * @param source_type Document source type
-     * @param semantic_identifier Document semantic identifier
-     * @param is_continuation Whether this is a continuation chunk
-     * @return Document chunk
-     */
-    DocumentChunk create_chunk_from_section(
-        const DocumentSection& section,
-        int chunk_id,
-        const std::string& document_id,
-        const std::string& title_prefix,
-        const std::string& metadata_suffix_semantic,
-        const std::string& metadata_suffix_keyword,
-        int content_token_limit,
-        const std::string& source_type,
-        const std::string& semantic_identifier,
-        bool is_continuation = false
+        const section_processing::TokenManagementResult& token_result
     );
     
     /**
