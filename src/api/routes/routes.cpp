@@ -7,6 +7,35 @@
 #include <algorithm>
 #include <iostream>
 
+// JSON escaping function
+std::string escape_json_string(const std::string& input) {
+    std::string output;
+    output.reserve(input.length() * 2); // Reserve space for potential escaping
+    
+    for (char c : input) {
+        switch (c) {
+            case '"':  output += "\\\""; break;
+            case '\\': output += "\\\\"; break;
+            case '\b': output += "\\b"; break;
+            case '\f': output += "\\f"; break;
+            case '\n': output += "\\n"; break;
+            case '\r': output += "\\r"; break;
+            case '\t': output += "\\t"; break;
+            default:
+                if (c >= 0 && c < 32) {
+                    // Control characters
+                    char hex[7];
+                    snprintf(hex, sizeof(hex), "\\u%04x", (unsigned char)c);
+                    output += hex;
+                } else {
+                    output += c;
+                }
+                break;
+        }
+    }
+    return output;
+}
+
 // JSON fallback when nlohmann/json is not available
 #ifndef R3M_JSON_ENABLED
 namespace json {
@@ -65,12 +94,12 @@ crow::response Routes::handle_process_document(const crow::request& req) {
         if (body.has("file_path")) {
             file_path = body["file_path"].s();
         } else if (body.has("file_content")) {
-            // Save uploaded content to temporary file
+            // Save uploaded content to data directory
             std::string filename = "upload_" + generate_job_id() + ".txt";
-            file_path = "/tmp/r3m/uploads/" + filename;
+            file_path = "data/" + filename;
             
-            // Create upload directory if it doesn't exist
-            std::filesystem::create_directories("/tmp/r3m/uploads");
+            // Create data directory if it doesn't exist
+            std::filesystem::create_directories("data");
             
             std::ofstream file(file_path);
             if (!file.is_open()) {
@@ -202,6 +231,27 @@ crow::response Routes::handle_system_info() {
     return res;
 }
 
+crow::response Routes::handle_metrics() {
+    crow::response res;
+    res.set_header("Content-Type", "application/json");
+    
+    try {
+        // Get performance metrics from processor
+        auto stats = processor_->get_statistics();
+        
+        std::string response_data = serialize_performance_metrics(stats);
+        
+        res.code = 200;
+        res.body = create_response(true, "Performance metrics retrieved", response_data);
+        
+    } catch (const std::exception& e) {
+        res.code = 500;
+        res.body = create_response(false, "Error retrieving metrics: " + std::string(e.what()));
+    }
+    
+    return res;
+}
+
 #endif
 
 std::string Routes::create_response(bool success, const std::string& message, const std::string& data) {
@@ -273,11 +323,11 @@ std::string Routes::serialize_document_result_with_chunks(const core::DocumentRe
         if (!first_chunk) response_data += ",";
         response_data += "{";
         response_data += "\"chunk_id\":" + std::to_string(chunk.chunk_id) + ",";
-        response_data += "\"content\":\"" + chunk.content + "\",";
-        response_data += "\"blurb\":\"" + chunk.blurb + "\",";
-        response_data += "\"title_prefix\":\"" + chunk.title_prefix + "\",";
-        response_data += "\"metadata_suffix_semantic\":\"" + chunk.metadata_suffix_semantic + "\",";
-        response_data += "\"metadata_suffix_keyword\":\"" + chunk.metadata_suffix_keyword + "\",";
+        response_data += "\"content\":\"" + escape_json_string(chunk.content) + "\",";
+        response_data += "\"blurb\":\"" + escape_json_string(chunk.blurb) + "\",";
+        response_data += "\"title_prefix\":\"" + escape_json_string(chunk.title_prefix) + "\",";
+        response_data += "\"metadata_suffix_semantic\":\"" + escape_json_string(chunk.metadata_suffix_semantic) + "\",";
+        response_data += "\"metadata_suffix_keyword\":\"" + escape_json_string(chunk.metadata_suffix_keyword) + "\",";
         response_data += "\"quality_score\":" + std::to_string(chunk.quality_score) + ",";
         response_data += "\"information_density\":" + std::to_string(chunk.information_density) + ",";
         response_data += "\"is_high_quality\":" + std::string(chunk.is_high_quality ? "true" : "false") + ",";
@@ -345,11 +395,11 @@ std::string Routes::serialize_batch_results_with_chunks(const std::vector<core::
             if (!first_chunk) response_data += ",";
             response_data += "{";
             response_data += "\"chunk_id\":" + std::to_string(chunk.chunk_id) + ",";
-            response_data += "\"content\":\"" + chunk.content + "\",";
-            response_data += "\"blurb\":\"" + chunk.blurb + "\",";
-            response_data += "\"title_prefix\":\"" + chunk.title_prefix + "\",";
-            response_data += "\"metadata_suffix_semantic\":\"" + chunk.metadata_suffix_semantic + "\",";
-            response_data += "\"metadata_suffix_keyword\":\"" + chunk.metadata_suffix_keyword + "\",";
+            response_data += "\"content\":\"" + escape_json_string(chunk.content) + "\",";
+            response_data += "\"blurb\":\"" + escape_json_string(chunk.blurb) + "\",";
+            response_data += "\"title_prefix\":\"" + escape_json_string(chunk.title_prefix) + "\",";
+            response_data += "\"metadata_suffix_semantic\":\"" + escape_json_string(chunk.metadata_suffix_semantic) + "\",";
+            response_data += "\"metadata_suffix_keyword\":\"" + escape_json_string(chunk.metadata_suffix_keyword) + "\",";
             response_data += "\"quality_score\":" + std::to_string(chunk.quality_score) + ",";
             response_data += "\"information_density\":" + std::to_string(chunk.information_density) + ",";
             response_data += "\"is_high_quality\":" + std::string(chunk.is_high_quality ? "true" : "false") + ",";
@@ -386,20 +436,20 @@ std::string Routes::serialize_chunking_result(const chunking::ChunkingResult& re
         if (!first_chunk) response_data += ",";
         response_data += "{";
         response_data += "\"chunk_id\":" + std::to_string(chunk.chunk_id) + ",";
-        response_data += "\"content\":\"" + chunk.content + "\",";
-        response_data += "\"blurb\":\"" + chunk.blurb + "\",";
-        response_data += "\"title_prefix\":\"" + chunk.title_prefix + "\",";
-        response_data += "\"metadata_suffix_semantic\":\"" + chunk.metadata_suffix_semantic + "\",";
-        response_data += "\"metadata_suffix_keyword\":\"" + chunk.metadata_suffix_keyword + "\",";
+        response_data += "\"content\":\"" + escape_json_string(chunk.content) + "\",";
+        response_data += "\"blurb\":\"" + escape_json_string(chunk.blurb) + "\",";
+        response_data += "\"title_prefix\":\"" + escape_json_string(chunk.title_prefix) + "\",";
+        response_data += "\"metadata_suffix_semantic\":\"" + escape_json_string(chunk.metadata_suffix_semantic) + "\",";
+        response_data += "\"metadata_suffix_keyword\":\"" + escape_json_string(chunk.metadata_suffix_keyword) + "\",";
         response_data += "\"quality_score\":" + std::to_string(chunk.quality_score) + ",";
         response_data += "\"information_density\":" + std::to_string(chunk.information_density) + ",";
         response_data += "\"is_high_quality\":" + std::string(chunk.is_high_quality ? "true" : "false") + ",";
         response_data += "\"title_tokens\":" + std::to_string(chunk.title_tokens) + ",";
         response_data += "\"metadata_tokens\":" + std::to_string(chunk.metadata_tokens) + ",";
         response_data += "\"content_token_limit\":" + std::to_string(chunk.content_token_limit) + ",";
-        response_data += "\"document_id\":\"" + chunk.document_id + "\",";
-        response_data += "\"source_type\":\"" + chunk.source_type + "\",";
-        response_data += "\"semantic_identifier\":\"" + chunk.semantic_identifier + "\"}";
+        response_data += "\"document_id\":\"" + escape_json_string(chunk.document_id) + "\",";
+        response_data += "\"source_type\":\"" + escape_json_string(chunk.source_type) + "\",";
+        response_data += "\"semantic_identifier\":\"" + escape_json_string(chunk.semantic_identifier) + "\"}";
         first_chunk = false;
     }
     response_data += "]}";
@@ -427,6 +477,18 @@ std::string Routes::serialize_system_info() {
     response_data += "\"avg_content_quality_score\":" + std::to_string(stats.avg_content_quality_score);
     response_data += "}}";
     
+    return response_data;
+}
+
+std::string Routes::serialize_performance_metrics(const core::ProcessingStats& stats) {
+    std::string response_data = "{\"total_files_processed\":" + std::to_string(stats.total_files_processed) + ",";
+    response_data += "\"successful_processing\":" + std::to_string(stats.successful_processing) + ",";
+    response_data += "\"failed_processing\":" + std::to_string(stats.failed_processing) + ",";
+    response_data += "\"filtered_out\":" + std::to_string(stats.filtered_out) + ",";
+    response_data += "\"avg_processing_time_ms\":" + std::to_string(stats.avg_processing_time_ms) + ",";
+    response_data += "\"total_text_extracted\":" + std::to_string(stats.total_text_extracted) + ",";
+    response_data += "\"avg_content_quality_score\":" + std::to_string(stats.avg_content_quality_score);
+    response_data += "}";
     return response_data;
 }
 

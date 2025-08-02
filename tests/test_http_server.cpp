@@ -78,6 +78,8 @@ int main() {
         std::cout << "   GET  /health     - Health check" << std::endl;
         std::cout << "   POST /process    - Process single document" << std::endl;
         std::cout << "   POST /batch      - Process batch of documents" << std::endl;
+        std::cout << "   POST /chunk      - Chunk single document" << std::endl;
+        std::cout << "   GET  /metrics    - Performance metrics" << std::endl;
         std::cout << "   GET  /job/{id}   - Get job status" << std::endl;
         std::cout << "   GET  /info       - System information" << std::endl;
     } else {

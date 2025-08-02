@@ -65,6 +65,14 @@ bool ConfigManager::load_from_environment() {
     return true;
 }
 
+bool ConfigManager::load_from_map(const std::unordered_map<std::string, std::string>& config_map) {
+    // Load configuration from the provided map
+    for (const auto& [key, value] : config_map) {
+        config_values_[key] = value;
+    }
+    return true;
+}
+
 bool ConfigManager::validate_config() const {
     return validate_server_config() && 
            validate_model_config() && 

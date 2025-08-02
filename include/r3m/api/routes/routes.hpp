@@ -25,6 +25,7 @@ public:
     crow::response handle_chunk_document(const crow::request& req);
     crow::response handle_job_status(const std::string& job_id);
     crow::response handle_system_info();
+    crow::response handle_metrics();
 #endif
 
 private:
@@ -39,6 +40,7 @@ private:
     std::string serialize_batch_results_with_chunks(const std::vector<core::DocumentResult>& results);
     std::string serialize_chunking_result(const chunking::ChunkingResult& result);
     std::string serialize_system_info();
+    std::string serialize_performance_metrics(const core::ProcessingStats& stats);
 };
 
 } // namespace api

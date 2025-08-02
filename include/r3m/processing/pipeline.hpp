@@ -4,6 +4,8 @@
 #include <vector>
 #include <unordered_map>
 #include <chrono>
+#include <memory>
+#include "r3m/formats/processor.hpp"
 
 namespace r3m {
 namespace processing {
@@ -51,6 +53,9 @@ private:
     std::unordered_map<std::string, std::string> config_;
     mutable std::mutex metrics_mutex_;
     PipelineMetrics metrics_;
+    
+    // Format processor for text extraction
+    std::unique_ptr<formats::FormatProcessor> format_processor_;
     
     // Configuration settings
     size_t max_file_size_;

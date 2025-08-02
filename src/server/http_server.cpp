@@ -27,11 +27,13 @@ bool HttpServer::initialize(const std::unordered_map<std::string, std::string>& 
         return false;
     }
     
-    // Initialize config manager
+    // Initialize config manager (optional - use passed config if file not found)
     config_manager_ = std::make_unique<core::ConfigManager>();
-    if (!config_manager_->load_config("configs/dev/config.yaml")) {
-        std::cerr << "Failed to load configuration" << std::endl;
-        return false;
+    bool config_loaded = config_manager_->load_config("configs/dev/config.yaml");
+    if (!config_loaded) {
+        std::cout << "Info: Using passed configuration (config file not found)" << std::endl;
+        // Use the passed config instead
+        config_manager_->load_from_map(config);
     }
     
     // Initialize modules
@@ -114,6 +116,13 @@ bool HttpServer::setup_routes() {
         return api_routes_->handle_process_batch(req);
     });
     
+    // Chunk single document
+    CROW_ROUTE((*app_), "/chunk")
+    .methods("POST"_method)
+    ([this](const crow::request& req) {
+        return api_routes_->handle_chunk_document(req);
+    });
+    
     // Get job status
     CROW_ROUTE((*app_), "/job/<string>")
     .methods("GET"_method)
@@ -126,6 +135,13 @@ bool HttpServer::setup_routes() {
     .methods("GET"_method)
     ([this]() {
         return api_routes_->handle_system_info();
+    });
+    
+    // Get performance metrics
+    CROW_ROUTE((*app_), "/metrics")
+    .methods("GET"_method)
+    ([this]() {
+        return api_routes_->handle_metrics();
     });
     
     return true;

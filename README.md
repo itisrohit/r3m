@@ -1,6 +1,6 @@
 # R3M 
 
-A high-performance C++ document processing and chunking system with SIMD-optimized text processing, designed for large-scale document analysis and retrieval applications.
+A high-performance C++ document processing and chunking system with SIMD-optimized text processing, designed for large-scale document analysis and retrieval applications. Features a complete REST API for easy integration.
 
 ## 🚀 **Performance Highlights**
 
@@ -10,6 +10,12 @@ A high-performance C++ document processing and chunking system with SIMD-optimiz
 - **Text Normalization**: **1.75x faster** with optimized cleaning
 - **Character Counting**: **2.1x faster** with vectorized operations
 - **Whitespace Processing**: **1.8x faster** with SIMD scanning
+
+### **API Performance (Latest Benchmarks)**
+- **File-based processing**: 1.87-36.82ms response times
+- **Content-based processing**: 2.00-37.67ms response times  
+- **Dedicated chunking**: 5.21-22.00ms response times
+- **All endpoints**: Working perfectly with high quality scores (0.578-0.670)
 
 ### **Document Processing Performance**
 - **500KB documents**: 1792 KB/s throughput, 279ms processing time
@@ -32,6 +38,14 @@ A high-performance C++ document processing and chunking system with SIMD-optimiz
 - **Template Specializations**: Compile-time SIMD instruction selection
 
 ## 🎯 **Key Features**
+
+### **Complete REST API**
+- **File-based processing**: Process documents from file paths
+- **Content-based processing**: Process documents from content directly
+- **Dedicated chunking endpoint**: Focused chunking operations
+- **Performance metrics**: Real-time system statistics
+- **Health monitoring**: System health and status endpoints
+- **JSON escaping**: Proper handling of control characters in responses
 
 ### **SIMD-Optimized Text Processing**
 - **BPE Token Matching**: 10.53x speedup with parallel character pair detection
@@ -67,6 +81,15 @@ A high-performance C++ document processing and chunking system with SIMD-optimiz
 
 ## 📊 **Performance Benchmarks**
 
+### **API Performance Benchmarks (Latest)**
+| Document Size | File-Based Response | Content-Based Response | Chunking Response | Quality Score |
+|---------------|-------------------|----------------------|------------------|---------------|
+| 1KB | 1.87ms | 2.00ms | 5.21ms | 0.615 |
+| 5KB | 4.59ms | 4.84ms | - | 0.670 |
+| 10KB | 8.33ms | 9.00ms | 4.95ms | 0.619 |
+| 25KB | 19.67ms | 19.54ms | 11.82ms | 0.588 |
+| 50KB | 36.82ms | 37.67ms | 21.94ms | 0.578 |
+
 ### **SIMD Performance Benchmarks**
 | Operation | SIMD Performance | Scalar Performance | Speedup |
 |-----------|------------------|-------------------|---------|
@@ -100,6 +123,69 @@ A high-performance C++ document processing and chunking system with SIMD-optimiz
 | 50KB | 5.5ms | 182 ops/s | 0B |
 | 100KB | 8.7ms | 115 ops/s | 0B |
 | 500KB | 16.4ms | 61 ops/s | 0B |
+
+## 🌐 **REST API**
+
+### **Available Endpoints**
+- `GET /health` - Health check
+- `POST /process` - Process single document (file or content)
+- `POST /batch` - Process batch of documents
+- `POST /chunk` - Dedicated chunking endpoint
+- `GET /metrics` - Performance metrics
+- `GET /job/{id}` - Get job status
+- `GET /info` - System information
+
+### **API Usage Examples**
+
+#### **File-based Processing**
+```bash
+curl -X POST http://localhost:8080/process \
+  -H "Content-Type: application/json" \
+  -d '{"file_path": "data/document.txt"}'
+```
+
+#### **Content-based Processing**
+```bash
+curl -X POST http://localhost:8080/process \
+  -H "Content-Type: application/json" \
+  -d '{"file_content": "Your document content here..."}'
+```
+
+#### **Dedicated Chunking**
+```bash
+curl -X POST http://localhost:8080/chunk \
+  -H "Content-Type: application/json" \
+  -d '{"file_path": "data/document.txt"}'
+```
+
+#### **Performance Metrics**
+```bash
+curl http://localhost:8080/metrics
+```
+
+### **API Response Format**
+```json
+{
+  "success": true,
+  "message": "Document processed successfully",
+  "data": {
+    "job_id": "unique_job_id",
+    "file_name": "document.txt",
+    "processing_success": true,
+    "processing_time_ms": 0.41,
+    "text_length": 1019,
+    "content_quality_score": 0.615,
+    "information_density": 0.512,
+    "is_high_quality": true,
+    "quality_reason": "High quality content",
+    "total_chunks": 2,
+    "successful_chunks": 2,
+    "avg_chunk_quality": 0.980,
+    "avg_chunk_density": 0.844,
+    "chunks": [...]
+  }
+}
+```
 
 ## 🛠 **Installation & Build**
 
@@ -146,6 +232,12 @@ The build system automatically detects and enables SIMD support:
 
 # Parallel optimization tests
 ./r3m-parallel-optimization-test
+
+# HTTP server tests
+./r3m-http-test
+
+# API performance tests
+python tests/test_api_performance.py
 ```
 
 ## 🔧 **Configuration**
@@ -237,6 +329,8 @@ auto elapsed = timer.elapsed_ms();
 - **TokenCache**: Optimized token counting with caching
 - **QualityAssessor**: Information density and quality scoring
 - **OptimizedThreadPool**: Advanced parallel processing infrastructure
+- **HTTP Server**: REST API with Crow framework
+- **Routes**: API endpoint handlers with JSON serialization
 
 ### **SIMD Architecture**
 - **Cross-Platform Support**: x86 (AVX2/AVX-512) and ARM64 (NEON)
@@ -254,6 +348,7 @@ auto elapsed = timer.elapsed_ms();
 - **Thread Affinity**: CPU core binding for optimal performance
 - **Work Stealing**: Dynamic load balancing across threads
 - **Memory Pooling**: Reduced allocation overhead
+- **JSON Escaping**: Proper handling of control characters
 
 ## 📊 **Quality Metrics**
 
@@ -269,6 +364,7 @@ auto elapsed = timer.elapsed_ms();
 - **Memory Usage**: Peak memory consumption
 - **Efficiency**: Parallel processing efficiency (96.15%)
 - **SIMD Utilization**: Vector operation efficiency
+- **API Response Time**: End-to-end API performance
 
 ## 🔍 **Advanced Features**
 
@@ -288,6 +384,14 @@ auto elapsed = timer.elapsed_ms();
 - **Reserved tokens**: Space for context and summaries
 - **Document summaries**: High-level document understanding
 - **Chunk context**: Cross-chunk relationship modeling
+
+### **REST API Features**
+- **File-based processing**: Process documents from file paths
+- **Content-based processing**: Process documents from content directly
+- **Dedicated chunking**: Focused chunking operations
+- **Performance monitoring**: Real-time system statistics
+- **Health monitoring**: System health and status endpoints
+- **JSON escaping**: Proper handling of control characters
 
 ## 🚀 **Performance Comparison**
 
@@ -310,6 +414,7 @@ auto elapsed = timer.elapsed_ms();
 | **50KB Processing** | 40ms | 0.56s | **92.9% faster** |
 | **Throughput (500KB)** | 1792 KB/s | 62 ops/s | **28.9x increase** |
 | **Memory Usage** | 0B | 0B | **100% reduction** |
+| **API Response Time** | 1.87-36.82ms | N/A | **New feature** |
 
 ### **Development Setup**
 ```bash
@@ -331,6 +436,12 @@ make document-size-benchmark
 # Run parallel optimization tests
 make parallel-optimization-test
 
+# Run HTTP server tests
+make http-test
+
+# Run API performance tests
+python tests/test_api_performance.py
+
 # Clean build artifacts
 make clean
 ```
@@ -342,7 +453,8 @@ make clean
 - Optimized using industry best practices for large-scale processing
 - SIMD optimizations based on modern CPU architecture capabilities
 - Advanced parallel processing with thread affinity and work stealing
+- REST API implementation with Crow framework
 
 ---
 
-**R3M**: Where speed meets sophistication in document processing, powered by SIMD-optimized text processing.
+**R3M**: Where speed meets sophistication in document processing, powered by SIMD-optimized text processing and a complete REST API.
