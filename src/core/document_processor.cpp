@@ -16,7 +16,7 @@ DocumentProcessor::DocumentProcessor() {
     format_processor_ = std::make_unique<formats::FormatProcessor>();
     
     // Initialize default configuration (will be overridden by config)
-    batch_size_ = 16; 
+    batch_size_ = parallel::OptimizedThreadPool::get_optimal_batch_size();
     max_workers_ = std::thread::hardware_concurrency();
     if (max_workers_ == 0) {
         max_workers_ = 4;  // Fallback - should be overridden by config
@@ -51,15 +51,24 @@ bool DocumentProcessor::initialize(const std::unordered_map<std::string, std::st
         return false;
     }
     
-    // Load batch processing settings
+    // Load batch processing settings with optimal defaults
     auto it = config_.find("document_processing.batch_size");
     if (it != config_.end()) {
         batch_size_ = std::stoul(it->second);
+    } else {
+        // Use optimal batch size based on CPU cores
+        batch_size_ = parallel::OptimizedThreadPool::get_optimal_batch_size();
     }
     
     it = config_.find("document_processing.max_workers");
     if (it != config_.end()) {
         max_workers_ = std::stoul(it->second);
+    } else {
+        // Use optimal worker count
+        max_workers_ = std::thread::hardware_concurrency();
+        if (max_workers_ == 0) {
+            max_workers_ = 4;
+        }
     }
     
     it = config_.find("document_processing.enable_chunking");
@@ -67,8 +76,8 @@ bool DocumentProcessor::initialize(const std::unordered_map<std::string, std::st
         enable_chunking_ = (it->second == "true" || it->second == "1");
     }
     
-    // Initialize thread pool
-    thread_pool_ = std::make_unique<parallel::ThreadPool>(max_workers_);
+    // Initialize optimized thread pool
+    thread_pool_ = std::make_unique<parallel::OptimizedThreadPool>(max_workers_);
     
     // Initialize chunking components if enabled
     if (enable_chunking_) {
@@ -252,7 +261,7 @@ std::vector<DocumentResult> DocumentProcessor::process_documents_parallel(const 
         return results;
     }
     
-    // Create tasks for parallel processing
+    // Create tasks for parallel processing with optimal batching
     std::vector<std::function<DocumentResult()>> tasks;
     tasks.reserve(file_paths.size());
     
@@ -262,7 +271,7 @@ std::vector<DocumentResult> DocumentProcessor::process_documents_parallel(const 
         });
     }
     
-    // Submit tasks to thread pool
+    // Submit tasks to optimized thread pool
     auto futures = thread_pool_->submit_batch(tasks);
     
     // Collect results
@@ -281,9 +290,12 @@ std::vector<DocumentResult> DocumentProcessor::process_documents_parallel(const 
 std::vector<DocumentResult> DocumentProcessor::process_documents_batch(const std::vector<std::string>& file_paths) {
     std::vector<DocumentResult> all_results;
     
-    // Process files in batches
-    for (size_t i = 0; i < file_paths.size(); i += batch_size_) {
-        size_t batch_end = std::min(i + batch_size_, file_paths.size());
+    // Use optimal batch size for better parallelization
+    size_t optimal_batch_size = parallel::OptimizedThreadPool::get_optimal_batch_size();
+    
+    // Process files in optimal batches
+    for (size_t i = 0; i < file_paths.size(); i += optimal_batch_size) {
+        size_t batch_end = std::min(i + optimal_batch_size, file_paths.size());
         std::vector<std::string> batch_files(file_paths.begin() + i, file_paths.begin() + batch_end);
         
         // Process this batch in parallel
@@ -333,6 +345,10 @@ ProcessingStats DocumentProcessor::get_processing_stats() const {
 void DocumentProcessor::reset_stats() {
     std::lock_guard<std::mutex> lock(stats_mutex_);
     stats_ = ProcessingStats{};
+}
+
+size_t DocumentProcessor::get_optimal_batch_size() const {
+    return parallel::OptimizedThreadPool::get_optimal_batch_size();
 }
 
 // Private methods

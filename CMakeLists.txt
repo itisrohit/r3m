@@ -181,8 +181,10 @@ set(QUALITY_SOURCES
     src/quality/assessor.cpp
 )
 
+# Add optimized thread pool source
 set(PARALLEL_SOURCES
     src/parallel/thread_pool.cpp
+    src/parallel/optimized_thread_pool.cpp
 )
 
 set(FORMATS_SOURCES
@@ -401,6 +403,33 @@ add_executable(r3m-simd-test
     ${UTILS_SOURCES}
 )
 target_link_libraries(r3m-simd-test ${CMAKE_THREAD_LIBS_INIT} ${POPPLER_CPP_LIBRARIES} ${GUMBO_LIBRARIES})
+
+# Add parallel optimization test
+add_executable(r3m-parallel-optimization-test
+    tests/test_parallel_optimization.cpp
+    ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
+    ${PROCESSING_SOURCES}
+    ${QUALITY_SOURCES}
+    ${PARALLEL_SOURCES}
+    ${FORMATS_SOURCES}
+    ${UTILS_SOURCES}
+)
+target_link_libraries(r3m-parallel-optimization-test ${CMAKE_THREAD_LIBS_INIT} ${POPPLER_CPP_LIBRARIES} ${GUMBO_LIBRARIES})
+
+# Add document size benchmark test
+add_executable(r3m-document-size-benchmark
+    tests/test_document_size_benchmark.cpp
+    ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
+    ${PROCESSING_SOURCES}
+    ${QUALITY_SOURCES}
+    ${PARALLEL_SOURCES}
+    ${FORMATS_SOURCES}
+    ${UTILS_SOURCES}
+)
+target_link_libraries(r3m-document-size-benchmark ${CMAKE_THREAD_LIBS_INIT} ${POPPLER_CPP_LIBRARIES} ${GUMBO_LIBRARIES})
+target_include_directories(r3m-document-size-benchmark PRIVATE include)
 
 # Custom targets for build management
 add_custom_target(clean-all

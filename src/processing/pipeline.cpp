@@ -12,8 +12,8 @@ namespace processing {
 
 PipelineOrchestrator::PipelineOrchestrator() {
     // Initialize with default values (will be overridden by config)
-    max_file_size_ = 0;
-    max_text_length_ = 0;
+    max_file_size_ = 100 * 1024 * 1024; // 100 MB default
+    max_text_length_ = 10 * 1024 * 1024; // 10 MB default
     encoding_detection_ = true;
     default_encoding_ = "utf-8";
     remove_html_tags_ = true;
