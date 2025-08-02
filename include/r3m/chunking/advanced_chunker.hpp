@@ -9,6 +9,8 @@
 #include <memory>
 #include <unordered_map>
 #include <string>
+#include <string_view> // Added for string_view
+#include <vector> // Added for std::vector
 
 namespace r3m {
 namespace chunking {
@@ -16,6 +18,31 @@ namespace chunking {
 // Forward declarations
 struct DocumentSection;
 struct DocumentInfo;
+
+// Optimized token cache with string_view
+class OptimizedTokenCache {
+private:
+    std::unordered_map<std::string_view, int> cache_;
+    std::shared_ptr<Tokenizer> tokenizer_;
+    std::vector<std::string> string_storage_; // Keep strings alive
+    
+public:
+    OptimizedTokenCache(std::shared_ptr<Tokenizer> tokenizer);
+    int get_token_count(std::string_view text);
+    void clear();
+};
+
+// Token cache for performance optimization
+class TokenCache {
+private:
+    std::unordered_map<std::string, int> cache_;
+    std::shared_ptr<Tokenizer> tokenizer_;
+    
+public:
+    TokenCache(std::shared_ptr<Tokenizer> tokenizer);
+    int get_token_count(const std::string& text);
+    void clear();
+};
 
 /**
  * @brief Advanced chunker with sophisticated token management
@@ -98,16 +125,12 @@ public:
     ~AdvancedChunker() = default;
     
     /**
-     * @brief Process a single document with advanced chunking
-     * @param document Document information
-     * @return Chunking result
+     * @brief Process a single document
      */
     ChunkingResult process_document(const DocumentInfo& document);
     
     /**
-     * @brief Process multiple documents in batch
-     * @param documents Vector of document information
-     * @return Vector of chunking results
+     * @brief Process multiple documents
      */
     std::vector<ChunkingResult> process_documents(const std::vector<DocumentInfo>& documents);
     
@@ -119,9 +142,13 @@ public:
     
     /**
      * @brief Update chunker configuration
-     * @param config New configuration
      */
     void update_config(const Config& config);
+    
+    /**
+     * @brief Clear internal caches for memory management
+     */
+    void clear_cache();
     
 private:
     std::shared_ptr<Tokenizer> tokenizer_;
@@ -131,6 +158,8 @@ private:
     std::unique_ptr<SentenceChunker> mini_chunk_splitter_;
     std::unique_ptr<MultipassChunker> multipass_chunker_;
     std::unique_ptr<ContextualRAG> contextual_rag_;
+    std::unique_ptr<TokenCache> token_cache_; // Forward declaration for performance optimization
+    std::unique_ptr<OptimizedTokenCache> optimized_cache_; // Optimized token cache
     
     /**
      * @brief Manage token allocation for title, metadata, and content
@@ -183,6 +212,11 @@ private:
      * @return Vector of smaller chunks
      */
     std::vector<std::string> split_oversized_chunk(
+        const std::string& text,
+        int content_token_limit
+    );
+    
+    std::vector<std::string> split_oversized_chunk_optimized(
         const std::string& text,
         int content_token_limit
     );

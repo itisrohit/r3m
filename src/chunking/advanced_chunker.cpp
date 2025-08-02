@@ -4,12 +4,56 @@
 #include <sstream>
 #include <chrono>
 #include <unordered_set>
+#include <unordered_map>
 
 namespace r3m {
 namespace chunking {
 
+// OptimizedTokenCache implementation
+OptimizedTokenCache::OptimizedTokenCache(std::shared_ptr<Tokenizer> tokenizer) : tokenizer_(tokenizer) {}
+
+int OptimizedTokenCache::get_token_count(std::string_view text) {
+    auto it = cache_.find(text);
+    if (it != cache_.end()) {
+        return it->second;
+    }
+    
+    // Store the string to keep the view valid
+    string_storage_.emplace_back(text);
+    std::string_view stored_view = string_storage_.back();
+    
+    int count = static_cast<int>(tokenizer_->count_tokens(std::string(stored_view)));
+    cache_[stored_view] = count;
+    return count;
+}
+
+void OptimizedTokenCache::clear() {
+    cache_.clear();
+    string_storage_.clear();
+}
+
+// TokenCache implementation (backward compatibility)
+TokenCache::TokenCache(std::shared_ptr<Tokenizer> tokenizer) : tokenizer_(tokenizer) {}
+
+int TokenCache::get_token_count(const std::string& text) {
+    auto it = cache_.find(text);
+    if (it != cache_.end()) {
+        return it->second;
+    }
+    
+    int count = static_cast<int>(tokenizer_->count_tokens(text));
+    cache_[text] = count;
+    return count;
+}
+
+void TokenCache::clear() {
+    cache_.clear();
+}
+
 AdvancedChunker::AdvancedChunker(std::shared_ptr<Tokenizer> tokenizer, const Config& config)
-    : tokenizer_(tokenizer), config_(config) {
+    : tokenizer_(tokenizer), config_(config), 
+      token_cache_(std::make_unique<TokenCache>(tokenizer)),
+      optimized_cache_(std::make_unique<OptimizedTokenCache>(tokenizer)) {
     initialize_components();
 }
 
@@ -46,11 +90,9 @@ void AdvancedChunker::initialize_components() {
 ChunkingResult AdvancedChunker::process_document(const DocumentInfo& document) {
     auto start_time = std::chrono::high_resolution_clock::now();
     
-    // Step 1: Source-specific handling
-    if (document.source_type == "gmail") {
-        // Gmail-specific processing
-        // In a real implementation, this would have specific logic for Gmail documents
-    }
+    // Clear caches for fresh start
+    token_cache_->clear();
+    optimized_cache_->clear();
     
     ChunkingResult result;
     
@@ -142,7 +184,7 @@ AdvancedChunker::TokenManagementResult AdvancedChunker::manage_tokens(const Docu
         
         result.metadata_suffix_semantic = metadata_result.first;
         result.metadata_suffix_keyword = metadata_result.second;
-        result.metadata_tokens = static_cast<int>(tokenizer_->count_tokens(result.metadata_suffix_semantic));
+        result.metadata_tokens = optimized_cache_->get_token_count(result.metadata_suffix_semantic);
         
         // Check if metadata is too large
         if (MetadataProcessor::is_metadata_too_large(result.metadata_tokens, config_.chunk_token_limit)) {
@@ -154,7 +196,7 @@ AdvancedChunker::TokenManagementResult AdvancedChunker::manage_tokens(const Docu
     
     // Step 3: Check if document fits in single chunk
     if (config_.enable_contextual_rag) {
-        int doc_tokens = static_cast<int>(tokenizer_->count_tokens(document.full_content));
+        int doc_tokens = optimized_cache_->get_token_count(document.full_content);
         result.single_chunk_fits = (doc_tokens + result.title_tokens + result.metadata_tokens <= config_.chunk_token_limit);
         
         // Expand context size based on whether chunk context and doc summary are used
@@ -206,43 +248,68 @@ std::vector<DocumentChunk> AdvancedChunker::process_sections_with_combinations(
     const TokenManagementResult& token_result) {
     
     std::vector<DocumentChunk> chunks;
+    chunks.reserve(document.sections.size() + 1); // Pre-allocate for efficiency
+    
     std::unordered_map<int, std::string> link_offsets;
-    std::string chunk_text = "";
+    std::string chunk_text("");
+    chunk_text.reserve(token_result.content_token_limit * 4); // Pre-allocate string capacity
+    
     int chunk_id = 0;
     
-    // Use text processing utilities directly
+    // Pre-cache common strings using string_view
+    const std::string_view section_separator = utils::TextProcessing::SECTION_SEPARATOR;
+    const int separator_tokens = optimized_cache_->get_token_count(section_separator);
+    
+    // Pre-allocate vectors for efficiency
+    std::vector<std::string> section_texts;
+    std::vector<int> section_token_counts;
+    section_texts.reserve(document.sections.size());
+    section_token_counts.reserve(document.sections.size());
+    
+    // Pre-process all sections to avoid repeated operations
+    for (const auto& section : document.sections) {
+        std::string cleaned_text = utils::TextProcessing::clean_text(section.content);
+        if (!cleaned_text.empty()) {
+            section_texts.push_back(cleaned_text);
+            section_token_counts.push_back(optimized_cache_->get_token_count(cleaned_text));
+        } else {
+            section_texts.push_back("");
+            section_token_counts.push_back(0);
+        }
+    }
     
     for (size_t section_idx = 0; section_idx < document.sections.size(); ++section_idx) {
         const auto& section = document.sections[section_idx];
-        
-        // Get section text and clean it
-        std::string section_text = utils::TextProcessing::clean_text(section.content);
-        std::string section_link_text = section.link;
-        std::string image_url = section.image_file_id;
+        const auto& section_text = section_texts[section_idx];
+        const int section_token_count = section_token_counts[section_idx];
         
         // Skip empty sections
         if (section_text.empty() && (document.title.empty() || section_idx > 0)) {
             continue;
         }
         
+        std::string_view section_link_text = section.link;
+        std::string_view image_url = section.image_file_id;
+        
         // CASE 1: If this section has an image, force a separate chunk
         if (!image_url.empty()) {
             // First, finalize any existing text chunk
             if (!chunk_text.empty()) {
                 auto chunk = create_chunk_from_section(
-                    DocumentSection(chunk_text, ""), chunk_id++, document.document_id,
+                    DocumentSection(std::string(chunk_text), ""), chunk_id++, document.document_id,
                     token_result.title_prefix, token_result.metadata_suffix_semantic,
                     token_result.metadata_suffix_keyword, token_result.content_token_limit,
                     document.source_type, document.semantic_identifier, false
                 );
                 chunks.push_back(chunk);
-                chunk_text = "";
+                chunk_text.clear();
+                chunk_text.reserve(token_result.content_token_limit * 4);
                 link_offsets.clear();
             }
             
             // Create a chunk specifically for this image section
-            DocumentSection image_section(section_text, section_link_text);
-            image_section.image_file_id = image_url;
+            DocumentSection image_section{std::string(section_text), std::string(section_link_text)};
+            image_section.image_file_id = std::string(image_url);
             auto chunk = create_chunk_from_section(
                 image_section, chunk_id++, document.document_id,
                 token_result.title_prefix, token_result.metadata_suffix_semantic,
@@ -253,35 +320,34 @@ std::vector<DocumentChunk> AdvancedChunker::process_sections_with_combinations(
             continue;
         }
         
-        // CASE 2: Normal text section
-        int section_token_count = static_cast<int>(tokenizer_->count_tokens(section_text));
-        
-        // If the section is large on its own, split it separately
+        // CASE 2: Normal text section - use pre-computed token count
         if (section_token_count > token_result.content_token_limit) {
             // Finalize existing chunk
             if (!chunk_text.empty()) {
                 auto chunk = create_chunk_from_section(
-                    DocumentSection(chunk_text, ""), chunk_id++, document.document_id,
+                    DocumentSection(std::string(chunk_text), ""), chunk_id++, document.document_id,
                     token_result.title_prefix, token_result.metadata_suffix_semantic,
                     token_result.metadata_suffix_keyword, token_result.content_token_limit,
                     document.source_type, document.semantic_identifier, false
                 );
+                chunk.source_links = link_offsets;
                 chunks.push_back(chunk);
-                chunk_text = "";
+                chunk_text.clear();
+                chunk_text.reserve(token_result.content_token_limit * 4);
                 link_offsets.clear();
             }
             
-            // Split the oversized section
-            auto split_texts = chunk_splitter_->chunk(section_text);
+            // Split the oversized section using optimized approach
+            auto split_texts = split_oversized_chunk_optimized(std::string(section_text), token_result.content_token_limit);
             for (size_t i = 0; i < split_texts.size(); ++i) {
                 const auto& split_text = split_texts[i];
                 
                 // Check if even the split text is too big (STRICT_CHUNK_TOKEN_LIMIT)
                 if (STRICT_CHUNK_TOKEN_LIMIT && 
-                    static_cast<int>(tokenizer_->count_tokens(split_text)) > token_result.content_token_limit) {
-                    auto smaller_chunks = split_oversized_chunk(split_text, token_result.content_token_limit);
+                    optimized_cache_->get_token_count(split_text) > token_result.content_token_limit) {
+                    auto smaller_chunks = split_oversized_chunk_optimized(split_text, token_result.content_token_limit);
                     for (size_t j = 0; j < smaller_chunks.size(); ++j) {
-                        DocumentSection sub_section(smaller_chunks[j], section_link_text);
+                        DocumentSection sub_section(smaller_chunks[j], std::string(section_link_text));
                         auto chunk = create_chunk_from_section(
                             sub_section, chunk_id++, document.document_id,
                             token_result.title_prefix, token_result.metadata_suffix_semantic,
@@ -291,7 +357,7 @@ std::vector<DocumentChunk> AdvancedChunker::process_sections_with_combinations(
                         chunks.push_back(chunk);
                     }
                 } else {
-                    DocumentSection sub_section(split_text, section_link_text);
+                    DocumentSection sub_section(split_text, std::string(section_link_text));
                     auto chunk = create_chunk_from_section(
                         sub_section, chunk_id++, document.document_id,
                         token_result.title_prefix, token_result.metadata_suffix_semantic,
@@ -304,34 +370,33 @@ std::vector<DocumentChunk> AdvancedChunker::process_sections_with_combinations(
             continue;
         }
         
-        // CASE 3: Try to combine sections
-        int current_token_count = static_cast<int>(tokenizer_->count_tokens(chunk_text));
+        // CASE 3: Try to combine sections - use pre-computed token counts
+        int current_token_count = chunk_text.empty() ? 0 : optimized_cache_->get_token_count(chunk_text);
         int current_offset = static_cast<int>(utils::TextProcessing::shared_precompare_cleanup(chunk_text).length());
-        int next_section_tokens = static_cast<int>(tokenizer_->count_tokens(utils::TextProcessing::SECTION_SEPARATOR)) + section_token_count;
+        int next_section_tokens = separator_tokens + section_token_count;
         
         if (next_section_tokens + current_token_count <= token_result.content_token_limit) {
-            // Can combine sections
+            // Can combine sections - use efficient string operations
             if (!chunk_text.empty()) {
-                chunk_text += utils::TextProcessing::SECTION_SEPARATOR; // "\n\n"
+                chunk_text += section_separator;
             }
             chunk_text += section_text;
-            link_offsets[current_offset] = section_link_text;
+            link_offsets[current_offset] = std::string(section_link_text);
         } else {
             // Finalize existing chunk and start new one
             if (!chunk_text.empty()) {
                 auto chunk = create_chunk_from_section(
-                    DocumentSection(chunk_text, ""), chunk_id++, document.document_id,
+                    DocumentSection(std::string(chunk_text), ""), chunk_id++, document.document_id,
                     token_result.title_prefix, token_result.metadata_suffix_semantic,
                     token_result.metadata_suffix_keyword, token_result.content_token_limit,
                     document.source_type, document.semantic_identifier, false
                 );
-                // Set link offsets
                 chunk.source_links = link_offsets;
                 chunks.push_back(chunk);
             }
             
-            // Start new chunk
-            link_offsets = {{0, section_link_text}};
+            // Start new chunk - use move semantics for efficiency
+            link_offsets = {{0, std::string(section_link_text)}};
             chunk_text = section_text;
         }
     }
@@ -339,7 +404,7 @@ std::vector<DocumentChunk> AdvancedChunker::process_sections_with_combinations(
     // Finalize any leftover text chunk
     if (!chunk_text.empty() || chunks.empty()) {
         auto chunk = create_chunk_from_section(
-            DocumentSection(chunk_text, ""), chunk_id++, document.document_id,
+            DocumentSection(std::string(chunk_text), ""), chunk_id++, document.document_id,
             token_result.title_prefix, token_result.metadata_suffix_semantic,
             token_result.metadata_suffix_keyword, token_result.content_token_limit,
             document.source_type, document.semantic_identifier, false
@@ -356,32 +421,96 @@ std::vector<DocumentChunk> AdvancedChunker::process_sections_with_combinations(
     return chunks;
 }
 
+std::vector<std::string> AdvancedChunker::split_oversized_chunk_optimized(
+    const std::string& text,
+    int content_token_limit) {
+
+    // Use direct tokenization for maximum performance
+    auto tokens = tokenizer_->tokenize(text);
+    
+    std::vector<std::string> chunks;
+    chunks.reserve((tokens.size() / content_token_limit) + 1);
+    
+    size_t start = 0;
+    while (start < tokens.size()) {
+        size_t end = std::min(start + static_cast<size_t>(content_token_limit), tokens.size());
+        
+        // Pre-calculate the size needed for this chunk
+        size_t chunk_size = 0;
+        for (size_t i = start; i < end; ++i) {
+            chunk_size += tokens[i].length() + 1; // +1 for space
+        }
+        
+        std::string chunk_text;
+        chunk_text.reserve(chunk_size);
+        
+        for (size_t i = start; i < end; ++i) {
+            if (!chunk_text.empty()) chunk_text += ' ';
+            chunk_text += tokens[i];
+        }
+        
+        chunks.push_back(std::move(chunk_text));
+        start = end;
+    }
+    
+    return chunks;
+}
+
 std::vector<std::string> AdvancedChunker::split_oversized_chunk(
     const std::string& text,
     int content_token_limit) {
 
     std::vector<std::string> chunks;
-    std::vector<std::string> tokens;
+    chunks.reserve((text.length() / (content_token_limit * 4)) + 1); // Pre-allocate
     
-    // Simple tokenization by whitespace
-    std::istringstream iss(text);
-    std::string token;
-    while (iss >> token) {
-        tokens.push_back(token);
+    // Use string_view for efficiency and avoid copying
+    std::string_view text_view(text);
+    std::vector<std::string_view> tokens;
+    tokens.reserve(content_token_limit * 2);
+    
+    // Simple tokenization by whitespace using string_view
+    size_t start = 0;
+    size_t end = 0;
+    
+    while (start < text_view.length()) {
+        // Skip leading whitespace
+        while (start < text_view.length() && std::isspace(text_view[start])) {
+            start++;
+        }
+        
+        if (start >= text_view.length()) break;
+        
+        // Find end of token
+        end = start;
+        while (end < text_view.length() && !std::isspace(text_view[end])) {
+            end++;
+        }
+        
+        tokens.push_back(text_view.substr(start, end - start));
+        start = end;
     }
     
-    int start = 0;
-    while (start < static_cast<int>(tokens.size())) {
-        int end = std::min(start + content_token_limit, static_cast<int>(tokens.size()));
+    // Build chunks efficiently
+    size_t token_start = 0;
+    while (token_start < tokens.size()) {
+        size_t token_end = std::min(token_start + static_cast<size_t>(content_token_limit), tokens.size());
+        
+        // Calculate approximate string size for pre-allocation
+        size_t chunk_size = 0;
+        for (size_t i = token_start; i < token_end; ++i) {
+            chunk_size += tokens[i].length() + 1; // +1 for space
+        }
         
         std::string chunk_text;
-        for (int i = start; i < end; ++i) {
-            if (!chunk_text.empty()) chunk_text += " ";
+        chunk_text.reserve(chunk_size);
+        
+        for (size_t i = token_start; i < token_end; ++i) {
+            if (!chunk_text.empty()) chunk_text += ' ';
             chunk_text += tokens[i];
         }
         
-        chunks.push_back(chunk_text);
-        start = end;
+        chunks.push_back(std::move(chunk_text));
+        token_start = token_end;
     }
     
         return chunks;
@@ -561,6 +690,12 @@ double AdvancedChunker::calculate_information_density(const std::string& text) {
 void AdvancedChunker::update_config(const Config& config) {
     config_ = config;
     initialize_components();
+}
+
+void AdvancedChunker::clear_cache() {
+    if (token_cache_) {
+        token_cache_->clear();
+    }
 }
 
 } // namespace chunking
