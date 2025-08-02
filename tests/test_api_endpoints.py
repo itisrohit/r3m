@@ -221,12 +221,13 @@ def test_process_batch(file_paths):
                 
                 # Show results for each file
                 for i, file_result in enumerate(results):
-                    if file_result.get('success'):
+                    if file_result.get('processing_success', False):
                         print(f"  ✅ {os.path.basename(file_paths[i])}: "
-                              f"Quality={file_result.get('quality_score', 'N/A')}, "
+                              f"Quality={file_result.get('content_quality_score', 'N/A')}, "
                               f"Density={file_result.get('information_density', 'N/A')}")
                     else:
-                        print(f"  ❌ {os.path.basename(file_paths[i])}: {file_result.get('error', 'Unknown error')}")
+                        error_msg = file_result.get('error_message', 'Unknown error')
+                        print(f"  ❌ {os.path.basename(file_paths[i])}: {error_msg}")
                 
                 # Show batch statistics
                 stats = result.get('statistics', {})

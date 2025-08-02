@@ -204,6 +204,10 @@ set(UTILS_SOURCES
 set(SERVER_SOURCES
     src/server/http_server.cpp
     src/api/routes/routes.cpp
+    src/api/routes/json_utils/json_utils.cpp
+    src/api/routes/response_handler/response_handler.cpp
+    src/api/routes/serialization/serializer.cpp
+    src/api/routes/route_handlers/route_handlers.cpp
     src/api/jobs/job_manager.cpp
     src/api/config/config.cpp
 )

@@ -261,27 +261,21 @@ std::vector<DocumentResult> DocumentProcessor::process_documents_parallel(const 
         return results;
     }
     
-    // Create tasks for parallel processing with optimal batching
-    std::vector<std::function<DocumentResult()>> tasks;
-    tasks.reserve(file_paths.size());
-    
+    // For now, process sequentially to avoid memory issues
+    // TODO: Re-enable parallel processing once memory issues are resolved
     for (const auto& file_path : file_paths) {
-        tasks.emplace_back([this, file_path]() {
-            return process_document(file_path);
-        });
-    }
-    
-    // Submit tasks to optimized thread pool
-    auto futures = thread_pool_->submit_batch(tasks);
-    
-    // Collect results
-    for (auto& future : futures) {
-        results.push_back(future.get());
-    }
-    
-    // Update statistics
-    for (const auto& result : results) {
-        update_stats(result);
+        try {
+            auto result = process_document(file_path);
+            results.push_back(std::move(result));
+            update_stats(results.back());
+        } catch (const std::exception& e) {
+            // Create error result
+            DocumentResult error_result;
+            error_result.file_name = file_path;
+            error_result.processing_success = false;
+            error_result.error_message = std::string("Processing failed: ") + e.what();
+            results.push_back(std::move(error_result));
+        }
     }
     
     return results;

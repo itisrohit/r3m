@@ -30,17 +30,6 @@ public:
 
 private:
     std::shared_ptr<core::DocumentProcessor> processor_;
-    
-    // Helper methods
-    std::string create_response(bool success, const std::string& message, const std::string& data = "");
-    std::string generate_job_id();
-    std::string serialize_document_result(const core::DocumentResult& result);
-    std::string serialize_document_result_with_chunks(const core::DocumentResult& result);
-    std::string serialize_batch_results(const std::vector<core::DocumentResult>& results);
-    std::string serialize_batch_results_with_chunks(const std::vector<core::DocumentResult>& results);
-    std::string serialize_chunking_result(const chunking::ChunkingResult& result);
-    std::string serialize_system_info();
-    std::string serialize_performance_metrics(const core::ProcessingStats& stats);
 };
 
 } // namespace api
