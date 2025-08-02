@@ -171,6 +171,7 @@ set(CHUNKING_SOURCES
     src/chunking/advanced_chunker.cpp
     src/chunking/metadata_processor.cpp
     src/chunking/advanced_tokenizer.cpp
+    src/chunking/quality_assessment/quality_calculator.cpp
 )
 
 set(PROCESSING_SOURCES

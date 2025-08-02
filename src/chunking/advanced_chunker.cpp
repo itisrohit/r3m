@@ -626,66 +626,13 @@ std::vector<DocumentChunk> AdvancedChunker::apply_quality_filtering(const std::v
 }
 
 void AdvancedChunker::calculate_chunk_quality(DocumentChunk& chunk) {
-    // Calculate quality score (0.0 - 1.0)
-    double length_factor = std::min(1.0, static_cast<double>(chunk.content.length()) / 1000.0);
-    double word_diversity = calculate_word_diversity(chunk.content);
-    double sentence_structure = calculate_sentence_structure(chunk.content);
-    double information_density = calculate_information_density(chunk.content);
-    
-    chunk.quality_score = (length_factor * 0.3 + word_diversity * 0.3 + 
-                          sentence_structure * 0.2 + information_density * 0.2);
-    
-    chunk.information_density = information_density;
+    // Calculate quality score using the quality calculator
+    chunk.quality_score = quality_assessment::QualityCalculator::calculate_quality_score(chunk.content);
+    chunk.information_density = quality_assessment::QualityCalculator::calculate_information_density(chunk.content);
     chunk.is_high_quality = chunk.quality_score >= 0.7;
 }
 
-double AdvancedChunker::calculate_word_diversity(const std::string& text) {
-    // Simple word diversity calculation
-    std::unordered_set<std::string> unique_words;
-    std::istringstream iss(text);
-    std::string word;
-    
-    while (iss >> word) {
-        unique_words.insert(word);
-    }
-    
-    return std::min(1.0, static_cast<double>(unique_words.size()) / 100.0);
-}
 
-double AdvancedChunker::calculate_sentence_structure(const std::string& text) {
-    // Simple sentence structure calculation
-    int sentences = 0;
-    int words = 0;
-    
-    std::istringstream iss(text);
-    std::string word;
-    
-    while (iss >> word) {
-        words++;
-        if (word.find('.') != std::string::npos || 
-            word.find('!') != std::string::npos || 
-            word.find('?') != std::string::npos) {
-            sentences++;
-        }
-    }
-    
-    if (sentences == 0) return 0.0;
-    double avg_sentence_length = static_cast<double>(words) / sentences;
-    return std::min(1.0, avg_sentence_length / 20.0);
-}
-
-double AdvancedChunker::calculate_information_density(const std::string& text) {
-    // Simple information density calculation
-    std::unordered_set<char> chars;
-    
-    for (char c : text) {
-        if (std::isalnum(c)) {
-            chars.insert(c);
-        }
-    }
-    
-    return std::min(1.0, static_cast<double>(chars.size()) / 50.0);
-}
 
 void AdvancedChunker::update_config(const Config& config) {
     config_ = config;

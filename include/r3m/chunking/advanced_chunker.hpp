@@ -6,6 +6,7 @@
 #include "r3m/chunking/sentence_chunker.hpp"
 #include "r3m/chunking/multipass_chunker.hpp"
 #include "r3m/chunking/contextual_rag.hpp"
+#include "r3m/chunking/quality_assessment/quality_calculator.hpp"
 #include <memory>
 #include <unordered_map>
 #include <string>
@@ -276,21 +277,6 @@ private:
       * @brief Initialize chunking components
       */
      void initialize_components();
-     
-     /**
-      * @brief Calculate word diversity for quality assessment
-      */
-     double calculate_word_diversity(const std::string& text);
-     
-     /**
-      * @brief Calculate sentence structure for quality assessment
-      */
-     double calculate_sentence_structure(const std::string& text);
-     
-     /**
-      * @brief Calculate information density for quality assessment
-      */
-     double calculate_information_density(const std::string& text);
 };
 
 } // namespace chunking

@@ -1,4 +1,5 @@
 #include "r3m/parallel/optimized_thread_pool.hpp"
+#include "r3m/core/document_processor.hpp"
 #include <algorithm>
 #include <chrono>
 #include <iostream>
@@ -33,39 +34,14 @@ OptimizedThreadPool::MemoryPool::~MemoryPool() {
 }
 
 void* OptimizedThreadPool::MemoryPool::allocate(size_t size) {
-    std::lock_guard<std::mutex> lock(pool_mutex_);
-    
-    // Find an available block
-    for (auto& block : blocks_) {
-        if (!block.used && block.size >= size) {
-            block.used = true;
-            return block.data;
-        }
-    }
-    
-    // If no suitable block found, fallback to malloc
-    void* ptr = malloc(size);
-    return ptr;  // Can be nullptr if malloc fails
+    // Temporarily disable memory pooling to avoid double-free issues
+    // Just use malloc directly
+    return malloc(size);
 }
 
 void OptimizedThreadPool::MemoryPool::deallocate(void* ptr) {
-    // Check for null pointer
-    if (!ptr) {
-        return;
-    }
-    
-    std::lock_guard<std::mutex> lock(pool_mutex_);
-    
-    // Find the block and mark it as available
-    for (auto& block : blocks_) {
-        if (block.data == ptr) {
-            block.used = false;
-            return;
-        }
-    }
-    
-    // If not found in pool, fallback to free
-    // Only free if ptr is not null and not already freed
+    // Temporarily disable memory pooling to avoid double-free issues
+    // Just use free directly
     if (ptr) {
         free(ptr);
     }
@@ -114,6 +90,21 @@ void OptimizedThreadPool::shutdown() {
             thread.join();
         }
     }
+}
+
+// Template specialization for submit_batch
+template<>
+std::vector<std::future<core::DocumentResult>> OptimizedThreadPool::submit_batch(
+    const std::vector<std::function<core::DocumentResult()>>& tasks) {
+    
+    std::vector<std::future<core::DocumentResult>> futures;
+    futures.reserve(tasks.size());
+    
+    for (const auto& task : tasks) {
+        futures.push_back(submit(task));
+    }
+    
+    return futures;
 }
 
 bool OptimizedThreadPool::is_shutdown() const {
