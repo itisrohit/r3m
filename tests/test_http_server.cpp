@@ -10,26 +10,42 @@ int main() {
     // Test HTTP server initialization
     r3m::server::HttpServer server;
     
-    // Create test configuration
+    // Initialize with optimized configuration
     std::unordered_map<std::string, std::string> config;
-    config["server.port"] = "8080";
-    config["server.host"] = "0.0.0.0";
-    config["server.threads"] = "4";
-    config["server.upload_dir"] = "/tmp/r3m/test_uploads";
+    config["document_processing.enable_chunking"] = "true";
+    config["document_processing.batch_size"] = "16";  // Optimal batch size
+    config["document_processing.max_workers"] = "4";
     
-    // Add document processing configuration
-    config["document_processing.max_file_size"] = "100MB";
-    config["document_processing.max_text_length"] = "1000000";
-    config["document_processing.worker_threads"] = "4";
-    config["document_processing.batch_size"] = "16";
-    config["document_processing.max_workers"] = "8";
+    // OPTIMIZED PARALLEL PROCESSING CONFIGURATION
+    config["document_processing.enable_optimized_thread_pool"] = "true";
+    config["document_processing.enable_thread_affinity"] = "true";
+    config["document_processing.enable_work_stealing"] = "true";
+    config["document_processing.enable_memory_pooling"] = "true";
     
-    // Add quality filtering configuration
-    config["document_processing.quality_filtering.enabled"] = "true";
-    config["document_processing.quality_filtering.min_content_quality_score"] = "0.3";
-    config["document_processing.quality_filtering.min_information_density"] = "0.1";
-    config["document_processing.quality_filtering.min_content_length"] = "50";
-    config["document_processing.quality_filtering.max_content_length"] = "1000000";
+    // SIMD OPTIMIZATION CONFIGURATION
+    config["document_processing.enable_simd_optimizations"] = "true";
+    config["document_processing.enable_avx2"] = "true";
+    config["document_processing.enable_avx512"] = "true";
+    config["document_processing.enable_neon"] = "true";
+    
+    // CHUNKING CONFIGURATION - OPTIMIZED!
+    config["chunking.enable_multipass"] = "true";
+    config["chunking.enable_large_chunks"] = "true";
+    config["chunking.enable_contextual_rag"] = "true";
+    config["chunking.include_metadata"] = "true";
+    config["chunking.chunk_token_limit"] = "2048";
+    config["chunking.chunk_overlap"] = "0";
+    config["chunking.mini_chunk_size"] = "150";
+    config["chunking.blurb_size"] = "100";
+    config["chunking.large_chunk_ratio"] = "4";
+    config["chunking.max_metadata_percentage"] = "0.25";
+    config["chunking.contextual_rag_reserved_tokens"] = "512";
+    
+    // OPTIMIZED TOKEN PROCESSING
+    config["chunking.enable_token_caching"] = "true";
+    config["chunking.enable_string_view_optimization"] = "true";
+    config["chunking.enable_preallocation"] = "true";
+    config["chunking.enable_move_semantics"] = "true";
     
     std::cout << "🔧 Initializing HTTP server..." << std::endl;
     

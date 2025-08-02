@@ -158,11 +158,21 @@ int main() {
     config["document_processing.text_processing.normalize_whitespace"] = "true";
     config["document_processing.text_processing.extract_metadata"] = "true";
     
-    // Test-specific configuration (should come from config.yaml)
-    config["document_processing.batch_size"] = "4";
-    config["document_processing.max_workers"] = "4";
+    // OPTIMIZED PARALLEL PROCESSING CONFIGURATION
+    config["document_processing.batch_size"] = "16";  // Optimal batch size
+    config["document_processing.max_workers"] = "4";  // Optimal worker count
+    config["document_processing.enable_optimized_thread_pool"] = "true";
+    config["document_processing.enable_thread_affinity"] = "true";
+    config["document_processing.enable_work_stealing"] = "true";
+    config["document_processing.enable_memory_pooling"] = "true";
     
-    // CHUNKING CONFIGURATION - NEW!
+    // SIMD OPTIMIZATION CONFIGURATION
+    config["document_processing.enable_simd_optimizations"] = "true";
+    config["document_processing.enable_avx2"] = "true";
+    config["document_processing.enable_avx512"] = "true";
+    config["document_processing.enable_neon"] = "true";
+    
+    // CHUNKING CONFIGURATION - OPTIMIZED!
     config["document_processing.enable_chunking"] = "true";
     config["chunking.enable_multipass"] = "true";
     config["chunking.enable_large_chunks"] = "true";
@@ -175,6 +185,12 @@ int main() {
     config["chunking.large_chunk_ratio"] = "4";
     config["chunking.max_metadata_percentage"] = "0.25";
     config["chunking.contextual_rag_reserved_tokens"] = "512";
+    
+    // OPTIMIZED TOKEN PROCESSING
+    config["chunking.enable_token_caching"] = "true";
+    config["chunking.enable_string_view_optimization"] = "true";
+    config["chunking.enable_preallocation"] = "true";
+    config["chunking.enable_move_semantics"] = "true";
     
     // Quality filtering configuration
     config["document_processing.quality_filtering.enabled"] = "true";
