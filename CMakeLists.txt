@@ -15,6 +15,44 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -O2")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -O0")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
 
+# SIMD optimization flags
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    # Check for ARM NEON support (Apple Silicon)
+    if(CMAKE_SYSTEM_PROCESSOR MATCHES "arm64|aarch64")
+        # NEON is always available on ARM64, no special flags needed
+        add_definitions(-DR3M_SIMD_ARM_ENABLED)
+        message(STATUS "ARM NEON SIMD optimizations enabled (Apple Silicon)")
+    # Check for AVX2 support (x86 only)
+    elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64|amd64")
+        include(CheckCXXCompilerFlag)
+        check_cxx_compiler_flag("-mavx2" COMPILER_SUPPORTS_AVX2)
+        if(COMPILER_SUPPORTS_AVX2)
+            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mavx2")
+            add_definitions(-DR3M_AVX2_ENABLED)
+            message(STATUS "AVX2 SIMD optimizations enabled")
+        else()
+            message(STATUS "AVX2 not supported by compiler")
+        endif()
+        
+        # Check for AVX-512 support (x86 only)
+        check_cxx_compiler_flag("-mavx512f" COMPILER_SUPPORTS_AVX512)
+        if(COMPILER_SUPPORTS_AVX512)
+            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mavx512f")
+            add_definitions(-DR3M_AVX512_ENABLED)
+            message(STATUS "AVX-512 SIMD optimizations enabled")
+        else()
+            message(STATUS "AVX-512 not supported by compiler")
+        endif()
+    endif()
+elseif(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    # MSVC SIMD flags (x86 only)
+    if(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64|amd64")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /arch:AVX2")
+        add_definitions(-DR3M_AVX2_ENABLED)
+        message(STATUS "AVX2 SIMD optimizations enabled (MSVC)")
+    endif()
+endif()
+
 # Print build information
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "C++ standard: ${CMAKE_CXX_STANDARD}")
@@ -155,6 +193,7 @@ set(UTILS_SOURCES
     src/utils/text_utils.cpp
     src/utils/text_processing.cpp
     src/utils/performance.cpp
+    src/utils/simd_utils.cpp
 )
 
 set(SERVER_SOURCES
@@ -349,6 +388,19 @@ target_sources(r3m-performance-benchmark PRIVATE
     ${UTILS_SOURCES}
 )
 target_link_libraries(r3m-performance-benchmark ${CMAKE_THREAD_LIBS_INIT} ${POPPLER_CPP_LIBRARIES} ${GUMBO_LIBRARIES})
+
+# SIMD optimizations test
+add_executable(r3m-simd-test
+    tests/test_simd_optimizations.cpp
+    ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
+    ${PROCESSING_SOURCES}
+    ${QUALITY_SOURCES}
+    ${PARALLEL_SOURCES}
+    ${FORMATS_SOURCES}
+    ${UTILS_SOURCES}
+)
+target_link_libraries(r3m-simd-test ${CMAKE_THREAD_LIBS_INIT} ${POPPLER_CPP_LIBRARIES} ${GUMBO_LIBRARIES})
 
 # Custom targets for build management
 add_custom_target(clean-all

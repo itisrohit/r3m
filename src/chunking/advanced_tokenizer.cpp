@@ -1,5 +1,6 @@
 #include "r3m/chunking/advanced_tokenizer.hpp"
 #include "r3m/utils/text_processing.hpp"
+#include "r3m/utils/simd_utils.hpp"
 #include <sstream>
 #include <algorithm>
 #include <fstream>
@@ -116,40 +117,37 @@ int SentenceTokenizer::count_tokens(const std::string& text) {
 
 std::vector<std::string> SentenceTokenizer::split_sentences(const std::string& text) {
     std::vector<std::string> sentences;
-    std::string current_sentence;
     
-    std::istringstream iss(text);
-    std::string line;
+    // Use SIMD-optimized sentence boundary detection
+    auto boundaries = r3m::utils::SIMDUtils::find_sentence_boundaries_simd(text);
     
-    while (std::getline(iss, line)) {
-        current_sentence += line + " ";
-        
-        // Check for sentence endings
-        size_t pos = 0;
-        while ((pos = current_sentence.find_first_of(".!?", pos)) != std::string::npos) {
-            size_t end_pos = pos + 1;
-            
-            // Look for multiple punctuation marks
-            while (end_pos < current_sentence.length() && 
-                   (current_sentence[end_pos] == '.' || 
-                    current_sentence[end_pos] == '!' || 
-                    current_sentence[end_pos] == '?')) {
-                end_pos++;
-            }
-            
-            std::string sentence = current_sentence.substr(0, end_pos);
+    if (boundaries.empty()) {
+        // No sentence boundaries found, return the whole text as one sentence
+        sentences.push_back(text);
+        return sentences;
+    }
+    
+    // Split text based on found boundaries
+    size_t start = 0;
+    for (size_t boundary : boundaries) {
+        if (boundary > start) {
+            std::string sentence = text.substr(start, boundary - start + 1);
+            // Clean up the sentence
+            sentence = r3m::utils::TextProcessing::clean_text(sentence);
             if (!sentence.empty()) {
                 sentences.push_back(sentence);
             }
-            
-            current_sentence = current_sentence.substr(end_pos);
-            pos = 0;
         }
+        start = boundary + 1;
     }
     
     // Add remaining text as a sentence
-    if (!current_sentence.empty()) {
-        sentences.push_back(current_sentence);
+    if (start < text.length()) {
+        std::string sentence = text.substr(start);
+        sentence = r3m::utils::TextProcessing::clean_text(sentence);
+        if (!sentence.empty()) {
+            sentences.push_back(sentence);
+        }
     }
     
     return sentences;
@@ -263,19 +261,32 @@ void BPETokenizer::load_vocabulary(const std::string& filename) {
 }
 
 void BPETokenizer::build_vocabulary(const std::vector<std::string>& corpus) {
-    // Count character pairs
+    // Count character pairs using SIMD optimization
     pair_freqs_.clear();
     
     for (const auto& text : corpus) {
-        // Split text into individual characters for initial counting
-        std::vector<std::string> chars;
-        for (char ch : text) {
-            chars.push_back(std::string(1, ch));
+        // Extract all 2-character pairs from the vocabulary
+        std::vector<std::string> pairs;
+        for (const auto& [token, id] : vocab_) {
+            if (token.length() == 2) {
+                pairs.push_back(token);
+            }
         }
         
-        // Count adjacent character pairs
-        for (size_t i = 0; i < chars.size() - 1; ++i) {
-            std::string pair = chars[i] + chars[i + 1];
+        // Use SIMD-optimized pair finding
+        auto positions = r3m::utils::SIMDUtils::find_bpe_pairs_simd(text, pairs);
+        
+        // Count pairs found by SIMD
+        for (size_t pos : positions) {
+            if (pos + 1 < text.length()) {
+                std::string pair = text.substr(pos, 2);
+                pair_freqs_[pair]++;
+            }
+        }
+        
+        // Also count adjacent character pairs for new vocabulary building
+        for (size_t i = 0; i < text.length() - 1; ++i) {
+            std::string pair = text.substr(i, 2);
             pair_freqs_[pair]++;
         }
     }
@@ -299,28 +310,48 @@ std::vector<std::string> BPETokenizer::byte_pair_encode(const std::string& text)
         return tokens;
     }
     
-    // Apply BPE merges
-    bool merged = true;
-    int max_iterations = 1000; // Prevent infinite loops
-    int iterations = 0;
-    
-    while (merged && iterations < max_iterations) {
-        merged = false;
-        iterations++;
-        
-        for (size_t i = 0; i < tokens.size() - 1; ++i) {
-            std::string pair = tokens[i] + tokens[i + 1];
-            if (vocab_.find(pair) != vocab_.end()) {
-                // Merge the pair
-                tokens[i] = pair;
-                tokens.erase(tokens.begin() + i + 1);
-                merged = true;
-                break;
-            }
+    // Extract all 2-character pairs from vocabulary for SIMD processing
+    std::vector<std::string> pairs;
+    for (const auto& [token, id] : vocab_) {
+        if (token.length() == 2) {
+            pairs.push_back(token);
         }
     }
     
-    return tokens;
+    // Use SIMD-optimized pair finding for faster encoding
+    auto positions = r3m::utils::SIMDUtils::find_bpe_pairs_simd(text, pairs);
+    
+    // Process found pairs in reverse order to avoid index shifting issues
+    std::sort(positions.begin(), positions.end(), std::greater<size_t>());
+    
+    // Create a new tokens vector to avoid modifying while iterating
+    std::vector<std::string> result_tokens;
+    result_tokens.reserve(tokens.size());
+    
+    // Copy tokens and apply BPE merges
+    for (size_t i = 0; i < tokens.size(); ++i) {
+        bool merged = false;
+        
+        // Check if this position should be merged
+        for (size_t pos : positions) {
+            if (pos == i && pos + 1 < text.length()) {
+                std::string pair = text.substr(pos, 2);
+                auto it = vocab_.find(pair);
+                if (it != vocab_.end()) {
+                    result_tokens.push_back(pair);
+                    i++; // Skip the next token since we merged it
+                    merged = true;
+                    break;
+                }
+            }
+        }
+        
+        if (!merged) {
+            result_tokens.push_back(tokens[i]);
+        }
+    }
+    
+    return result_tokens;
 }
 
 std::string BPETokenizer::byte_pair_decode(const std::vector<std::string>& tokens) {

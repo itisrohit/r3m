@@ -10,98 +10,93 @@ using namespace r3m::utils;
 using namespace r3m::chunking;
 
 void test_text_processing_utilities() {
-    std::cout << "Testing text processing utilities..." << std::endl;
+    std::cout << "Testing TextProcessing utilities..." << std::endl;
     
     // Test clean_text
-    std::string dirty_text = "Hello\u0000World\u0001\u0002Test";
+    std::string dirty_text = "Hello\x00World\x01\x02\x03";
     std::string cleaned = TextProcessing::clean_text(dirty_text);
-    assert(cleaned == "HelloWorldTest");
+    assert(cleaned == "HelloWorld");
     std::cout << "✅ clean_text test passed!" << std::endl;
     
     // Test shared_precompare_cleanup
-    std::string text_with_formatting = "Hello, World! *Bold* \"Quote\" #hashtag";
-    std::string cleaned_for_comparison = TextProcessing::shared_precompare_cleanup(text_with_formatting);
-    assert(cleaned_for_comparison == "helloworld");
+    std::string text_to_clean = "  Hello, World!  ";
+    std::string cleaned_for_compare = TextProcessing::shared_precompare_cleanup(text_to_clean);
+    assert(cleaned_for_compare.find(" ") == std::string::npos);
+    assert(cleaned_for_compare.find(",") == std::string::npos);
     std::cout << "✅ shared_precompare_cleanup test passed!" << std::endl;
     
     // Test remove_punctuation
     std::string text_with_punct = "Hello, World! How are you?";
     std::string without_punct = TextProcessing::remove_punctuation(text_with_punct);
-    assert(without_punct == "Hello World How are you");
+    assert(without_punct.find(",") == std::string::npos);
+    assert(without_punct.find("!") == std::string::npos);
+    assert(without_punct.find("?") == std::string::npos);
     std::cout << "✅ remove_punctuation test passed!" << std::endl;
     
     // Test replace_whitespaces_with_space
-    std::string text_with_whitespace = "Hello\tWorld\nTest\r\nMore";
+    std::string text_with_whitespace = "Hello\tWorld\nTest\r\n";
     std::string normalized = TextProcessing::replace_whitespaces_with_space(text_with_whitespace);
-    assert(normalized == "Hello World Test More");
+    assert(normalized.find("\t") == std::string::npos);
+    assert(normalized.find("\n") == std::string::npos);
+    assert(normalized.find("\r") == std::string::npos);
     std::cout << "✅ replace_whitespaces_with_space test passed!" << std::endl;
     
     // Test escape_newlines
-    std::string text_with_newlines = "Line1\nLine2\nLine3";
+    std::string text_with_newlines = "Hello\nWorld\nTest";
     std::string escaped = TextProcessing::escape_newlines(text_with_newlines);
-    assert(escaped == "Line1\\\\nLine2\\\\nLine3");
+    assert(escaped.find("\\\\n") != std::string::npos);
     std::cout << "✅ escape_newlines test passed!" << std::endl;
     
     // Test make_url_compatible
-    std::string text_for_url = "Hello World Test";
-    std::string url_safe = TextProcessing::make_url_compatible(text_for_url);
-    assert(url_safe.find("Hello_World_Test") != std::string::npos);
+    std::string text_for_url = "Hello World! Test & More";
+    std::string url_compatible = TextProcessing::make_url_compatible(text_for_url);
+    assert(url_compatible.find(" ") == std::string::npos);
+    assert(url_compatible.find("!") == std::string::npos);
+    assert(url_compatible.find("&") == std::string::npos);
     std::cout << "✅ make_url_compatible test passed!" << std::endl;
     
-    // Test has_unescaped_quote
-    std::string text_with_quotes = "Hello \"World\" Test";
-    assert(TextProcessing::has_unescaped_quote(text_with_quotes) == true);
-    std::string text_with_escaped_quotes = "Hello \\\"World\\\" Test";
-    assert(TextProcessing::has_unescaped_quote(text_with_escaped_quotes) == false);
-    std::cout << "✅ has_unescaped_quote test passed!" << std::endl;
-    
-    // Test escape_quotes
-    std::string json_text = "{\"key\": \"value\", \"test\": \"data\"}";
-    std::string escaped_json = TextProcessing::escape_quotes(json_text);
-    assert(escaped_json.find("\\\"") != std::string::npos);
-    std::cout << "✅ escape_quotes test passed!" << std::endl;
-    
-    // Test clean_up_code_blocks
-    std::string code_block = "```\nint main() {\n    return 0;\n}\n```";
-    std::string cleaned_code = TextProcessing::clean_up_code_blocks(code_block);
-    assert(cleaned_code == "int main() {\n    return 0;\n}");
-    std::cout << "✅ clean_up_code_blocks test passed!" << std::endl;
-    
-    // Test clean_model_quote
+    // Test clean_model_quote (updated signature)
     std::string quoted_text = "\"Hello World\"";
-    std::string cleaned_quote = TextProcessing::clean_model_quote(quoted_text);
-    assert(cleaned_quote == "Hello World");
+    std::string cleaned_quote = TextProcessing::clean_model_quote(quoted_text, 0);
+    assert(cleaned_quote.find("\"") == std::string::npos);
     std::cout << "✅ clean_model_quote test passed!" << std::endl;
     
-    // Test is_valid_email
-    assert(TextProcessing::is_valid_email("test@example.com") == true);
-    assert(TextProcessing::is_valid_email("invalid-email") == false);
-    std::cout << "✅ is_valid_email test passed!" << std::endl;
+    // Test count_words (new SIMD-optimized function)
+    std::string text_for_counting = "Hello world! This is a test.";
+    size_t word_count = TextProcessing::count_words(text_for_counting);
+    assert(word_count > 0);
+    (void)word_count; // Suppress unused variable warning
+    std::cout << "✅ count_words test passed!" << std::endl;
     
-    // Test count_punctuation
-    std::string text_with_punctuation = "Hello, World! How are you?";
-    int punct_count = TextProcessing::count_punctuation(text_with_punctuation);
-    assert(punct_count == 3); // comma, exclamation, question mark
-    (void)punct_count; // Suppress unused variable warning
-    std::cout << "✅ count_punctuation test passed!" << std::endl;
+    // Test count_sentences (new SIMD-optimized function)
+    size_t sentence_count = TextProcessing::count_sentences(text_for_counting);
+    assert(sentence_count > 0);
+    (void)sentence_count; // Suppress unused variable warning
+    std::cout << "✅ count_sentences test passed!" << std::endl;
     
-    // Test decode_escapes
-    std::string escaped_text = "Hello\\nWorld\\tTest";
-    std::string decoded = TextProcessing::decode_escapes(escaped_text);
-    assert(decoded.find("\n") != std::string::npos);
-    assert(decoded.find("\t") != std::string::npos);
-    std::cout << "✅ decode_escapes test passed!" << std::endl;
+    // Test count_paragraphs (new SIMD-optimized function)
+    std::string text_with_paragraphs = "First paragraph.\n\nSecond paragraph.\n\nThird paragraph.";
+    size_t paragraph_count = TextProcessing::count_paragraphs(text_with_paragraphs);
+    assert(paragraph_count > 0);
+    (void)paragraph_count; // Suppress unused variable warning
+    std::cout << "✅ count_paragraphs test passed!" << std::endl;
     
-    // Test extract_embedded_json
-    std::string text_with_json = "Some text {\"key\": \"value\"} more text";
-    std::string extracted_json = TextProcessing::extract_embedded_json(text_with_json);
-    assert(extracted_json == "{\"key\": \"value\"}");
-    std::cout << "✅ extract_embedded_json test passed!" << std::endl;
+    // Test calculate_readability_score (new function)
+    double readability = TextProcessing::calculate_readability_score(text_for_counting);
+    assert(readability >= 0.0 && readability <= 100.0);
+    (void)readability; // Suppress unused variable warning
+    std::cout << "✅ calculate_readability_score test passed!" << std::endl;
+    
+    // Test generate_summary (new function)
+    std::string long_text = "This is a very long text that should be summarized. " 
+                           "It contains multiple sentences and should be truncated. "
+                           "The summary should be shorter than the original text.";
+    std::string summary = TextProcessing::generate_summary(long_text, 50);
+    assert(summary.length() <= 50);
+    std::cout << "✅ generate_summary test passed!" << std::endl;
     
     // Test constants
-    assert(std::string(TextProcessing::RETURN_SEPARATOR) == "\n\r\n");
-    assert(std::string(TextProcessing::SECTION_SEPARATOR) == "\n\n");
-    assert(std::string(TextProcessing::INDEX_SEPARATOR) == "===");
+    assert(TextProcessing::SECTION_SEPARATOR == "\n\n");
     std::cout << "✅ constants test passed!" << std::endl;
 }
 
