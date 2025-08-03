@@ -69,4 +69,4 @@ If you want GitHub Actions to auto-deploy:
 3. Copy the deployment token
 4. Add it to GitHub repository secrets as `RAILWAY_TOKEN`
 
-That's it! Your R3M API will be live on Railway! 🚀 
+That's it! Your R3M API will be live on Railway! 
