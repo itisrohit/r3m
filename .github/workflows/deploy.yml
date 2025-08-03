@@ -20,7 +20,7 @@ jobs:
         
     - name: Deploy to Railway
       run: |
-        railway login --token ${{ secrets.RAILWAY_TOKEN }}
+        echo ${{ secrets.RAILWAY_TOKEN }} | railway login
         railway up --service r3m-api
       env:
         RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }} 
