@@ -1,6 +1,59 @@
-# R3M — Recursive Retrieval & Memory
+# R3M - High-Performance Document Processing & Retrieval System
 
-A high-performance C++ document processing and chunking system with SIMD-optimized text processing, designed for large-scale document analysis and retrieval applications. Features a complete REST API for easy integration.
+A comprehensive C++ system for advanced document processing, semantic embeddings, and high-contextual retrieval. R3M combines cutting-edge chunking algorithms with embedding generation and sophisticated retrieval mechanisms for building powerful RAG (Retrieval-Augmented Generation) applications.
+
+## 🎯 **Core Mission**
+
+R3M is designed to be the backbone of high-performance document intelligence systems, providing:
+
+1. **Advanced Document Processing** - Multi-format document ingestion and preprocessing
+2. **Semantic Embeddings** - High-quality vector representations for content understanding  
+3. **High-Contextual Retrieval** - Intelligent document chunking and retrieval for RAG applications
+4. **Performance-Optimized** - SIMD-optimized processing with parallel execution
+
+## 🚀 **Current Implementation Status**
+
+### ✅ **Completed Components**
+
+#### **Advanced Chunking System**
+- **Multi-pass chunking** with mini-chunks and large chunks for optimal retrieval
+- **Contextual RAG** with reserved token management for context preservation
+- **Quality assessment** with information density scoring and filtering
+- **Source-specific handling** for different document types (PDF, HTML, TXT, MD, etc.)
+- **Strict token limit enforcement** for consistent chunk sizes
+- **SIMD-optimized text processing** for high-performance chunking
+
+#### **Performance Optimizations**
+- **SIMD Vectorization**: 10.53x speedup for BPE token matching
+- **Parallel Processing**: 3.85x speedup with optimized thread pools
+- **Memory Management**: Efficient pooling and zero-copy operations
+- **Cross-Platform SIMD**: AVX2/AVX-512 (x86) and NEON (ARM64)
+
+#### **REST API Foundation**
+- **Document processing endpoints** for file and content-based operations
+- **Chunking endpoints** for dedicated chunking operations
+- **Performance monitoring** with real-time metrics
+- **Health checks** and system status endpoints
+
+### 🔄 **In Development**
+
+#### **Embedding Generation System**
+- **Semantic embedding models** for content understanding
+- **Multi-modal embeddings** for different content types
+- **Embedding optimization** for retrieval performance
+- **Vector storage** and indexing mechanisms
+
+#### **High-Contextual Retrieval Engine**
+- **Semantic search** with embedding-based similarity
+- **Context-aware retrieval** with chunk relationship understanding
+- **Query expansion** and relevance scoring
+- **Multi-stage retrieval** with re-ranking capabilities
+
+#### **Advanced RAG Pipeline**
+- **End-to-end processing** from documents to retrieval
+- **Context window management** for large language models
+- **Source attribution** and citation tracking
+- **Quality-based filtering** for retrieval results
 
 ## 🚀 **Performance Highlights**
 
@@ -446,6 +499,32 @@ python tests/test_api_performance.py
 make clean
 ```
 
+## 🔮 **Roadmap**
+
+### **Phase 1: Embedding Generation (Next)**
+- [ ] Semantic embedding model integration
+- [ ] Multi-modal embedding support
+- [ ] Embedding optimization and caching
+- [ ] Vector storage and indexing
+
+### **Phase 2: Retrieval Engine**
+- [ ] Semantic search implementation
+- [ ] Context-aware retrieval algorithms
+- [ ] Multi-stage ranking system
+- [ ] Query expansion capabilities
+
+### **Phase 3: Advanced RAG Pipeline**
+- [ ] End-to-end RAG pipeline
+- [ ] Context window management
+- [ ] Source attribution system
+- [ ] Quality-based result filtering
+
+### **Phase 4: Production Features**
+- [ ] Docker containerization
+- [ ] Kubernetes deployment
+- [ ] Monitoring and observability
+- [ ] Performance optimization
+
 ## 🙏 **Acknowledgments**
 
 - Inspired by modern document processing systems
@@ -457,4 +536,4 @@ make clean
 
 ---
 
-**R3M**: Where speed meets sophistication in document processing, powered by SIMD-optimized text processing and a complete REST API.
+**R3M**: Where speed meets sophistication, powered by SIMD-optimized text processing and a complete REST API.
