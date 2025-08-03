@@ -76,7 +76,7 @@ bool DocumentProcessor::initialize(const std::unordered_map<std::string, std::st
         enable_chunking_ = (it->second == "true" || it->second == "1");
     }
     
-    // Initialize optimized thread pool
+    // Initialize optimized thread pool with fixed memory management
     thread_pool_ = std::make_unique<parallel::OptimizedThreadPool>(max_workers_);
     
     // Initialize chunking components if enabled
@@ -261,19 +261,39 @@ std::vector<DocumentResult> DocumentProcessor::process_documents_parallel(const 
         return results;
     }
     
-    // For now, process sequentially to avoid memory issues
-    // TODO: Re-enable parallel processing once memory issues are resolved
+    // Create tasks for parallel processing
+    std::vector<std::function<DocumentResult()>> tasks;
+    tasks.reserve(file_paths.size());
+    
     for (const auto& file_path : file_paths) {
+        tasks.emplace_back([this, file_path]() {
+            try {
+                return process_document(file_path);
+            } catch (const std::exception& e) {
+                DocumentResult error_result;
+                error_result.file_name = file_path;
+                error_result.processing_success = false;
+                error_result.error_message = std::string("Processing failed: ") + e.what();
+                return error_result;
+            }
+        });
+    }
+    
+    // Submit tasks to optimized thread pool
+    auto futures = thread_pool_->submit_batch(tasks);
+    
+    // Collect results
+    for (auto& future : futures) {
         try {
-            auto result = process_document(file_path);
+            auto result = future.get();
             results.push_back(std::move(result));
             update_stats(results.back());
         } catch (const std::exception& e) {
-            // Create error result
+            // Handle any exceptions from futures
             DocumentResult error_result;
-            error_result.file_name = file_path;
+            error_result.file_name = "unknown";
             error_result.processing_success = false;
-            error_result.error_message = std::string("Processing failed: ") + e.what();
+            error_result.error_message = std::string("Future exception: ") + e.what();
             results.push_back(std::move(error_result));
         }
     }

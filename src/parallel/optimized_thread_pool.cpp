@@ -34,14 +34,14 @@ OptimizedThreadPool::MemoryPool::~MemoryPool() {
 }
 
 void* OptimizedThreadPool::MemoryPool::allocate(size_t size) {
-    // Temporarily disable memory pooling to avoid double-free issues
-    // Just use malloc directly
+    // Use a simple, safe memory allocation strategy
+    // For now, use standard malloc to avoid double-free issues
+    // TODO: Implement proper memory pooling once the core issues are resolved
     return malloc(size);
 }
 
 void OptimizedThreadPool::MemoryPool::deallocate(void* ptr) {
-    // Temporarily disable memory pooling to avoid double-free issues
-    // Just use free directly
+    // Use a simple, safe memory deallocation strategy
     if (ptr) {
         free(ptr);
     }
@@ -100,8 +100,18 @@ std::vector<std::future<core::DocumentResult>> OptimizedThreadPool::submit_batch
     std::vector<std::future<core::DocumentResult>> futures;
     futures.reserve(tasks.size());
     
+    // Use a safer approach for batch submission
     for (const auto& task : tasks) {
-        futures.push_back(submit(task));
+        // Create a packaged task to ensure proper memory management
+        auto packaged_task = std::make_shared<std::packaged_task<core::DocumentResult()>>(task);
+        auto future = packaged_task->get_future();
+        
+        // Submit the packaged task
+        submit([packaged_task]() {
+            (*packaged_task)();
+        });
+        
+        futures.push_back(std::move(future));
     }
     
     return futures;
@@ -203,7 +213,12 @@ void OptimizedThreadPool::worker_thread(size_t thread_id) {
         if (task) {
             auto start_time = std::chrono::high_resolution_clock::now();
             
-            task();
+            try {
+                task();
+            } catch (const std::exception& e) {
+                // Log error but don't crash the thread
+                std::cerr << "Task execution error: " << e.what() << std::endl;
+            }
             
             auto end_time = std::chrono::high_resolution_clock::now();
             auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
