@@ -13,6 +13,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
+    - name: Cache Railway CLI
+      uses: actions/cache@v3
+      with:
+        path: ~/.railway
+        key: ${{ runner.os }}-railway-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-railway-
+          
     - name: Deploy to Railway
       uses: railway/deploy@v1
       with:

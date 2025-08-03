@@ -86,7 +86,7 @@ RUN ldconfig
 
 # Copy configuration and data
 COPY --from=builder /app/configs/ /app/configs/
-COPY --from=builder /app/data/ /app/data/
+# COPY --from=builder /app/data/ /app/data/  # Removed - data directory doesn't exist in builder
 
 # Set ownership
 RUN chown -R r3m:r3m /app
