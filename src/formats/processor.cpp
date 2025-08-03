@@ -169,10 +169,32 @@ std::string FormatProcessor::process_html(const std::string& file_path) {
         // Clean up gumbo output
         gumbo_destroy_output(&kGumboDefaultOptions, output);
         
+        // If no text was extracted, try a fallback approach
+        if (text_content.empty()) {
+            // Simple fallback: remove HTML tags manually
+            text_content = utils::TextUtils::remove_html_tags(html_content);
+        }
+        
         return text_content;
         
     } catch (const std::exception& e) {
-        throw std::runtime_error("HTML processing failed: " + std::string(e.what()));
+        // Fallback to simple text processing if gumbo fails
+        try {
+            std::ifstream file(file_path);
+            if (!file.is_open()) {
+                throw std::runtime_error("Cannot open HTML file: " + file_path);
+            }
+            
+            std::stringstream buffer;
+            buffer << file.rdbuf();
+            std::string html_content = buffer.str();
+            
+            // Simple HTML tag removal as fallback
+            return utils::TextUtils::remove_html_tags(html_content);
+            
+        } catch (const std::exception& fallback_e) {
+            throw std::runtime_error("HTML processing failed: " + std::string(e.what()) + " (fallback also failed: " + std::string(fallback_e.what()) + ")");
+        }
     }
 }
 

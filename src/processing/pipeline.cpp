@@ -12,17 +12,25 @@ namespace processing {
 
 PipelineOrchestrator::PipelineOrchestrator() {
     // Initialize with default values (will be overridden by config)
-    max_file_size_ = 0;
-    max_text_length_ = 0;
+    max_file_size_ = 100 * 1024 * 1024; // 100 MB default
+    max_text_length_ = 10 * 1024 * 1024; // 10 MB default
     encoding_detection_ = true;
     default_encoding_ = "utf-8";
     remove_html_tags_ = true;
     normalize_whitespace_ = true;
     extract_metadata_ = true;
+    
+    // Initialize format processor
+    format_processor_ = std::make_unique<formats::FormatProcessor>();
 }
 
 bool PipelineOrchestrator::initialize(const std::unordered_map<std::string, std::string>& config) {
     config_ = config;
+    
+    // Initialize format processor
+    if (!format_processor_->initialize(config)) {
+        return false;
+    }
     
     // Load processing settings from config
     auto it = config_.find("document_processing.max_file_size");
@@ -104,18 +112,30 @@ bool PipelineOrchestrator::extract_text(const std::string& file_path, PipelineSt
     stage.success = false;
     
     try {
-        // This will be handled by the FormatProcessor
-        // For now, just read the file as text
-        std::ifstream file(file_path);
-        if (!file.is_open()) {
-            stage.error_message = "Cannot open file: " + file_path;
+        // Use FormatProcessor for proper text extraction based on file type
+        auto file_type = format_processor_->detect_file_type(file_path);
+        
+        switch (file_type) {
+            case formats::FileType::PLAIN_TEXT:
+                text_content = format_processor_->process_plain_text(file_path);
+                break;
+            case formats::FileType::PDF:
+                text_content = format_processor_->process_pdf(file_path);
+                break;
+            case formats::FileType::HTML:
+                text_content = format_processor_->process_html(file_path);
+                break;
+            default:
+                // Fallback to plain text processing
+                text_content = format_processor_->process_plain_text(file_path);
+                break;
+        }
+        
+        if (text_content.empty()) {
+            stage.error_message = "Text extraction returned empty content for: " + file_path;
             stage.end_time = std::chrono::steady_clock::now();
             return false;
         }
-        
-        std::stringstream buffer;
-        buffer << file.rdbuf();
-        text_content = buffer.str();
         
         if (text_content.length() > max_text_length_) {
             text_content = text_content.substr(0, max_text_length_);

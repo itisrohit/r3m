@@ -15,6 +15,44 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -O2")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -O0")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
 
+# SIMD optimization flags
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    # Check for ARM NEON support (Apple Silicon)
+    if(CMAKE_SYSTEM_PROCESSOR MATCHES "arm64|aarch64")
+        # NEON is always available on ARM64, no special flags needed
+        add_definitions(-DR3M_SIMD_ARM_ENABLED)
+        message(STATUS "ARM NEON SIMD optimizations enabled (Apple Silicon)")
+    # Check for AVX2 support (x86 only)
+    elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64|amd64")
+        include(CheckCXXCompilerFlag)
+        check_cxx_compiler_flag("-mavx2" COMPILER_SUPPORTS_AVX2)
+        if(COMPILER_SUPPORTS_AVX2)
+            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mavx2")
+            add_definitions(-DR3M_AVX2_ENABLED)
+            message(STATUS "AVX2 SIMD optimizations enabled")
+        else()
+            message(STATUS "AVX2 not supported by compiler")
+        endif()
+        
+        # Check for AVX-512 support (x86 only)
+        check_cxx_compiler_flag("-mavx512f" COMPILER_SUPPORTS_AVX512)
+        if(COMPILER_SUPPORTS_AVX512)
+            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mavx512f")
+            add_definitions(-DR3M_AVX512_ENABLED)
+            message(STATUS "AVX-512 SIMD optimizations enabled")
+        else()
+            message(STATUS "AVX-512 not supported by compiler")
+        endif()
+    endif()
+elseif(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    # MSVC SIMD flags (x86 only)
+    if(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64|amd64")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /arch:AVX2")
+        add_definitions(-DR3M_AVX2_ENABLED)
+        message(STATUS "AVX2 SIMD optimizations enabled (MSVC)")
+    endif()
+endif()
+
 # Print build information
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "C++ standard: ${CMAKE_CXX_STANDARD}")
@@ -125,6 +163,19 @@ set(CORE_SOURCES
     src/core/library.cpp
 )
 
+set(CHUNKING_SOURCES
+    src/chunking/tokenizer.cpp
+    src/chunking/sentence_chunker.cpp
+    src/chunking/multipass_chunker.cpp
+    src/chunking/contextual_rag.cpp
+    src/chunking/advanced_chunker.cpp
+    src/chunking/metadata_processor.cpp
+    src/chunking/advanced_tokenizer.cpp
+    src/chunking/quality_assessment/quality_calculator.cpp
+    src/chunking/token_management/token_cache.cpp
+    src/chunking/section_processing/section_processor.cpp
+)
+
 set(PROCESSING_SOURCES
     src/processing/pipeline.cpp
 )
@@ -133,8 +184,10 @@ set(QUALITY_SOURCES
     src/quality/assessor.cpp
 )
 
+# Add optimized thread pool source
 set(PARALLEL_SOURCES
     src/parallel/thread_pool.cpp
+    src/parallel/optimized_thread_pool.cpp
 )
 
 set(FORMATS_SOURCES
@@ -143,11 +196,18 @@ set(FORMATS_SOURCES
 
 set(UTILS_SOURCES
     src/utils/text_utils.cpp
+    src/utils/text_processing.cpp
+    src/utils/performance.cpp
+    src/utils/simd_utils.cpp
 )
 
 set(SERVER_SOURCES
     src/server/http_server.cpp
     src/api/routes/routes.cpp
+    src/api/routes/json_utils/json_utils.cpp
+    src/api/routes/response_handler/response_handler.cpp
+    src/api/routes/serialization/serializer.cpp
+    src/api/routes/route_handlers/route_handlers.cpp
     src/api/jobs/job_manager.cpp
     src/api/config/config.cpp
 )
@@ -159,6 +219,7 @@ set(MAIN_SOURCES
 # Combine all sources
 set(ALL_SOURCES
     ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
     ${PROCESSING_SOURCES}
     ${QUALITY_SOURCES}
     ${PARALLEL_SOURCES}
@@ -209,6 +270,7 @@ endif()
 add_executable(r3m-test
     tests/test_comprehensive.cpp
     ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
     ${PROCESSING_SOURCES}
     ${QUALITY_SOURCES}
     ${PARALLEL_SOURCES}
@@ -221,12 +283,25 @@ add_executable(r3m-test
 add_executable(r3m-http-test
     tests/test_http_server.cpp
     ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
     ${PROCESSING_SOURCES}
     ${QUALITY_SOURCES}
     ${PARALLEL_SOURCES}
     ${FORMATS_SOURCES}
     ${UTILS_SOURCES}
     ${SERVER_SOURCES}
+)
+
+# Comprehensive chunking test executable
+add_executable(r3m-chunking-test
+    tests/test_chunking_comprehensive.cpp
+    ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
+    ${PROCESSING_SOURCES}
+    ${QUALITY_SOURCES}
+    ${PARALLEL_SOURCES}
+    ${FORMATS_SOURCES}
+    ${UTILS_SOURCES}
 )
 
 # Link libraries for the main executable
@@ -255,10 +330,18 @@ if(Crow_FOUND)
     target_compile_definitions(r3m-http-test PRIVATE R3M_HTTP_ENABLED)
 endif()
 
-# Library example executable (direct usage - zero overhead)
-add_executable(r3m-library-example
-    examples/direct_library_usage.cpp
+# Link libraries for the comprehensive chunking test
+target_link_libraries(r3m-chunking-test
+    ${CMAKE_THREAD_LIBS_INIT}
+    ${POPPLER_CPP_LIBRARIES}
+    ${GUMBO_LIBRARIES}
+)
+
+# Advanced features test executable
+add_executable(r3m-advanced-features-test
+    tests/test_advanced_features.cpp
     ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
     ${PROCESSING_SOURCES}
     ${QUALITY_SOURCES}
     ${PARALLEL_SOURCES}
@@ -266,12 +349,94 @@ add_executable(r3m-library-example
     ${UTILS_SOURCES}
 )
 
-# Link libraries for the library example
-target_link_libraries(r3m-library-example
+# Link libraries for the advanced features test
+target_link_libraries(r3m-advanced-features-test
     ${CMAKE_THREAD_LIBS_INIT}
     ${POPPLER_CPP_LIBRARIES}
     ${GUMBO_LIBRARIES}
 )
+
+# Document processor integration test
+add_executable(r3m-document-processor-integration-test tests/test_document_processor_integration.cpp)
+target_include_directories(r3m-document-processor-integration-test PRIVATE include)
+target_sources(r3m-document-processor-integration-test PRIVATE 
+    ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
+    ${PROCESSING_SOURCES}
+    ${QUALITY_SOURCES}
+    ${PARALLEL_SOURCES}
+    ${FORMATS_SOURCES}
+    ${UTILS_SOURCES}
+)
+target_link_libraries(r3m-document-processor-integration-test ${CMAKE_THREAD_LIBS_INIT} ${POPPLER_CPP_LIBRARIES} ${GUMBO_LIBRARIES})
+
+# Library example
+add_executable(r3m-library-example examples/direct_library_usage.cpp)
+target_include_directories(r3m-library-example PRIVATE include)
+target_sources(r3m-library-example PRIVATE 
+    ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
+    ${PROCESSING_SOURCES}
+    ${QUALITY_SOURCES}
+    ${PARALLEL_SOURCES}
+    ${FORMATS_SOURCES}
+    ${UTILS_SOURCES}
+)
+target_link_libraries(r3m-library-example ${CMAKE_THREAD_LIBS_INIT} ${POPPLER_CPP_LIBRARIES} ${GUMBO_LIBRARIES})
+
+# Performance benchmarking test
+add_executable(r3m-performance-benchmark tests/test_performance_benchmarking.cpp)
+target_include_directories(r3m-performance-benchmark PRIVATE include)
+target_sources(r3m-performance-benchmark PRIVATE 
+    ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
+    ${PROCESSING_SOURCES}
+    ${QUALITY_SOURCES}
+    ${PARALLEL_SOURCES}
+    ${FORMATS_SOURCES}
+    ${UTILS_SOURCES}
+)
+target_link_libraries(r3m-performance-benchmark ${CMAKE_THREAD_LIBS_INIT} ${POPPLER_CPP_LIBRARIES} ${GUMBO_LIBRARIES})
+
+# SIMD optimizations test
+add_executable(r3m-simd-test
+    tests/test_simd_optimizations.cpp
+    ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
+    ${PROCESSING_SOURCES}
+    ${QUALITY_SOURCES}
+    ${PARALLEL_SOURCES}
+    ${FORMATS_SOURCES}
+    ${UTILS_SOURCES}
+)
+target_link_libraries(r3m-simd-test ${CMAKE_THREAD_LIBS_INIT} ${POPPLER_CPP_LIBRARIES} ${GUMBO_LIBRARIES})
+
+# Add parallel optimization test
+add_executable(r3m-parallel-optimization-test
+    tests/test_parallel_optimization.cpp
+    ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
+    ${PROCESSING_SOURCES}
+    ${QUALITY_SOURCES}
+    ${PARALLEL_SOURCES}
+    ${FORMATS_SOURCES}
+    ${UTILS_SOURCES}
+)
+target_link_libraries(r3m-parallel-optimization-test ${CMAKE_THREAD_LIBS_INIT} ${POPPLER_CPP_LIBRARIES} ${GUMBO_LIBRARIES})
+
+# Add document size benchmark test
+add_executable(r3m-document-size-benchmark
+    tests/test_document_size_benchmark.cpp
+    ${CORE_SOURCES}
+    ${CHUNKING_SOURCES}
+    ${PROCESSING_SOURCES}
+    ${QUALITY_SOURCES}
+    ${PARALLEL_SOURCES}
+    ${FORMATS_SOURCES}
+    ${UTILS_SOURCES}
+)
+target_link_libraries(r3m-document-size-benchmark ${CMAKE_THREAD_LIBS_INIT} ${POPPLER_CPP_LIBRARIES} ${GUMBO_LIBRARIES})
+target_include_directories(r3m-document-size-benchmark PRIVATE include)
 
 # Custom targets for build management
 add_custom_target(clean-all

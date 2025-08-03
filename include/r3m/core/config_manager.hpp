@@ -41,6 +41,13 @@ public:
     bool load_from_environment();
 
     /**
+     * @brief Load configuration from map
+     * @param config_map Map of configuration key-value pairs
+     * @return true if load successful
+     */
+    bool load_from_map(const std::unordered_map<std::string, std::string>& config_map);
+
+    /**
      * @brief Validate configuration
      * @return true if configuration is valid
      */

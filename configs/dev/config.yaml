@@ -23,9 +23,24 @@ document_processing:
   enable_parallel_processing: true
   worker_threads: 4
   
-  # Batch processing settings (following modern document processing patterns)
-  batch_size: 16  # Default batch size for efficient processing
-  max_workers: 8  # Maximum worker threads (auto-detected if not set)
+  # OPTIMIZED BATCH PROCESSING SETTINGS
+  batch_size: 16  # Optimal batch size for efficient processing
+  max_workers: 4  # Optimal worker count for most systems
+  
+  # OPTIMIZED PARALLEL PROCESSING CONFIGURATION
+  enable_optimized_thread_pool: true
+  enable_thread_affinity: true
+  enable_work_stealing: true
+  enable_memory_pooling: true
+  
+  # SIMD OPTIMIZATION CONFIGURATION
+  enable_simd_optimizations: true
+  enable_avx2: true
+  enable_avx512: true
+  enable_neon: true
+  
+  # CHUNKING CONFIGURATION - OPTIMIZED!
+  enable_chunking: true
   
   # Text processing
   text_processing:
@@ -75,6 +90,41 @@ document_processing:
     - "metadata_extraction"
     - "quality_assessment"
     - "filtering"
+    - "chunking"
+
+# Chunking Configuration (Advanced Document Segmentation) - OPTIMIZED!
+chunking:
+  # Tokenizer settings
+  tokenizer:
+    type: "basic"                    # Tokenizer type: basic, bpe, sentencepiece
+    max_tokens: 8192                 # Maximum tokens per chunk
+    token_limit: 2048                # Target token limit for chunks
+    chunk_overlap: 0                 # Token overlap between chunks (0 for clean combinations)
+  
+  # OPTIMIZED CHUNK SIZE SETTINGS
+  chunk_sizes:
+    blurb_size: 100                  # Size for extracting blurbs (first sentence)
+    mini_chunk_size: 150             # Mini-chunk size for multipass mode
+    large_chunk_ratio: 4             # Number of regular chunks per large chunk
+    chunk_min_content: 256           # Minimum content tokens per chunk
+  
+  # OPTIMIZED METADATA SETTINGS
+  metadata:
+    include_metadata: true            # Include document metadata in chunks
+    max_metadata_percentage: 0.25    # Maximum metadata percentage (25%)
+    skip_metadata_in_chunk: false    # Skip metadata in chunk content
+  
+  # OPTIMIZED CHUNKING FEATURES
+  enable_multipass: true             # Enable multi-pass indexing
+  enable_large_chunks: true          # Enable large chunk generation
+  enable_contextual_rag: true        # Enable contextual RAG features
+  contextual_rag_reserved_tokens: 512 # Reserved tokens for RAG context
+  
+  # OPTIMIZED TOKEN PROCESSING
+  enable_token_caching: true         # Enable token caching for performance
+  enable_string_view_optimization: true # Enable string_view optimizations
+  enable_preallocation: true         # Enable vector preallocation
+  enable_move_semantics: true        # Enable move semantics for efficiency
 
 # Engine configuration
 engine:

@@ -25,6 +25,13 @@ find "$DATA_DIR" -maxdepth 1 -type f \( \
     -name "*.mdx" \
 \) -not -name "test_results.txt" -delete
 
+# Clean chunks subdirectory
+if [ -d "$DATA_DIR/chunks" ]; then
+    echo "🧹 Cleaning chunks directory..."
+    rm -rf "$DATA_DIR/chunks"
+    echo "✅ Chunks directory cleaned!"
+fi
+
 echo "✅ Test data cleaned! Results and reports preserved."
 echo "📁 Remaining files in data/:"
 ls -la "$DATA_DIR" 2>/dev/null || echo "   (data directory is empty)" 
