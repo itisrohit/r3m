@@ -1,4 +1,4 @@
-name: Deploy R3M to Railway
+name: Deploy R3M to Fly.io
 
 on:
   push:
@@ -6,31 +6,18 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy-railway:
+  deploy:
     runs-on: ubuntu-latest
     
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
       
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        
-    - name: Install Railway CLI
-      run: npm install -g @railway/cli
+    - name: Setup Fly.io
+      uses: superfly/flyctl-actions/setup-flyctl@master
       
-    - name: Deploy to Railway
+    - name: Deploy to Fly.io
       run: |
-        # Set Railway token
-        mkdir -p ~/.railway
-        echo ${{ secrets.RAILWAY_TOKEN }} > ~/.railway/token
-        
-        # List existing services
-        railway service list || echo "No services found"
-        
-        # Deploy without specifying service name (Railway will auto-detect)
-        railway up
+        flyctl deploy --remote-only
       env:
-        RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }} 
+        FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }} 
