@@ -11,26 +11,53 @@ This guide covers deploying the R3M Document Processing API to Fly.io, a free an
 ### Step 1: Create Fly.io Account
 1. **Visit [fly.io](https://fly.io)**
 2. **Sign up** with your GitHub account
-3. **Install Fly CLI** (optional for local testing):
+3. **Install Fly CLI** (for local setup):
    ```bash
    curl -L https://fly.io/install.sh | sh
    ```
 
-### Step 2: Get Fly.io API Token
-1. **Go to Fly.io Dashboard**
-2. **Navigate to Account Settings**
-3. **Go to Access Tokens**
-4. **Create a new token**
-5. **Copy the token** (you'll need this for GitHub Actions)
+### Step 2: Create Fly.io App (Manual Setup)
+1. **Clone your repository locally:**
+   ```bash
+   git clone https://github.com/itisrohit/r3m.git
+   cd r3m
+   ```
 
-### Step 3: Add Token to GitHub Secrets
+2. **Login to Fly.io:**
+   ```bash
+   fly auth login
+   ```
+
+3. **Create the app (this will create fly.toml):**
+   ```bash
+   fly launch --no-deploy
+   ```
+   - **App name:** `r3m-api`
+   - **Region:** Choose closest to you
+   - **Confirm settings:** Yes
+
+4. **Push the fly.toml file:**
+   ```bash
+   git add fly.toml
+   git commit -m "Add Fly.io configuration"
+   git push origin testings2
+   ```
+
+### Step 3: Get Fly.io API Token
+1. **Create a deploy token:**
+   ```bash
+   fly tokens create deploy -x 999999h
+   ```
+2. **Copy the entire token** (including `FlyV1` and space at the beginning)
+
+### Step 4: Add Token to GitHub Secrets
 1. **Go to your GitHub repository**
 2. **Settings** → **Secrets and variables** → **Actions**
 3. **Add new repository secret:**
    - **Name:** `FLY_API_TOKEN`
-   - **Value:** Your Fly.io API token
+   - **Value:** Your Fly.io deploy token (including `FlyV1` prefix)
 
-### Step 4: Deploy Automatically
+### Step 5: Deploy Automatically
 1. **Push to `testings2` branch**
 2. **GitHub Actions will automatically:**
    - Build your Docker image
@@ -110,6 +137,13 @@ fly deploy
 
 ### Common Issues
 
+#### App Not Found Error
+- **Solution:** Create the app manually using `fly launch --no-deploy`
+- **Steps:** 
+  1. Clone repo locally
+  2. Run `fly launch --no-deploy`
+  3. Push the generated `fly.toml` file
+
 #### Build Failures
 - **Check:** Dockerfile syntax
 - **Verify:** All dependencies are included
@@ -168,9 +202,11 @@ fly scale count 1
 
 ## 📝 Next Steps
 
-1. **Deploy:** Push to `testings2` branch
-2. **Test:** Verify API endpoints work
-3. **Monitor:** Check logs and performance
-4. **Scale:** Upgrade if needed
+1. **Create App:** Run `fly launch --no-deploy` locally
+2. **Add Token:** To GitHub secrets
+3. **Deploy:** Push to `testings2` branch
+4. **Test:** Verify API endpoints work
+5. **Monitor:** Check logs and performance
+6. **Scale:** Upgrade if needed
 
 Your R3M API will be live at `https://r3m-api.fly.dev`! 🎉
