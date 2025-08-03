@@ -1,4 +1,4 @@
-# R3M 
+# R3M — Recursive Retrieval & Memory
 
 A high-performance C++ document processing and chunking system with SIMD-optimized text processing, designed for large-scale document analysis and retrieval applications. Features a complete REST API for easy integration.
 
