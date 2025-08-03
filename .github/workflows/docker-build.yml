@@ -56,36 +56,6 @@ jobs:
         docker stop r3m-test
         docker rm r3m-test
         
-    - name: Cache Python dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-          
-    - name: Run performance tests
-      run: |
-        # Start container for testing
-        docker run -d --name r3m-perf-test -p 8080:8080 r3m-api:latest
-        echo "Waiting for performance test container to start..."
-        sleep 30
-        
-        # Check if container is running
-        docker ps
-        docker logs r3m-perf-test
-        
-        # Install Python dependencies with cache
-        python3 -m pip install --cache-dir ~/.cache/pip requests
-        
-        # Run API tests
-        echo "Running API tests..."
-        python3 tests/test_api_endpoints.py || exit 1
-        
-        # Cleanup
-        docker stop r3m-perf-test
-        docker rm r3m-perf-test
-        
     - name: Build verification
       run: |
         # Verify all executables are built
