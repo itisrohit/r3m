@@ -40,17 +40,4 @@ jobs:
         docker run --rm r3m-api:latest test -f /app/r3m || exit 1
         
         # Verify the executable can start (without binding to port)
-        docker run --rm r3m-api:latest timeout 5s ./r3m --help || echo "Executable starts successfully"
-        
-    - name: Upload Docker image to GitHub Container Registry
-      if: github.event_name == 'push'
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        file: ./docker/Dockerfile
-        push: true
-        tags: |
-          ghcr.io/${{ github.repository }}:testings2
-          ghcr.io/${{ github.repository }}:latest
-        cache-from: type=gha
-        cache-to: type=gha,mode=max 
+        docker run --rm r3m-api:latest timeout 5s ./r3m --help || echo "Executable starts successfully" 
