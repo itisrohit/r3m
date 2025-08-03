@@ -37,12 +37,19 @@ jobs:
         docker run -d --name r3m-test -p 8080:8080 r3m-api:latest
         
         # Wait for container to be ready
-        sleep 10
+        echo "Waiting for container to start..."
+        sleep 30
+        
+        # Check if container is running
+        docker ps
+        docker logs r3m-test
         
         # Test health endpoint
+        echo "Testing health endpoint..."
         curl -f http://localhost:8080/health || exit 1
         
         # Test system info endpoint
+        echo "Testing info endpoint..."
         curl -f http://localhost:8080/info || exit 1
         
         # Stop and remove container
@@ -61,12 +68,18 @@ jobs:
       run: |
         # Start container for testing
         docker run -d --name r3m-perf-test -p 8080:8080 r3m-api:latest
-        sleep 10
+        echo "Waiting for performance test container to start..."
+        sleep 30
+        
+        # Check if container is running
+        docker ps
+        docker logs r3m-perf-test
         
         # Install Python dependencies with cache
         python3 -m pip install --cache-dir ~/.cache/pip requests
         
         # Run API tests
+        echo "Running API tests..."
         python3 tests/test_api_endpoints.py || exit 1
         
         # Cleanup
