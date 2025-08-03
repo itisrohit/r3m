@@ -27,7 +27,10 @@ jobs:
         mkdir -p ~/.railway
         echo ${{ secrets.RAILWAY_TOKEN }} > ~/.railway/token
         
-        # Deploy using Railway CLI
-        railway up --service r3m-api
+        # List existing services
+        railway service list || echo "No services found"
+        
+        # Deploy without specifying service name (Railway will auto-detect)
+        railway up
       env:
         RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }} 
