@@ -3,6 +3,8 @@
 #include <chrono>
 #include <vector>
 #include <string>
+#include <iomanip>
+#include <filesystem>
 #include "r3m/core/document_processor.hpp"
 
 using namespace r3m::core;

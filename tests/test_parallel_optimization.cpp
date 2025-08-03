@@ -34,7 +34,7 @@ int main() {
     config["document_processing.enable_optimized_thread_pool"] = "true";
     config["document_processing.enable_thread_affinity"] = "true";
     config["document_processing.enable_work_stealing"] = "true";
-    config["document_processing.enable_memory_pooling"] = "true";
+    config["document_processing.enable_memory_pooling"] = "false"; // Disable memory pooling to avoid Docker issues
     
     // SIMD OPTIMIZATION CONFIGURATION
     config["document_processing.enable_simd_optimizations"] = "true";

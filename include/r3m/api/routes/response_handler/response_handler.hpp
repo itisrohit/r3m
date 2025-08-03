@@ -3,6 +3,11 @@
 #include <string>
 #include <random>
 
+#ifdef R3M_JSON_ENABLED
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
+#endif
+
 namespace r3m {
 namespace api {
 namespace response_handler {

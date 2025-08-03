@@ -9,7 +9,7 @@ std::string escape_json_string(const std::string& input) {
     std::string output;
     output.reserve(input.length() * 2); // Reserve space for potential escaping
     
-    for (char c : input) {
+    for (unsigned char c : input) {
         switch (c) {
             case '"':  output += "\\\""; break;
             case '\\': output += "\\\\"; break;
@@ -19,13 +19,13 @@ std::string escape_json_string(const std::string& input) {
             case '\r': output += "\\r"; break;
             case '\t': output += "\\t"; break;
             default:
-                if (c >= 0 && c < 32) {
+                if (c < 32) {
                     // Control characters
                     char hex[7];
-                    snprintf(hex, sizeof(hex), "\\u%04x", (unsigned char)c);
+                    snprintf(hex, sizeof(hex), "\\u%04x", c);
                     output += hex;
                 } else {
-                    output += c;
+                    output += static_cast<char>(c);
                 }
                 break;
         }

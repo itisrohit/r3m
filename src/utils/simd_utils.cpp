@@ -3,16 +3,19 @@
 #include <algorithm>
 #include <cctype>
 #include <sstream>
+#include <mutex>
 
 namespace r3m::utils {
 
-// CPU capability detection
+// CPU capability detection with thread safety
 static bool simd_supported = false;
 static bool avx2_supported = false;
 static bool avx512_supported = false;
 static bool capabilities_checked = false;
+static std::mutex capabilities_mutex;
 
 void SIMDUtils::check_cpu_support() {
+    std::lock_guard<std::mutex> lock(capabilities_mutex);
     if (capabilities_checked) return;
     
     #ifdef R3M_SIMD_X86_AVAILABLE

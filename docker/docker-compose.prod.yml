@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  r3m-api:
+    image: r3m-api:latest
+    container_name: r3m-api-prod
+    ports:
+      - "8080:8080"
+    environment:
+      - DOCKER_CONTAINER=true
+      - R3M_ENABLE_MEMORY_POOLING=false
+      - R3M_ENABLE_SIMD_OPTIMIZATIONS=true
+      - R3M_ENABLE_THREAD_AFFINITY=true
+      - R3M_ENABLE_WORK_STEALING=true
+      - R3M_OPTIMAL_BATCH_SIZE=8
+      - R3M_MAX_WORKERS=2
+    volumes:
+      - r3m-logs:/app/logs
+      - ./../data:/app/data
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '1.0'
+          memory: 1G
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    security_opt:
+      - no-new-privileges:true
+    read_only: false
+    tmpfs:
+      - /tmp:noexec,nosuid,size=100m
+
+volumes:
+  r3m-logs:
+    driver: local 

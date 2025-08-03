@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  r3m-api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: runtime
+    container_name: r3m-api
+    ports:
+      - "8080:8080"
+    environment:
+      - R3M_LOG_LEVEL=INFO
+      - R3M_MAX_THREADS=8
+      - R3M_ENABLE_SIMD=true
+      - R3M_ENABLE_PARALLEL=true
+    volumes:
+      - r3m-data:/app/data
+      - r3m-configs:/app/configs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 4G
+        reservations:
+          cpus: '2.0'
+          memory: 2G
+
+  r3m-dev:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: dev
+    container_name: r3m-dev
+    ports:
+      - "8081:8080"
+    environment:
+      - R3M_LOG_LEVEL=DEBUG
+      - R3M_MAX_THREADS=4
+      - R3M_ENABLE_SIMD=true
+      - R3M_ENABLE_PARALLEL=true
+    volumes:
+      - r3m-data:/app/data
+      - r3m-configs:/app/configs
+      - ../src:/app/src:ro
+    restart: unless-stopped
+    profiles:
+      - dev
+
+  r3m-test:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: runtime
+    container_name: r3m-test
+    environment:
+      - R3M_LOG_LEVEL=DEBUG
+      - R3M_MAX_THREADS=2
+    volumes:
+      - r3m-data:/app/data
+      - r3m-configs:/app/configs
+    command: ["./r3m-test"]
+    profiles:
+      - test
+
+volumes:
+  r3m-data:
+    driver: local
+  r3m-configs:
+    driver: local
+
+networks:
+  default:
+    name: r3m-network 

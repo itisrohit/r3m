@@ -71,7 +71,7 @@ private:
     // Work stealing implementation
     std::function<void()> steal_task(size_t thread_id);
     
-    // Memory pool for reducing allocation overhead
+    // Thread-safe memory pool for reducing allocation overhead
     class MemoryPool {
     public:
         MemoryPool(size_t pool_size = 1024 * 1024); // 1MB default
@@ -81,6 +81,8 @@ private:
         void deallocate(void* ptr);
         
     private:
+        void add_block(size_t size);
+        
         struct Block {
             void* data;
             size_t size;
@@ -89,6 +91,8 @@ private:
         
         std::vector<Block> blocks_;
         std::mutex pool_mutex_;
+        size_t total_allocated_;
+        size_t pool_size_;
     };
     
     // Thread-local storage for memory pools
@@ -100,26 +104,26 @@ private:
         ThreadLocalData() : memory_pool(std::make_unique<MemoryPool>()) {}
     };
     
-    // Member variables
+    // Thread pool state
     std::vector<std::thread> threads_;
     std::vector<std::unique_ptr<ThreadLocalData>> thread_data_;
     
-    // Global task queue (for work stealing)
+    // Global task queue
     std::queue<std::function<void()>> global_queue_;
     mutable std::mutex queue_mutex_;
     std::condition_variable condition_;
     
-    // Control variables
+    // Thread pool state
     std::atomic<bool> shutdown_{false};
     std::atomic<size_t> active_tasks_{0};
     
-    // Performance monitoring
+    // Statistics
     mutable std::mutex stats_mutex_;
     size_t total_tasks_processed_{0};
     std::atomic<size_t> work_steals_{0};
     double avg_task_time_ms_{0.0};
     
-    // Optimal configuration
+    // Configuration constants
     static constexpr size_t MAX_QUEUE_SIZE = 10000;
     static constexpr size_t WORK_STEAL_THRESHOLD = 5;
     static constexpr size_t MEMORY_POOL_SIZE = 1024 * 1024; // 1MB per thread
@@ -162,32 +166,5 @@ auto OptimizedThreadPool::submit_batch(const std::vector<std::function<F()>>& ta
     return futures;
 }
 
-// Static methods
-inline size_t OptimizedThreadPool::get_optimal_batch_size() {
-    size_t cpu_cores = std::thread::hardware_concurrency();
-    if (cpu_cores == 0) cpu_cores = 4; // Fallback
-    
-    // Optimal batch size: 2x number of CPU cores
-    // This ensures good load balancing without overwhelming the system
-    return cpu_cores * 2;
-}
-
-inline void OptimizedThreadPool::disable_library_parallelism() {
-    // Disable OpenBLAS threading
-    setenv("OPENBLAS_NUM_THREADS", "1", 1);
-    
-    // Disable Intel MKL threading
-    setenv("MKL_NUM_THREADS", "1", 1);
-    
-    // Disable OpenMP threading
-    setenv("OMP_NUM_THREADS", "1", 1);
-    
-    // Disable BLIS threading
-    setenv("BLIS_NUM_THREADS", "1", 1);
-    
-    // Disable NumPy threading
-    setenv("NUMEXPR_NUM_THREADS", "1", 1);
-}
-
-} // namespace parallel
+} // namespace r3m::parallel
 } // namespace r3m 

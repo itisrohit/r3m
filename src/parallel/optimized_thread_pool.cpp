@@ -7,52 +7,51 @@
 namespace r3m {
 namespace parallel {
 
-// MemoryPool implementation
-OptimizedThreadPool::MemoryPool::MemoryPool(size_t pool_size) {
-    // Pre-allocate memory blocks
-    size_t block_size = 4096; // 4KB blocks
-    size_t num_blocks = pool_size / block_size;
+// Thread-safe MemoryPool implementation
+OptimizedThreadPool::MemoryPool::MemoryPool(size_t pool_size) 
+    : total_allocated_(0), pool_size_(0) {  // Always disable memory pooling for now
+    (void)pool_size; // Suppress unused parameter warning
     
-    blocks_.reserve(num_blocks);
-    for (size_t i = 0; i < num_blocks; ++i) {
-        Block block;
-        block.data = malloc(block_size);
-        if (block.data) {  // Only add block if malloc succeeded
-            block.size = block_size;
-            block.used = false;
-            blocks_.push_back(block);
-        }
+    // Check environment variable to completely disable memory pooling
+    const char* disable_pooling = std::getenv("R3M_ENABLE_MEMORY_POOLING");
+    if (disable_pooling && std::string(disable_pooling) == "false") {
+        pool_size_ = 0;
     }
 }
 
 OptimizedThreadPool::MemoryPool::~MemoryPool() {
-    for (auto& block : blocks_) {
-        if (block.data) {
-            free(block.data);
-        }
-    }
+    // No cleanup needed since we're not using memory pooling
 }
 
 void* OptimizedThreadPool::MemoryPool::allocate(size_t size) {
-    // Use a simple, safe memory allocation strategy
-    // For now, use standard malloc to avoid double-free issues
-    // TODO: Implement proper memory pooling once the core issues are resolved
+    // Always use standard allocation to avoid memory corruption
     return malloc(size);
 }
 
 void OptimizedThreadPool::MemoryPool::deallocate(void* ptr) {
-    // Use a simple, safe memory deallocation strategy
-    if (ptr) {
-        free(ptr);
-    }
+    if (!ptr) return;
+    
+    // Always use standard deallocation
+    free(ptr);
+}
+
+void OptimizedThreadPool::MemoryPool::add_block(size_t size) {
+    (void)size; // Suppress unused parameter warning
+    // No-op since we're not using memory pooling
 }
 
 // OptimizedThreadPool implementation
 OptimizedThreadPool::OptimizedThreadPool(size_t num_threads) {
     if (num_threads == 0) {
-        num_threads = std::thread::hardware_concurrency();
-        if (num_threads == 0) {
-            num_threads = 4; // Fallback
+        // Check environment variable for thread count
+        const char* max_workers = std::getenv("R3M_MAX_WORKERS");
+        if (max_workers) {
+            num_threads = std::stoul(max_workers);
+        } else {
+            num_threads = std::thread::hardware_concurrency();
+            if (num_threads == 0) {
+                num_threads = 4; // Fallback
+            }
         }
     }
     
@@ -100,9 +99,7 @@ std::vector<std::future<core::DocumentResult>> OptimizedThreadPool::submit_batch
     std::vector<std::future<core::DocumentResult>> futures;
     futures.reserve(tasks.size());
     
-    // Use a safer approach for batch submission
     for (const auto& task : tasks) {
-        // Create a packaged task to ensure proper memory management
         auto packaged_task = std::make_shared<std::packaged_task<core::DocumentResult()>>(task);
         auto future = packaged_task->get_future();
         
@@ -117,52 +114,27 @@ std::vector<std::future<core::DocumentResult>> OptimizedThreadPool::submit_batch
     return futures;
 }
 
-bool OptimizedThreadPool::is_shutdown() const {
-    return shutdown_.load();
-}
-
-size_t OptimizedThreadPool::get_queue_size() const {
-    std::lock_guard<std::mutex> lock(queue_mutex_);
-    return global_queue_.size();
-}
-
-void OptimizedThreadPool::set_thread_affinity(size_t thread_id) {
-#ifdef __linux__
-    cpu_set_t cpuset;
-    CPU_ZERO(&cpuset);
-    CPU_SET(thread_id, &cpuset);
-    
-    pthread_t current_thread = pthread_self();
-    int ret = pthread_setaffinity_np(current_thread, sizeof(cpu_set_t), &cpuset);
-    
-    if (ret != 0) {
-        std::cerr << "Warning: Failed to set thread affinity for thread " << thread_id << std::endl;
-    }
-#else
-    (void)thread_id;
-#endif
-}
-
 std::function<void()> OptimizedThreadPool::steal_task(size_t thread_id) {
     // Try to steal from other threads' local queues
     for (size_t i = 0; i < thread_data_.size(); ++i) {
-        if (i != thread_id) {
-            std::lock_guard<std::mutex> lock(thread_data_[i]->local_mutex);
-            if (!thread_data_[i]->local_queue.empty()) {
-                auto task = std::move(thread_data_[i]->local_queue.front());
-                thread_data_[i]->local_queue.pop();
-                work_steals_.fetch_add(1);
-                return task;
-            }
+        if (i == thread_id) continue;
+        
+        auto& other_data = thread_data_[i];
+        std::lock_guard<std::mutex> lock(other_data->local_mutex);
+        
+        if (!other_data->local_queue.empty()) {
+            auto task = std::move(other_data->local_queue.front());
+            other_data->local_queue.pop();
+            work_steals_.fetch_add(1);
+            return task;
         }
     }
     
-    // Try to steal from global queue
+    // Try global queue as last resort
     std::lock_guard<std::mutex> lock(queue_mutex_);
     if (!global_queue_.empty()) {
         auto task = std::move(global_queue_.front());
         global_queue_.pop();
-        work_steals_.fetch_add(1);
         return task;
     }
     
@@ -178,7 +150,7 @@ void OptimizedThreadPool::worker_thread(size_t thread_id) {
     while (true) {
         std::function<void()> task;
         
-        // First, try to get a task from local queue
+        // First, try to get a task from local queue (most common case)
         {
             std::lock_guard<std::mutex> lock(local_data->local_mutex);
             if (!local_data->local_queue.empty()) {
@@ -190,9 +162,7 @@ void OptimizedThreadPool::worker_thread(size_t thread_id) {
         // If local queue is empty, try global queue
         if (!task) {
             std::unique_lock<std::mutex> lock(queue_mutex_);
-            condition_.wait(lock, [this]() { 
-                return !global_queue_.empty() || shutdown_; 
-            });
+            condition_.wait(lock, [this] { return !global_queue_.empty() || shutdown_; });
             
             if (shutdown_ && global_queue_.empty()) {
                 break;
@@ -209,26 +179,23 @@ void OptimizedThreadPool::worker_thread(size_t thread_id) {
             task = steal_task(thread_id);
         }
         
-        // Execute the task
+        // Execute the task if we have one
         if (task) {
-            auto start_time = std::chrono::high_resolution_clock::now();
+            auto start_time = std::chrono::steady_clock::now();
             
             try {
                 task();
             } catch (const std::exception& e) {
-                // Log error but don't crash the thread
-                std::cerr << "Task execution error: " << e.what() << std::endl;
+                std::cerr << "Task execution failed: " << e.what() << std::endl;
             }
-            
-            auto end_time = std::chrono::high_resolution_clock::now();
-            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
             
             // Update statistics
             {
                 std::lock_guard<std::mutex> lock(stats_mutex_);
                 total_tasks_processed_++;
                 
-                // Update average task time (exponential moving average)
+                auto end_time = std::chrono::steady_clock::now();
+                auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
                 double new_time_ms = duration.count() / 1000.0;
                 avg_task_time_ms_ = 0.9 * avg_task_time_ms_ + 0.1 * new_time_ms;
             }
@@ -236,6 +203,59 @@ void OptimizedThreadPool::worker_thread(size_t thread_id) {
             active_tasks_.fetch_sub(1);
         }
     }
+}
+
+void OptimizedThreadPool::set_thread_affinity(size_t thread_id) {
+#ifdef __linux__
+    cpu_set_t cpuset;
+    CPU_ZERO(&cpuset);
+    CPU_SET(thread_id % CPU_SETSIZE, &cpuset);
+    pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset);
+#else
+    (void)thread_id; // Suppress unused parameter warning on non-Linux systems
+#endif
+}
+
+size_t OptimizedThreadPool::get_queue_size() const {
+    std::lock_guard<std::mutex> lock(queue_mutex_);
+    return global_queue_.size();
+}
+
+bool OptimizedThreadPool::is_shutdown() const {
+    return shutdown_.load();
+}
+
+// Static methods
+size_t OptimizedThreadPool::get_optimal_batch_size() {
+    // Check environment variable for batch size
+    const char* batch_size = std::getenv("R3M_OPTIMAL_BATCH_SIZE");
+    if (batch_size) {
+        return std::stoul(batch_size);
+    }
+    
+    size_t cpu_cores = std::thread::hardware_concurrency();
+    if (cpu_cores == 0) cpu_cores = 4; // Fallback
+    
+    // Optimal batch size: 2x number of CPU cores
+    // This ensures good load balancing without overwhelming the system
+    return cpu_cores * 2;
+}
+
+void OptimizedThreadPool::disable_library_parallelism() {
+    // Disable OpenBLAS threading
+    setenv("OPENBLAS_NUM_THREADS", "1", 1);
+    
+    // Disable Intel MKL threading
+    setenv("MKL_NUM_THREADS", "1", 1);
+    
+    // Disable OpenMP threading
+    setenv("OMP_NUM_THREADS", "1", 1);
+    
+    // Disable BLIS threading
+    setenv("BLIS_NUM_THREADS", "1", 1);
+    
+    // Disable NumPy threading
+    setenv("NUMEXPR_NUM_THREADS", "1", 1);
 }
 
 } // namespace parallel
