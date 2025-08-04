@@ -126,7 +126,7 @@ public:
 
     // Server configuration
     struct ServerConfig {
-        int port = 8080;
+        int port = 7860;
         std::string host = "0.0.0.0";
         int threads = 4;
         bool enable_cors = true;

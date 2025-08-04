@@ -182,7 +182,7 @@ std::unordered_map<std::string, std::string> ConfigManager::get_all_config() con
 
 ConfigManager::ServerConfig ConfigManager::get_server_config() const {
     ServerConfig config;
-    config.port = get_int("server.port", 8080);
+    config.port = get_int("server.port", 7860);
     config.host = get_string("server.host", "0.0.0.0");
     config.threads = get_int("server.threads", 4);
     config.enable_cors = get_bool("server.enable_cors", true);
