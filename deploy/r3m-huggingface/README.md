@@ -5,6 +5,7 @@ colorFrom: blue
 colorTo: purple
 sdk: docker
 pinned: false
+license: mit
 ---
 
 # R3M Document Processing API

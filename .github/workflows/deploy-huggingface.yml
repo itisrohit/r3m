@@ -17,51 +17,34 @@ jobs:
     - name: Install Hugging Face CLI
       run: pip install huggingface_hub hf-cli
       
-    - name: Deploy to Hugging Face Spaces
-      env:
-        HF_TOKEN: ${{ secrets.HF_TOKEN }}
-      run: |
-        # Create Space if it doesn't exist
-        if ! curl -s -H "Authorization: Bearer $HF_TOKEN" \
-          "https://huggingface.co/api/spaces/anorohit/r3m-api" > /dev/null; then
-          echo "Creating new Space..."
+          - name: Deploy to Hugging Face Spaces
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          # Create Space if it doesn't exist
+          echo "Creating Hugging Face Space..."
           curl -X POST \
             -H "Authorization: Bearer $HF_TOKEN" \
             -H "Content-Type: application/json" \
             -d '{
+              "id": "anorohit/r3m-api",
               "sdk": "docker",
               "title": "R3M Document Processing API",
-              "description": "High-performance C++ document processing system"
+              "description": "High-performance C++ document processing system",
+              "python_version": "3.10"
             }' \
-            "https://huggingface.co/api/spaces"
-        fi
+            "https://huggingface.co/api/spaces" || echo "Space may already exist"
+          
+          echo "Waiting for Space to be ready..."
+          sleep 10
         
         # Copy files to Space
         echo "Copying files to Space..."
         cp -r deploy/r3m-huggingface/* .
         
-        # Use targeted upload to avoid rate limits
-        echo "Uploading essential files to Hugging Face Space..."
+        # Upload to the Space (not repository)
+        echo "Uploading to Hugging Face Space..."
+        hf upload anorohit/r3m-api . --token $HF_TOKEN --repo-type space
         
-        # Copy essential files to a clean directory
-        mkdir -p essential-upload
-        cp -r deploy/r3m-huggingface/* essential-upload/
-        cp -r src include configs examples tests scripts data essential-upload/ 2>/dev/null || true
-        cp CMakeLists.txt essential-upload/ 2>/dev/null || true
-        
-        cd essential-upload
-        
-        # Try targeted upload first
-        if ! hf upload anorohit/r3m-api . --token $HF_TOKEN; then
-          echo "Targeted upload failed, trying with retries..."
-          for attempt in 1 2 3; do
-            echo "Upload attempt $attempt..."
-            if hf upload anorohit/r3m-api . --token $HF_TOKEN; then
-              echo "Upload successful!"
-              break
-            else
-              echo "Upload failed, waiting 30 seconds before retry..."
-              sleep 30
-            fi
-          done
-        fi 
+        echo "Space deployment initiated!"
+        echo "Your API will be available at: https://anorohit-r3m-api.hf.space" 
