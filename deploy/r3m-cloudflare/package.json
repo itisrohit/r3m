@@ -1,0 +1,26 @@
+{
+  "name": "r3m-api-cloudflare",
+  "version": "1.0.0",
+  "description": "R3M Document Processing API on Cloudflare Workers",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "keywords": [
+    "cloudflare-workers",
+    "api",
+    "document-processing",
+    "r3m"
+  ],
+  "author": "R3M Team",
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  },
+  "cloudflare": {
+    "workers": {
+      "name": "r3m-api"
+    }
+  }
+} 

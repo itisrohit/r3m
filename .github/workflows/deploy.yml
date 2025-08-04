@@ -1,4 +1,4 @@
-name: Deploy R3M to Fly.io
+name: Deploy R3M to Cloudflare Workers
 
 on:
   push:
@@ -15,10 +15,20 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
-    - name: Setup Fly.io
-      uses: superfly/flyctl-actions/setup-flyctl@master
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: deploy/r3m-cloudflare/package-lock.json
+        
+    - name: Install dependencies
+      working-directory: deploy/r3m-cloudflare
+      run: npm ci
       
-    - name: Deploy to Fly.io
-      run: flyctl deploy --remote-only
+    - name: Deploy to Cloudflare Workers
+      working-directory: deploy/r3m-cloudflare
+      run: npx wrangler deploy
       env:
-        FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }} 
+        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }} 
