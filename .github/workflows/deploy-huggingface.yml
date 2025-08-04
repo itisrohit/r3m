@@ -14,6 +14,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
+    - name: Install Hugging Face CLI
+      run: pip install huggingface_hub
+      
     - name: Deploy to Hugging Face Spaces
       env:
         HF_TOKEN: ${{ secrets.HF_TOKEN }}
@@ -37,24 +40,6 @@ jobs:
         echo "Copying files to Space..."
         cp -r deploy/r3m-huggingface/* .
         
-        # Configure git for HF
-        git config --global user.email "action@github.com"
-        git config --global user.name "GitHub Action"
-        
-        # Initialize git if needed and add files
-        git init || true
-        git add .
-        git commit -m "Deploy R3M API to Hugging Face Spaces" || exit 0
-        
-        # Create and push to main branch (Hugging Face Spaces default)
-        echo "Creating main branch and pushing..."
-        git checkout -b main || git checkout main || true
-        
-        # Set up git credentials
-        git config --global user.name "GitHub Action"
-        git config --global user.email "action@github.com"
-        
-        # Push to Hugging Face using token in URL
-        echo "Pushing to Hugging Face Spaces..."
-        git push https://$HF_TOKEN@huggingface.co/spaces/anorohit/r3m-api main || \
-        (echo "Trying force push..." && git push -f https://$HF_TOKEN@huggingface.co/spaces/anorohit/r3m-api main) 
+        # Use Hugging Face CLI to upload files
+        echo "Uploading files to Hugging Face Space..."
+        huggingface-cli upload anorohit/r3m-api . --token $HF_TOKEN 
