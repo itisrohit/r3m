@@ -20,7 +20,7 @@ jobs:
       run: |
         # Create Space if it doesn't exist
         if ! curl -s -H "Authorization: Bearer $HF_TOKEN" \
-          "https://huggingface.co/api/spaces/${{ github.repository_owner }}/r3m-api" > /dev/null; then
+          "https://huggingface.co/api/spaces/anorohit/r3m-api" > /dev/null; then
           echo "Creating new Space..."
           curl -X POST \
             -H "Authorization: Bearer $HF_TOKEN" \
@@ -46,9 +46,8 @@ jobs:
         git add .
         git commit -m "Deploy R3M API to Hugging Face Spaces" || exit 0
         
-        # Push to Hugging Face (try different branch names)
-        BRANCH_NAME=${GITHUB_REF#refs/heads/}
-        echo "Trying to push to branch: $BRANCH_NAME"
-        git push https://$HF_TOKEN@huggingface.co/spaces/${{ github.repository_owner }}/r3m-api $BRANCH_NAME || \
-        (echo "Trying master branch..." && git push https://$HF_TOKEN@huggingface.co/spaces/${{ github.repository_owner }}/r3m-api master) || \
-        (echo "Trying main branch..." && git push https://$HF_TOKEN@huggingface.co/spaces/${{ github.repository_owner }}/r3m-api main) 
+        # Create and push to main branch (Hugging Face Spaces default)
+        echo "Creating main branch and pushing..."
+        git checkout -b main || git checkout main || true
+        git push -u https://$HF_TOKEN@huggingface.co/spaces/anorohit/r3m-api main || \
+        (echo "Trying to force push..." && git push -f https://$HF_TOKEN@huggingface.co/spaces/anorohit/r3m-api main) 
