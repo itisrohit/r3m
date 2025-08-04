@@ -80,8 +80,11 @@ RUN ldconfig
 # Copy configuration and data
 COPY --from=builder /app/configs/ /app/configs/
 
-# Set environment variable to disable memory pooling in Docker
+# Set environment variables for Docker container
 ENV DOCKER_CONTAINER=true
+ENV R3M_PORT=7860
+ENV R3M_HOST=0.0.0.0
+ENV PORT=7860
 
 # Change ownership
 RUN chown -R app:app /app
@@ -92,9 +95,9 @@ USER app
 # Expose port (Hugging Face Spaces expects 7860)
 EXPOSE 7860
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+# Health check (Hugging Face Spaces expects port 7860)
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=5 \
     CMD curl -f http://localhost:7860/health || exit 1
 
-# Default command
+# Default command (Hugging Face Spaces expects port 7860)
 CMD ["./r3m", "--port", "7860", "--host", "0.0.0.0"] 
