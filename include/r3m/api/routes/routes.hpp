@@ -14,7 +14,8 @@ namespace api {
 
 class Routes {
 public:
-    explicit Routes(std::shared_ptr<core::DocumentProcessor> processor);
+    explicit Routes(std::shared_ptr<core::DocumentProcessor> processor, 
+                   const std::unordered_map<std::string, std::string>& config = {});
     ~Routes() = default;
 
     // Route handlers
@@ -30,6 +31,7 @@ public:
 
 private:
     std::shared_ptr<core::DocumentProcessor> processor_;
+    std::unordered_map<std::string, std::string> config_;
 };
 
 } // namespace api

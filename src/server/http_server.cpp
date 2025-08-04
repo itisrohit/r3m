@@ -37,7 +37,7 @@ bool HttpServer::initialize(const std::unordered_map<std::string, std::string>& 
     }
     
     // Initialize modules
-    api_routes_ = std::make_unique<api::Routes>(processor_);
+    api_routes_ = std::make_unique<api::Routes>(processor_, config);
     job_manager_ = std::make_unique<api::JobManager>();
     
     // Create upload directory

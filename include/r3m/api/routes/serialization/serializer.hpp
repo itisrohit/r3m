@@ -46,9 +46,16 @@ std::string serialize_chunking_result(const chunking::ChunkingResult& result);
 
 /**
  * @brief Serialize system information
+ * @param port Server port
+ * @param host Server host
+ * @param threads Number of threads
+ * @param upload_dir Upload directory
+ * @param max_file_size_mb Maximum file size in MB
  * @return JSON string representation of system info
  */
-std::string serialize_system_info();
+std::string serialize_system_info(int port = 7860, const std::string& host = "0.0.0.0", 
+                                 int threads = 4, const std::string& upload_dir = "/tmp/r3m/uploads", 
+                                 int max_file_size_mb = 100);
 
 /**
  * @brief Serialize performance metrics

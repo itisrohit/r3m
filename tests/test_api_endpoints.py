@@ -10,7 +10,7 @@ import os
 import time
 from pathlib import Path
 
-API_URL = "http://localhost:8080"
+API_URL = "http://localhost:7860"
 
 def print_section(title):
     print("\n" + "="*60)

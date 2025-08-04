@@ -177,16 +177,17 @@ std::string serialize_chunking_result(const chunking::ChunkingResult& result) {
     return response_data;
 }
 
-std::string serialize_system_info() {
+std::string serialize_system_info(int port, const std::string& host, int threads, 
+                                 const std::string& upload_dir, int max_file_size_mb) {
     // Note: This would need access to processor_ to get statistics
     // For now, return a basic system info structure
     std::string response_data = "{\"server\":\"R3M Document Processing API\",";
     response_data += "\"version\":\"1.0.0\",";
-    response_data += "\"port\":8080,";
-    response_data += "\"host\":\"0.0.0.0\",";
-    response_data += "\"threads\":4,";
-    response_data += "\"upload_dir\":\"/tmp/r3m/uploads\",";
-    response_data += "\"max_file_size_mb\":100}";
+    response_data += "\"port\":" + std::to_string(port) + ",";
+    response_data += "\"host\":\"" + host + "\",";
+    response_data += "\"threads\":" + std::to_string(threads) + ",";
+    response_data += "\"upload_dir\":\"" + upload_dir + "\",";
+    response_data += "\"max_file_size_mb\":" + std::to_string(max_file_size_mb) + "}";
     
     return response_data;
 }

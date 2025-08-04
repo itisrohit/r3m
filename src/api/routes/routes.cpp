@@ -12,8 +12,9 @@
 namespace r3m {
 namespace api {
 
-Routes::Routes(std::shared_ptr<core::DocumentProcessor> processor)
-    : processor_(processor) {
+Routes::Routes(std::shared_ptr<core::DocumentProcessor> processor, 
+               const std::unordered_map<std::string, std::string>& config)
+    : processor_(processor), config_(config) {
 }
 
 #ifdef R3M_HTTP_ENABLED
@@ -39,7 +40,7 @@ crow::response Routes::handle_job_status(const std::string& job_id) {
 }
 
 crow::response Routes::handle_system_info() {
-    return route_handlers::handle_system_info(processor_);
+    return route_handlers::handle_system_info(processor_, config_);
 }
 
 crow::response Routes::handle_metrics() {

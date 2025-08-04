@@ -44,52 +44,14 @@ int main(int argc, char* argv[]) {
         // Create HTTP server
         r3m::g_server = std::make_unique<r3m::server::HttpServer>();
         
-        // Initialize server with configuration
-        std::unordered_map<std::string, std::string> config;
+        // Initialize server with configuration from config file
+        std::unordered_map<std::string, std::string> config = config_manager.get_all_config();
+        
+        // Ensure server configuration is set (in case config file doesn't have it)
         config["server.port"] = std::to_string(server_config.port);
         config["server.host"] = server_config.host;
         config["server.threads"] = std::to_string(server_config.threads);
         config["server.upload_dir"] = "/tmp/r3m/uploads";
-        
-        // Add document processing configuration
-        config["document_processing.max_file_size"] = "100MB";
-        config["document_processing.max_text_length"] = "1000000";
-        config["document_processing.worker_threads"] = "4";
-        // Default optimized configuration
-        config["document_processing.enable_chunking"] = "true";
-        config["document_processing.batch_size"] = "16";  // Optimal batch size
-        config["document_processing.max_workers"] = "4";
-        
-        // OPTIMIZED PARALLEL PROCESSING CONFIGURATION
-        config["document_processing.enable_optimized_thread_pool"] = "true";
-        config["document_processing.enable_thread_affinity"] = "true";
-        config["document_processing.enable_work_stealing"] = "true";
-        config["document_processing.enable_memory_pooling"] = "true";
-        
-        // SIMD OPTIMIZATION CONFIGURATION
-        config["document_processing.enable_simd_optimizations"] = "true";
-        config["document_processing.enable_avx2"] = "true";
-        config["document_processing.enable_avx512"] = "true";
-        config["document_processing.enable_neon"] = "true";
-        
-        // CHUNKING CONFIGURATION - OPTIMIZED!
-        config["chunking.enable_multipass"] = "true";
-        config["chunking.enable_large_chunks"] = "true";
-        config["chunking.enable_contextual_rag"] = "true";
-        config["chunking.include_metadata"] = "true";
-        config["chunking.chunk_token_limit"] = "2048";
-        config["chunking.chunk_overlap"] = "0";
-        config["chunking.mini_chunk_size"] = "150";
-        config["chunking.blurb_size"] = "100";
-        config["chunking.large_chunk_ratio"] = "4";
-        config["chunking.max_metadata_percentage"] = "0.25";
-        config["chunking.contextual_rag_reserved_tokens"] = "512";
-        
-        // OPTIMIZED TOKEN PROCESSING
-        config["chunking.enable_token_caching"] = "true";
-        config["chunking.enable_string_view_optimization"] = "true";
-        config["chunking.enable_preallocation"] = "true";
-        config["chunking.enable_move_semantics"] = "true";
         
         if (!r3m::g_server->initialize(config)) {
             std::cerr << "❌ Failed to initialize HTTP server" << std::endl;

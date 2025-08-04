@@ -164,12 +164,36 @@ crow::response handle_job_status(const std::string& job_id) {
     return res;
 }
 
-crow::response handle_system_info(std::shared_ptr<core::DocumentProcessor> processor) {
+crow::response handle_system_info(std::shared_ptr<core::DocumentProcessor> processor, 
+                                 const std::unordered_map<std::string, std::string>& config) {
     (void)processor; // Suppress unused parameter warning
     crow::response res;
     res.set_header("Content-Type", "application/json");
     
-    std::string response_data = serialization::serialize_system_info();
+    // Extract configuration values with defaults
+    int port = 7860;
+    std::string host = "0.0.0.0";
+    int threads = 4;
+    std::string upload_dir = "/tmp/r3m/uploads";
+    int max_file_size_mb = 100;
+    
+    if (config.count("server.port")) {
+        port = std::stoi(config.at("server.port"));
+    }
+    if (config.count("server.host")) {
+        host = config.at("server.host");
+    }
+    if (config.count("server.threads")) {
+        threads = std::stoi(config.at("server.threads"));
+    }
+    if (config.count("server.upload_dir")) {
+        upload_dir = config.at("server.upload_dir");
+    }
+    if (config.count("server.max_file_size_mb")) {
+        max_file_size_mb = std::stoi(config.at("server.max_file_size_mb"));
+    }
+    
+    std::string response_data = serialization::serialize_system_info(port, host, threads, upload_dir, max_file_size_mb);
     
     res.code = 200;
     res.body = response_handler::create_response(true, "System information retrieved", response_data);

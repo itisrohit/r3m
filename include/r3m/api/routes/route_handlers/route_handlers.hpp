@@ -53,7 +53,8 @@ crow::response handle_job_status(const std::string& job_id);
  * @param processor Document processor instance
  * @return Crow response with system information
  */
-crow::response handle_system_info(std::shared_ptr<core::DocumentProcessor> processor);
+crow::response handle_system_info(std::shared_ptr<core::DocumentProcessor> processor, 
+                                 const std::unordered_map<std::string, std::string>& config);
 
 /**
  * @brief Handle performance metrics endpoint

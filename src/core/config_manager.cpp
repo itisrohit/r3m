@@ -16,13 +16,13 @@ ConfigManager::~ConfigManager() = default;
 bool ConfigManager::load_config(const std::string& config_path) {
     config_file_path_ = config_path;
     
-    // For now, use simple key-value parsing
-    // In real implementation, use yaml-cpp
+    // Simple YAML-like parsing with nested structure support
     std::ifstream file(config_path);
     if (!file.is_open()) {
         return false;
     }
     
+    std::string current_section = "";
     std::string line;
     while (std::getline(file, line)) {
         // Skip comments and empty lines
@@ -30,7 +30,17 @@ bool ConfigManager::load_config(const std::string& config_path) {
             continue;
         }
         
-        // Simple key-value parsing
+        // Trim whitespace
+        line.erase(0, line.find_first_not_of(" \t"));
+        line.erase(line.find_last_not_of(" \t") + 1);
+        
+        // Check if this is a section header (ends with ':')
+        if (line.back() == ':' && line.find(':') == line.length() - 1) {
+            current_section = line.substr(0, line.length() - 1);
+            continue;
+        }
+        
+        // Parse key-value pairs
         size_t colon_pos = line.find(':');
         if (colon_pos != std::string::npos) {
             std::string key = line.substr(0, colon_pos);
@@ -43,7 +53,12 @@ bool ConfigManager::load_config(const std::string& config_path) {
             value.erase(value.find_last_not_of(" \t") + 1);
             
             if (!key.empty()) {
-                config_values_[key] = value;
+                // Create nested key if we're in a section
+                std::string full_key = key;
+                if (!current_section.empty()) {
+                    full_key = current_section + "." + key;
+                }
+                config_values_[full_key] = value;
             }
         }
     }

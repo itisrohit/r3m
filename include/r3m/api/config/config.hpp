@@ -8,7 +8,7 @@ namespace api {
 
 struct Config {
     // Server settings
-    int port = 8080;
+    int port = 7860;
     std::string host = "0.0.0.0";
     int threads = 4;
     
