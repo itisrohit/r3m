@@ -1,6 +1,6 @@
 # R3M Development Configuration - Core Document Processing Pipeline
 server:
-  port: 8080
+  port: 7860
   host: "0.0.0.0"
   threads: 4
 
