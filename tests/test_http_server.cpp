@@ -1,56 +1,42 @@
-#include "r3m/server/http_server.hpp"
-#include "r3m/core/config_manager.hpp"
 #include <iostream>
-#include <unordered_map>
+#include <chrono>
+#include <vector>
+#include <string>
+#include <iomanip>
+#include <fstream>
+#include "r3m/core/document_processor.hpp"
+#include "r3m/core/config_manager.hpp"
+#include "r3m/server/http_server.hpp"
+
+using namespace r3m::core;
+
+void print_separator(const std::string& title) {
+    std::cout << "\n" << std::string(60, '=') << "\n";
+    std::cout << " " << title << "\n";
+    std::cout << std::string(60, '=') << "\n";
+}
 
 int main() {
-    std::cout << "🧪 Testing R3M HTTP Server Functionality" << std::endl;
-    std::cout << "=========================================" << std::endl;
+    std::cout << "🧪 R3M HTTP Server Test\n";
+    std::cout << "========================\n\n";
     
-    // Test HTTP server initialization
-    r3m::server::HttpServer server;
+    // Load configuration from config file instead of hardcoded values
+    r3m::core::ConfigManager config_manager;
+    if (!config_manager.load_config("configs/dev/config.yaml")) {
+        std::cerr << "❌ Failed to load configuration from config file\n";
+        return 1;
+    }
     
-    // Initialize with optimized configuration
-    std::unordered_map<std::string, std::string> config;
-    config["document_processing.enable_chunking"] = "true";
-    config["document_processing.batch_size"] = "16";  // Optimal batch size
-    config["document_processing.max_workers"] = "4";
+    // Get all configuration from config file
+    std::unordered_map<std::string, std::string> config = config_manager.get_all_config();
     
-    // OPTIMIZED PARALLEL PROCESSING CONFIGURATION
-    config["document_processing.enable_optimized_thread_pool"] = "true";
-    config["document_processing.enable_thread_affinity"] = "true";
-    config["document_processing.enable_work_stealing"] = "true";
-    config["document_processing.enable_memory_pooling"] = "true";
-    
-    // SIMD OPTIMIZATION CONFIGURATION
-    config["document_processing.enable_simd_optimizations"] = "true";
-    config["document_processing.enable_avx2"] = "true";
-    config["document_processing.enable_avx512"] = "true";
-    config["document_processing.enable_neon"] = "true";
-    
-    // CHUNKING CONFIGURATION - OPTIMIZED!
-    config["chunking.enable_multipass"] = "true";
-    config["chunking.enable_large_chunks"] = "true";
-    config["chunking.enable_contextual_rag"] = "true";
-    config["chunking.include_metadata"] = "true";
-    config["chunking.chunk_token_limit"] = "2048";
-    config["chunking.chunk_overlap"] = "0";
-    config["chunking.mini_chunk_size"] = "150";
-    config["chunking.blurb_size"] = "100";
-    config["chunking.large_chunk_ratio"] = "4";
-    config["chunking.max_metadata_percentage"] = "0.25";
-    config["chunking.contextual_rag_reserved_tokens"] = "512";
-    
-    // OPTIMIZED TOKEN PROCESSING
-    config["chunking.enable_token_caching"] = "true";
-    config["chunking.enable_string_view_optimization"] = "true";
-    config["chunking.enable_preallocation"] = "true";
-    config["chunking.enable_move_semantics"] = "true";
+    // Initialize HTTP server with config
+    auto server = std::make_unique<r3m::server::HttpServer>();
     
     std::cout << "🔧 Initializing HTTP server..." << std::endl;
     
     // Initialize server
-    if (!server.initialize(config)) {
+    if (!server->initialize(config)) {
         std::cout << "❌ Failed to initialize HTTP server" << std::endl;
         return 1;
     }
@@ -58,7 +44,7 @@ int main() {
     std::cout << "✅ HTTP server initialized successfully" << std::endl;
     
     // Test server configuration
-    auto server_config = server.get_config();
+    auto server_config = server->get_config();
     std::cout << "📊 Server Configuration:" << std::endl;
     std::cout << "   Port: " << server_config.port << std::endl;
     std::cout << "   Host: " << server_config.host << std::endl;
@@ -69,7 +55,7 @@ int main() {
     // Test server start (this will fail gracefully if Crow is not available)
     std::cout << "\n🚀 Attempting to start HTTP server..." << std::endl;
     
-    bool start_result = server.start();
+    bool start_result = server->start();
     
     if (start_result) {
         std::cout << "✅ HTTP server started successfully" << std::endl;

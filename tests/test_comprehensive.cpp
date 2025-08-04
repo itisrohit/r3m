@@ -6,7 +6,10 @@
 #include <fstream>
 #include <filesystem>
 #include <iomanip>
+#include <sstream>
 #include "r3m/core/document_processor.hpp"
+#include "r3m/core/config_manager.hpp"
+#include "r3m/parallel/optimized_thread_pool.hpp"
 
 using namespace r3m::core;
 
@@ -136,6 +139,16 @@ int main() {
     std::cout << "==========================================\n";
     std::cout << "Testing: Core Functionality + Enhanced Features\n";
     
+    // Load configuration from config file instead of hardcoded values
+    r3m::core::ConfigManager config_manager;
+    if (!config_manager.load_config("configs/dev/config.yaml")) {
+        std::cerr << "❌ Failed to load configuration from config file\n";
+        return 1;
+    }
+    
+    // Get all configuration from config file
+    std::unordered_map<std::string, std::string> config = config_manager.get_all_config();
+    
     // Test configuration (should come from config.yaml in real scenario)
     int large_file_count = 8;
     int enhancement_file_count = 12;
@@ -144,83 +157,14 @@ int main() {
     create_test_files();
     std::cout << "Test files created in data/\n";
     
-    // Initialize processor
-    DocumentProcessor processor;
-    std::unordered_map<std::string, std::string> config;
+    auto processor = std::make_unique<DocumentProcessor>();
     
-    // Load configuration from config file (in a real scenario)
-    // For testing, we set these manually but they should come from config.yaml
-    config["document_processing.max_file_size"] = "100MB";
-    config["document_processing.max_text_length"] = "1000000";
-    config["document_processing.text_processing.encoding_detection"] = "true";
-    config["document_processing.text_processing.default_encoding"] = "utf-8";
-    config["document_processing.text_processing.remove_html_tags"] = "true";
-    config["document_processing.text_processing.normalize_whitespace"] = "true";
-    config["document_processing.text_processing.extract_metadata"] = "true";
+    if (!processor->initialize(config)) {
+        std::cerr << "❌ Failed to initialize DocumentProcessor\n";
+        return 1;
+    }
     
-    // OPTIMIZED PARALLEL PROCESSING CONFIGURATION
-    config["document_processing.batch_size"] = "16";  // Optimal batch size
-    config["document_processing.max_workers"] = "4";  // Optimal worker count
-    config["document_processing.enable_optimized_thread_pool"] = "true";
-    config["document_processing.enable_thread_affinity"] = "true";
-    config["document_processing.enable_work_stealing"] = "true";
-    config["document_processing.enable_memory_pooling"] = "true";
-    
-    // SIMD OPTIMIZATION CONFIGURATION
-    config["document_processing.enable_simd_optimizations"] = "true";
-    config["document_processing.enable_avx2"] = "true";
-    config["document_processing.enable_avx512"] = "true";
-    config["document_processing.enable_neon"] = "true";
-    
-    // CHUNKING CONFIGURATION - OPTIMIZED!
-    config["document_processing.enable_chunking"] = "true";
-    config["chunking.enable_multipass"] = "true";
-    config["chunking.enable_large_chunks"] = "true";
-    config["chunking.enable_contextual_rag"] = "true";
-    config["chunking.include_metadata"] = "true";
-    config["chunking.chunk_token_limit"] = "2048";
-    config["chunking.chunk_overlap"] = "0";
-    config["chunking.mini_chunk_size"] = "150";
-    config["chunking.blurb_size"] = "100";
-    config["chunking.large_chunk_ratio"] = "4";
-    config["chunking.max_metadata_percentage"] = "0.25";
-    config["chunking.contextual_rag_reserved_tokens"] = "512";
-    
-    // OPTIMIZED TOKEN PROCESSING
-    config["chunking.enable_token_caching"] = "true";
-    config["chunking.enable_string_view_optimization"] = "true";
-    config["chunking.enable_preallocation"] = "true";
-    config["chunking.enable_move_semantics"] = "true";
-    
-    // Quality filtering configuration
-    config["document_processing.quality_filtering.enabled"] = "true";
-    config["document_processing.quality_filtering.min_content_quality_score"] = "0.3";
-    config["document_processing.quality_filtering.min_information_density"] = "0.1";
-    config["document_processing.quality_filtering.min_content_length"] = "50";
-    config["document_processing.quality_filtering.max_content_length"] = "1000000";
-    config["document_processing.quality_filtering.filter_empty_documents"] = "true";
-    config["document_processing.quality_filtering.filter_low_quality_documents"] = "true";
-    
-    // Quality assessment weights
-    config["document_processing.quality_filtering.quality_weights.length_factor"] = "0.3";
-    config["document_processing.quality_filtering.quality_weights.word_diversity_factor"] = "0.3";
-    config["document_processing.quality_filtering.quality_weights.sentence_structure_factor"] = "0.2";
-    config["document_processing.quality_filtering.quality_weights.information_density_factor"] = "0.2";
-    
-    // Information density weights
-    config["document_processing.quality_filtering.density_weights.unique_word_ratio"] = "0.4";
-    config["document_processing.quality_filtering.density_weights.technical_term_density"] = "0.3";
-    config["document_processing.quality_filtering.density_weights.sentence_complexity"] = "0.3";
-    
-    // Quality calculation thresholds
-    config["document_processing.quality_filtering.quality_thresholds.length_normalization"] = "1000";
-    config["document_processing.quality_filtering.quality_thresholds.word_diversity_normalization"] = "5";
-    config["document_processing.quality_filtering.quality_thresholds.sentence_normalization"] = "10";
-    config["document_processing.quality_filtering.quality_thresholds.technical_term_normalization"] = "10";
-    config["document_processing.quality_filtering.quality_thresholds.sentence_complexity_normalization"] = "100";
-    config["document_processing.quality_filtering.quality_thresholds.whitespace_threshold"] = "0.1";
-    
-    processor.initialize(config);
+    std::cout << "✅ DocumentProcessor initialized successfully\n";
     
     // ============================================================================
     // SECTION 1: CORE FUNCTIONALITY TESTS
@@ -231,7 +175,7 @@ int main() {
     std::cout << "1. Single Document Processing Test\n";
     std::cout << "----------------------------------\n";
     
-    auto result = processor.process_document("data/technical_document.txt");
+    auto result = processor->process_document("data/technical_document.txt");
     std::cout << "File: " << result.file_name << "\n";
     std::cout << "Success: " << (result.processing_success ? "YES" : "NO") << "\n";
     std::cout << "Processing time: " << result.processing_time_ms << " ms\n";
@@ -279,7 +223,7 @@ int main() {
     
     std::vector<DocumentResult> results;
     for (const auto& file : test_files) {
-        results.push_back(processor.process_document(file));
+        results.push_back(processor->process_document(file));
     }
     
     std::cout << "Processed " << results.size() << " files:\n";
@@ -306,7 +250,7 @@ int main() {
     }
     
     auto par_start = std::chrono::high_resolution_clock::now();
-    auto par_results = processor.process_documents_parallel(parallel_files);
+    auto par_results = processor->process_documents_parallel(parallel_files);
     auto par_end = std::chrono::high_resolution_clock::now();
     
     auto par_duration = std::chrono::duration_cast<std::chrono::milliseconds>(par_end - par_start);
@@ -338,7 +282,7 @@ int main() {
     
     for (const auto& file : chunking_test_files) {
         std::cout << "Testing chunking on: " << file << "\n";
-        auto chunk_result = processor.process_document(file);
+        auto chunk_result = processor->process_document(file);
         
         if (chunk_result.processing_success) {
             std::cout << "  ✅ Processing successful\n";
@@ -368,7 +312,7 @@ int main() {
     std::cout << "1.5.2. Chunking-Specific Processing Test\n";
     std::cout << "-----------------------------------------\n";
     
-    auto chunking_specific_result = processor.process_document_with_chunking("data/technical_document.txt");
+    auto chunking_specific_result = processor->process_document_with_chunking("data/technical_document.txt");
     std::cout << "Chunking-specific processing results:\n";
     std::cout << "  Total chunks: " << chunking_specific_result.total_chunks << "\n";
     std::cout << "  Successful chunks: " << chunking_specific_result.successful_chunks << "\n";
@@ -398,7 +342,7 @@ int main() {
         "data/test_document.md"
     };
     
-    auto chunking_batch_results = processor.process_documents_parallel(chunking_batch_files);
+    auto chunking_batch_results = processor->process_documents_parallel(chunking_batch_files);
     
     std::cout << "Batch processing with chunking results:\n";
     std::cout << "  Total files: " << chunking_batch_files.size() << "\n";
@@ -437,7 +381,7 @@ int main() {
     std::cout << "1.6.2. Chunking-Specific Batch Processing Test\n";
     std::cout << "-----------------------------------------------\n";
     
-    auto chunking_specific_batch_results = processor.process_documents_with_chunking(chunking_batch_files);
+    auto chunking_specific_batch_results = processor->process_documents_with_chunking(chunking_batch_files);
     
     std::cout << "Chunking-specific batch processing results:\n";
     std::cout << "  Total files: " << chunking_batch_files.size() << "\n";
@@ -483,7 +427,7 @@ int main() {
     };
     
     auto batch_start = std::chrono::high_resolution_clock::now();
-    auto batch_results = processor.process_documents_with_filtering(batch_files);
+    auto batch_results = processor->process_documents_with_filtering(batch_files);
     auto batch_end = std::chrono::high_resolution_clock::now();
     
     auto batch_duration = std::chrono::duration_cast<std::chrono::milliseconds>(batch_end - batch_start);
@@ -513,7 +457,7 @@ int main() {
     auto seq_start = std::chrono::high_resolution_clock::now();
     std::vector<DocumentResult> seq_results;
     for (const auto& file : enhancement_parallel_files) {
-        seq_results.push_back(processor.process_document(file));
+        seq_results.push_back(processor->process_document(file));
     }
     auto seq_end = std::chrono::high_resolution_clock::now();
     auto seq_duration = std::chrono::duration_cast<std::chrono::milliseconds>(seq_end - seq_start);
@@ -527,7 +471,7 @@ int main() {
     // Parallel processing
     print_subsection("Parallel Processing");
     auto enh_par_start = std::chrono::high_resolution_clock::now();
-    auto enh_par_results = processor.process_documents_parallel(enhancement_parallel_files);
+    auto enh_par_results = processor->process_documents_parallel(enhancement_parallel_files);
     auto enh_par_end = std::chrono::high_resolution_clock::now();
     auto enh_par_duration = std::chrono::duration_cast<std::chrono::milliseconds>(enh_par_end - enh_par_start);
     
@@ -541,11 +485,20 @@ int main() {
     print_subsection("Performance Analysis");
     // Calculate performance metrics
     double speedup = static_cast<double>(seq_duration.count()) / par_duration.count();
-    double efficiency = speedup / 4.0; // Assuming 4 worker threads - should come from config
+    
+    // Get actual number of worker threads from config
+    int worker_threads = 4; // Default fallback
+    auto it = config.find("document_processing.max_workers");
+    if (it != config.end()) {
+        worker_threads = std::stoi(it->second);
+    }
+    
+    double efficiency = speedup / static_cast<double>(worker_threads);
     
     std::cout << std::fixed << std::setprecision(2);
     std::cout << "Speedup: " << speedup << "x\n";
     std::cout << "Efficiency: " << (efficiency * 100) << "%\n";
+    std::cout << "Worker threads: " << worker_threads << "\n";
     std::cout << "Time saved: " << (seq_duration.count() - par_duration.count()) << " ms\n";
     std::cout << "Performance improvement: " << ((speedup - 1.0) * 100) << "%\n\n";
     
@@ -566,7 +519,7 @@ int main() {
     
     print_subsection("Batch Processing Results");
     auto enh_batch_start = std::chrono::high_resolution_clock::now();
-    auto enh_batch_results = processor.process_documents_with_filtering(enhancement_batch_files);
+    auto enh_batch_results = processor->process_documents_with_filtering(enhancement_batch_files);
     auto enh_batch_end = std::chrono::high_resolution_clock::now();
     auto enh_batch_duration = std::chrono::duration_cast<std::chrono::milliseconds>(enh_batch_end - enh_batch_start);
     
@@ -600,7 +553,7 @@ int main() {
     std::cout << std::string(80, '-') << "\n";
     
     for (const auto& file : quality_test_files) {
-        auto result = processor.process_document(file);
+        auto result = processor->process_document(file);
         std::cout << std::left << std::setw(20) << result.file_name
                   << std::setw(15) << std::fixed << std::setprecision(3) << result.content_quality_score
                   << std::setw(20) << std::fixed << std::setprecision(3) << result.information_density
@@ -614,7 +567,7 @@ int main() {
     // ============================================================================
     print_separator("SECTION 3: COMPREHENSIVE STATISTICS");
     
-    auto stats = processor.get_processing_stats();
+    auto stats = processor->get_processing_stats();
     
     print_subsection("Processing Statistics");
     std::cout << "Total files processed: " << stats.total_files_processed << "\n";
@@ -632,7 +585,7 @@ int main() {
     
     // Supported formats
     print_subsection("Supported Formats");
-    auto supported_extensions = processor.get_supported_extensions();
+    auto supported_extensions = processor->get_supported_extensions();
     std::cout << "Supported extensions (" << supported_extensions.size() << "):\n";
     for (const auto& ext : supported_extensions) {
         std::cout << "  " << ext << "\n";
@@ -689,7 +642,7 @@ int main() {
         std::string base_filename = std::filesystem::path(file).stem().string();
         
         // Process with chunking
-        auto chunking_result = processor.process_document_with_chunking(file);
+        auto chunking_result = processor->process_document_with_chunking(file);
         
         std::cout << "  📊 Chunking Results:\n";
         std::cout << "    Total chunks: " << chunking_result.total_chunks << "\n";
@@ -737,7 +690,8 @@ int main() {
     results_file << "- Sequential: " << seq_duration.count() << " ms\n";
     results_file << "- Parallel: " << enh_par_duration.count() << " ms\n";
     results_file << "- Speedup: " << speedup << "x\n";
-    results_file << "- Efficiency: " << (efficiency * 100) << "%\n\n";
+    results_file << "- Efficiency: " << (efficiency * 100) << "%\n";
+    results_file << "- Worker threads: " << worker_threads << "\n\n";
     
     results_file << "Quality Assessment:\n";
     results_file << "- Average quality score: " << stats.avg_content_quality_score << "\n";

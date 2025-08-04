@@ -1,11 +1,12 @@
 #include <iostream>
-#include <fstream>
 #include <chrono>
 #include <vector>
 #include <string>
 #include <iomanip>
-#include <filesystem>
+#include <fstream>
 #include "r3m/core/document_processor.hpp"
+#include "r3m/core/config_manager.hpp"
+#include "r3m/parallel/optimized_thread_pool.hpp"
 
 using namespace r3m::core;
 
@@ -13,6 +14,11 @@ void print_separator(const std::string& title) {
     std::cout << "\n" << std::string(60, '=') << "\n";
     std::cout << " " << title << "\n";
     std::cout << std::string(60, '=') << "\n";
+}
+
+void print_subsection(const std::string& title) {
+    std::cout << "\n" << title << "\n";
+    std::cout << std::string(title.length(), '-') << "\n";
 }
 
 std::string generate_test_document(size_t size_kb) {
@@ -41,44 +47,17 @@ int main() {
     std::cout << "📊 R3M Document Size Benchmark\n";
     std::cout << "================================\n\n";
     
-    // Initialize document processor
+    // Load configuration from config file instead of hardcoded values
+    r3m::core::ConfigManager config_manager;
+    if (!config_manager.load_config("configs/dev/config.yaml")) {
+        std::cerr << "❌ Failed to load configuration from config file\n";
+        return 1;
+    }
+    
+    // Get all configuration from config file
+    std::unordered_map<std::string, std::string> config = config_manager.get_all_config();
+    
     auto processor = std::make_unique<DocumentProcessor>();
-    
-    std::unordered_map<std::string, std::string> config;
-    config["document_processing.enable_chunking"] = "true";
-    config["document_processing.max_workers"] = "4";
-    config["document_processing.batch_size"] = "16";  // Optimal batch size
-    
-    // OPTIMIZED PARALLEL PROCESSING CONFIGURATION
-    config["document_processing.enable_optimized_thread_pool"] = "true";
-    config["document_processing.enable_thread_affinity"] = "true";
-    config["document_processing.enable_work_stealing"] = "true";
-    config["document_processing.enable_memory_pooling"] = "true";
-    
-    // SIMD OPTIMIZATION CONFIGURATION
-    config["document_processing.enable_simd_optimizations"] = "true";
-    config["document_processing.enable_avx2"] = "true";
-    config["document_processing.enable_avx512"] = "true";
-    config["document_processing.enable_neon"] = "true";
-    
-    // CHUNKING CONFIGURATION - OPTIMIZED!
-    config["chunking.enable_multipass"] = "true";
-    config["chunking.enable_large_chunks"] = "true";
-    config["chunking.enable_contextual_rag"] = "true";
-    config["chunking.include_metadata"] = "true";
-    config["chunking.chunk_token_limit"] = "2048";
-    config["chunking.chunk_overlap"] = "0";
-    config["chunking.mini_chunk_size"] = "150";
-    config["chunking.blurb_size"] = "100";
-    config["chunking.large_chunk_ratio"] = "4";
-    config["chunking.max_metadata_percentage"] = "0.25";
-    config["chunking.contextual_rag_reserved_tokens"] = "512";
-    
-    // OPTIMIZED TOKEN PROCESSING
-    config["chunking.enable_token_caching"] = "true";
-    config["chunking.enable_string_view_optimization"] = "true";
-    config["chunking.enable_preallocation"] = "true";
-    config["chunking.enable_move_semantics"] = "true";
     
     if (!processor->initialize(config)) {
         std::cerr << "❌ Failed to initialize DocumentProcessor\n";

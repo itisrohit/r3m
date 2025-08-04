@@ -1,5 +1,6 @@
 #include "r3m/utils/performance.hpp"
 #include "r3m/core/document_processor.hpp"
+#include "r3m/core/config_manager.hpp"
 #include "r3m/chunking/advanced_chunker.hpp"
 #include "r3m/chunking/tokenizer.hpp"
 #include <iostream>
@@ -8,6 +9,10 @@
 #include <thread>
 #include <chrono>
 #include <filesystem>
+#include <vector>
+#include <string>
+#include <iomanip>
+#include <sstream>
 
 using namespace r3m;
 
@@ -85,31 +90,18 @@ void benchmark_document_processing() {
     runner.set_warmup_iterations(5);
     runner.set_memory_tracking(false); // Disable memory tracking to avoid Docker issues
     
-    // Initialize document processor
-    std::unordered_map<std::string, std::string> config;
-    config["document_processing.max_file_size"] = "100MB";
-    config["document_processing.max_text_length"] = "1000000";
-    config["document_processing.text_processing.encoding_detection"] = "true";
-    config["document_processing.text_processing.remove_html_tags"] = "true";
-    config["document_processing.text_processing.normalize_whitespace"] = "true";
-    config["document_processing.text_processing.extract_metadata"] = "true";
+    // Load configuration from config file instead of hardcoded values
+    r3m::core::ConfigManager config_manager;
+    if (!config_manager.load_config("configs/dev/config.yaml")) {
+        std::cerr << "❌ Failed to load configuration from config file\n";
+        return;
+    }
     
-    // Chunking configuration
-    config["document_processing.enable_chunking"] = "true";
-    config["chunking.enable_multipass"] = "true";
-    config["chunking.enable_large_chunks"] = "true";
-    config["chunking.enable_contextual_rag"] = "true";
-    config["chunking.chunk_token_limit"] = "2048";
-    config["chunking.chunk_overlap"] = "0";
-    config["chunking.mini_chunk_size"] = "150";
-    config["chunking.blurb_size"] = "100";
-    config["chunking.large_chunk_ratio"] = "4";
-    config["chunking.chunk_min_content"] = "256";
-    config["chunking.max_metadata_percentage"] = "0.25";
-    config["chunking.contextual_rag_reserved_tokens"] = "512";
+    // Get all configuration from config file
+    std::unordered_map<std::string, std::string> config = config_manager.get_all_config();
     
-    core::DocumentProcessor processor;
-    processor.initialize(config);
+    auto processor = std::make_unique<r3m::core::DocumentProcessor>();
+    processor->initialize(config);
     
     std::vector<std::string> test_files = {
         "data/perf_test_1kb.txt",
@@ -124,7 +116,7 @@ void benchmark_document_processing() {
             std::cout << "\n🔍 Benchmarking: " << file << "\n";
             
             auto results = runner.run_benchmark([&processor, &file]() {
-                auto result = processor.process_document(file);
+                auto result = processor->process_document(file);
                 return result;
             });
             
@@ -216,14 +208,18 @@ void benchmark_parallel_processing() {
     runner.set_warmup_iterations(5);
     runner.set_memory_tracking(false); // Disable memory tracking to avoid Docker issues
     
-    // Initialize document processor
-    std::unordered_map<std::string, std::string> config;
-    config["document_processing.enable_chunking"] = "true";
-    config["chunking.enable_multipass"] = "true";
-    config["chunking.chunk_token_limit"] = "2048";
+    // Load configuration from config file instead of hardcoded values
+    r3m::core::ConfigManager config_manager;
+    if (!config_manager.load_config("configs/dev/config.yaml")) {
+        std::cerr << "❌ Failed to load configuration from config file\n";
+        return;
+    }
     
-    core::DocumentProcessor processor;
-    processor.initialize(config);
+    // Get all configuration from config file
+    std::unordered_map<std::string, std::string> config = config_manager.get_all_config();
+    
+    auto processor = std::make_unique<r3m::core::DocumentProcessor>();
+    processor->initialize(config);
     
     // Create test files for parallel processing
     std::vector<std::string> test_files;
@@ -241,7 +237,7 @@ void benchmark_parallel_processing() {
     std::cout << "🔍 Benchmarking parallel processing with " << test_files.size() << " files\n";
     
     auto results = runner.run_benchmark([&processor, &test_files]() {
-        return processor.process_documents_parallel(test_files);
+        return processor->process_documents_parallel(test_files);
     });
     
     std::cout << "  📊 Results:\n";
@@ -315,14 +311,18 @@ void run_performance_stress_test() {
     utils::PerformanceUtils::PerformanceMonitor monitor;
     monitor.start_monitoring();
     
-    // Initialize processor
-    std::unordered_map<std::string, std::string> config;
-    config["document_processing.enable_chunking"] = "true";
-    config["chunking.enable_multipass"] = "true";
-    config["chunking.chunk_token_limit"] = "2048";
+    // Load configuration from config file instead of hardcoded values
+    r3m::core::ConfigManager config_manager;
+    if (!config_manager.load_config("configs/dev/config.yaml")) {
+        std::cerr << "❌ Failed to load configuration from config file\n";
+        return;
+    }
     
-    core::DocumentProcessor processor;
-    processor.initialize(config);
+    // Get all configuration from config file
+    std::unordered_map<std::string, std::string> config = config_manager.get_all_config();
+    
+    auto processor = std::make_unique<r3m::core::DocumentProcessor>();
+    processor->initialize(config);
     
     // Create large test document
     std::string large_document = generate_test_document(1000); // 1MB
@@ -336,7 +336,7 @@ void run_performance_stress_test() {
     for (int i = 0; i < 10; ++i) {
         auto start_time = std::chrono::high_resolution_clock::now();
         
-        auto result = processor.process_document("data/stress_test_1mb.txt");
+        auto result = processor->process_document("data/stress_test_1mb.txt");
         
         auto end_time = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration<double, std::milli>(end_time - start_time);
