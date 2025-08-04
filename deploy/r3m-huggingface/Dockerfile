@@ -11,12 +11,25 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
     git \
+    pkg-config \
+    libssl-dev \
+    libcurl4-openssl-dev \
     libboost-all-dev \
     libpoppler-cpp-dev \
     libgumbo-dev \
-    libasio-dev \
     nlohmann-json3-dev \
+    libasio-dev \
     && rm -rf /var/lib/apt/lists/*
+
+# Install Crow from source
+RUN git clone https://github.com/CrowCpp/Crow.git /tmp/crow && \
+    cd /tmp/crow && \
+    mkdir build && cd build && \
+    cmake .. -DCROW_BUILD_EXAMPLES=OFF -DCROW_BUILD_TESTS=OFF && \
+    make -j2 && \
+    make install && \
+    ldconfig && \
+    rm -rf /tmp/crow
 
 # Set working directory
 WORKDIR /app
@@ -25,25 +38,29 @@ WORKDIR /app
 COPY . .
 
 # Build the application
-RUN mkdir build && cd build \
-    && cmake .. -DCMAKE_BUILD_TYPE=Release \
-    && make -j2 \
-    && strip r3m
+RUN rm -rf build && mkdir -p build && cd build \
+    && cmake .. \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DR3M_ENABLE_SIMD=ON \
+        -DR3M_ENABLE_PARALLEL=ON \
+        -DR3M_ENABLE_HTTP_SERVER=ON \
+    && make -j2
 
 # Runtime stage
 FROM ubuntu:22.04 AS runtime
 
 # Install runtime dependencies
 RUN apt-get update && apt-get install -y \
-    libpoppler-cpp0v5 \
-    libgumbo1 \
+    libssl3 \
+    libcurl4 \
     libboost-system1.74.0 \
     libboost-thread1.74.0 \
     libboost-filesystem1.74.0 \
-    libasio3 \
-    libnlohmann-json3v5 \
+    libpoppler-cpp0v5 \
+    libgumbo1 \
     ca-certificates \
     curl \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Create app user
@@ -52,14 +69,19 @@ RUN useradd -m -u 1000 app
 # Set working directory
 WORKDIR /app
 
-# Copy built application
-COPY --from=builder /app/build/r3m .
+# Copy executables from builder stage
+COPY --from=builder /app/build/r3m /app/r3m
 
-# Set environment variables for Docker container
+# Copy Crow libraries and headers
+COPY --from=builder /usr/local/lib/libcrow* /usr/local/lib/
+COPY --from=builder /usr/local/include/crow /usr/local/include/crow
+RUN ldconfig
+
+# Copy configuration and data
+COPY --from=builder /app/configs/ /app/configs/
+
+# Set environment variable to disable memory pooling in Docker
 ENV DOCKER_CONTAINER=true
-ENV R3M_ENABLE_MEMORY_POOLING=false
-ENV R3M_MAX_WORKERS=4
-ENV R3M_OPTIMAL_BATCH_SIZE=100
 
 # Change ownership
 RUN chown -R app:app /app
@@ -74,5 +96,5 @@ EXPOSE 7860
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:7860/health || exit 1
 
-# Start the application
-CMD ["./r3m"] 
+# Default command
+CMD ["./r3m", "--port", "7860", "--host", "0.0.0.0"] 
