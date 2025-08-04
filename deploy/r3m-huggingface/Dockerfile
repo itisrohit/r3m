@@ -82,6 +82,9 @@ COPY --from=builder /app/configs/ /app/configs/
 COPY deploy/r3m-huggingface/config.yaml /app/configs/dev/config.yaml
 COPY deploy/r3m-huggingface/start.sh /app/start.sh
 
+# Make startup script executable
+RUN chmod +x /app/start.sh
+
 # Debug: List the config files to verify they exist
 RUN ls -la /app/configs/dev/ && cat /app/configs/dev/config.yaml
 
