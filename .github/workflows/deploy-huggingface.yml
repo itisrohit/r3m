@@ -41,9 +41,14 @@ jobs:
         git config --global user.email "action@github.com"
         git config --global user.name "GitHub Action"
         
-        # Add and commit files
+        # Initialize git if needed and add files
+        git init || true
         git add .
         git commit -m "Deploy R3M API to Hugging Face Spaces" || exit 0
         
-        # Push to Hugging Face
-        git push https://$HF_TOKEN@huggingface.co/spaces/${{ github.repository_owner }}/r3m-api main 
+        # Push to Hugging Face (try different branch names)
+        BRANCH_NAME=${GITHUB_REF#refs/heads/}
+        echo "Trying to push to branch: $BRANCH_NAME"
+        git push https://$HF_TOKEN@huggingface.co/spaces/${{ github.repository_owner }}/r3m-api $BRANCH_NAME || \
+        (echo "Trying master branch..." && git push https://$HF_TOKEN@huggingface.co/spaces/${{ github.repository_owner }}/r3m-api master) || \
+        (echo "Trying main branch..." && git push https://$HF_TOKEN@huggingface.co/spaces/${{ github.repository_owner }}/r3m-api main) 
