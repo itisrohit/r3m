@@ -17,10 +17,5 @@
   "license": "MIT",
   "devDependencies": {
     "wrangler": "^3.0.0"
-  },
-  "cloudflare": {
-    "workers": {
-      "name": "r3m-api"
-    }
   }
 } 
