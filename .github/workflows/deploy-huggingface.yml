@@ -14,9 +14,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
-    - name: Setup Git LFS
-      uses: actions/setup-git-lfs@v4
-      
     - name: Deploy to Hugging Face Spaces
       env:
         HF_TOKEN: ${{ secrets.HF_TOKEN }}
