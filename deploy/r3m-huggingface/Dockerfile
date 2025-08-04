@@ -79,6 +79,7 @@ RUN ldconfig
 
 # Copy configuration and data
 COPY --from=builder /app/configs/ /app/configs/
+COPY config.yaml /app/config.yaml
 
 # Set environment variables for Docker container
 ENV DOCKER_CONTAINER=true
