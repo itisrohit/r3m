@@ -238,4 +238,6 @@ NOTES.md
 !.git/hooks/pre-commit
 !.git/hooks/post-commit
 
-# End of R3M .gitignore 
+# End of R3M .gitignore .github/workflows/deploy.yml
+.github/workflows/docker-build.yml
+.github/workflows/docker.yml
