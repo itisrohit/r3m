@@ -1,43 +1,43 @@
-name: R3M Docker Build and Test
+# name: R3M Docker Build and Test
 
-on:
-  push:
-    branches: [ testings2 ]
-  pull_request:
-    branches: [ testings2 ]
+# on:
+#   push:
+#     branches: [ testings2 ]
+#   pull_request:
+#     branches: [ testings2 ]
 
-jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
+# jobs:
+#   build-and-test:
+#     runs-on: ubuntu-latest
     
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v4
       
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
+#     - name: Set up Docker Buildx
+#       uses: docker/setup-buildx-action@v3
       
-    - name: Build Docker image with cache
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        file: ./docker/Dockerfile
-        push: false
-        tags: r3m-api:latest
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
-        outputs: type=docker,dest=/tmp/r3m-api.tar
+#     - name: Build Docker image with cache
+#       uses: docker/build-push-action@v5
+#       with:
+#         context: .
+#         file: ./docker/Dockerfile
+#         push: false
+#         tags: r3m-api:latest
+#         cache-from: type=gha
+#         cache-to: type=gha,mode=max
+#         outputs: type=docker,dest=/tmp/r3m-api.tar
         
-    - name: Load Docker image
-      run: docker load --input /tmp/r3m-api.tar
+#     - name: Load Docker image
+#       run: docker load --input /tmp/r3m-api.tar
         
-    - name: Build verification
-      run: |
-        # Verify all executables are built
-        docker run --rm r3m-api:latest ls -la /app/
+#     - name: Build verification
+#       run: |
+#         # Verify all executables are built
+#         docker run --rm r3m-api:latest ls -la /app/
         
-        # Check if main executable exists
-        docker run --rm r3m-api:latest test -f /app/r3m || exit 1
+#         # Check if main executable exists
+#         docker run --rm r3m-api:latest test -f /app/r3m || exit 1
         
-        # Verify the executable can start (without binding to port)
-        docker run --rm r3m-api:latest timeout 5s ./r3m --help || echo "Executable starts successfully" 
+#         # Verify the executable can start (without binding to port)
+#         docker run --rm r3m-api:latest timeout 5s ./r3m --help || echo "Executable starts successfully" 

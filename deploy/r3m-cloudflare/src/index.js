@@ -1,8 +1,29 @@
-/**
- * R3M Document Processing API - Cloudflare Workers
- * This acts as a proxy/mock API for the R3M C++ backend
- */
+import { Container } from "@cloudflare/containers";
 
+/**
+ * R3M Container class for running the C++ Docker backend
+ */
+export class R3MContainer extends Container {
+  // The port your C++ container listens on
+  defaultPort = 8080;
+  // Put the container to sleep after 30s of inactivity
+  sleepAfter = "30s";
+  // Pass environment variables to the container
+  envVars = {
+    DOCKER_CONTAINER: "true",
+    R3M_ENABLE_MEMORY_POOLING: "false",
+    R3M_MAX_WORKERS: "4",
+    R3M_OPTIMAL_BATCH_SIZE: "100"
+  };
+
+  onStart() {
+    console.log("R3M C++ Container started successfully");
+  }
+}
+
+/**
+ * Main Worker that routes requests to the C++ container
+ */
 export default {
   async fetch(request, env, ctx) {
     // Handle CORS
@@ -28,102 +49,33 @@ export default {
     };
 
     try {
-      // Health check endpoint
-      if (path === '/health' && request.method === 'GET') {
-        return new Response(JSON.stringify({
-          status: 'healthy',
-          timestamp: new Date().toISOString(),
-          service: 'R3M API (Cloudflare Workers)',
-          version: env.API_VERSION || 'v1',
-          environment: env.ENVIRONMENT || 'production'
-        }), {
-          status: 200,
-          headers: {
-            'Content-Type': 'application/json',
-            ...corsHeaders
-          }
-        });
+      // Route all API requests to the C++ container
+      if (path.startsWith('/health') || path.startsWith('/info') || 
+          path.startsWith('/process') || path.startsWith('/batch') || 
+          path.startsWith('/api/')) {
+        
+        // Get a container instance (load balanced)
+        const containerId = Math.floor(Math.random() * 3);
+        const id = env.R3M_CONTAINER.idFromName(containerId.toString());
+        const containerInstance = env.R3M_CONTAINER.get(id);
+        
+        // Forward the request to the C++ container
+        return containerInstance.fetch(request);
       }
 
-      // Info endpoint
-      if (path === '/info' && request.method === 'GET') {
+      // Root endpoint - return API info
+      if (path === '/' && request.method === 'GET') {
         return new Response(JSON.stringify({
           name: 'R3M Document Processing API',
-          version: env.API_VERSION || 'v1',
-          environment: env.ENVIRONMENT || 'production',
-          description: 'High-performance document processing and retrieval system',
-          features: [
-            'SIMD-optimized text processing',
-            'Parallel document processing',
-            'Memory-efficient chunking',
-            'Multi-format document support'
-          ],
+          version: 'v1',
+          description: 'High-performance C++ document processing system deployed on Cloudflare Containers',
           endpoints: {
             '/health': 'Health check',
-            '/info': 'API information',
+            '/info': 'API information', 
             '/process': 'Process single document',
             '/batch': 'Process batch of documents'
-          }
-        }), {
-          status: 200,
-          headers: {
-            'Content-Type': 'application/json',
-            ...corsHeaders
-          }
-        });
-      }
-
-      // Process single document endpoint
-      if (path === '/process' && request.method === 'POST') {
-        const body = await request.json().catch(() => ({}));
-        
-        // Mock processing response
-        return new Response(JSON.stringify({
-          success: true,
-          message: 'Document processed successfully (mock response)',
-          data: {
-            document_id: `doc_${Date.now()}`,
-            chunks: [
-              {
-                id: 'chunk_1',
-                content: body.content ? body.content.substring(0, 100) + '...' : 'Sample content',
-                metadata: {
-                  size: body.content ? body.content.length : 0,
-                  processed_at: new Date().toISOString()
-                }
-              }
-            ],
-            processing_time_ms: Math.random() * 100 + 50,
-            total_chunks: 1
-          }
-        }), {
-          status: 200,
-          headers: {
-            'Content-Type': 'application/json',
-            ...corsHeaders
-          }
-        });
-      }
-
-      // Batch processing endpoint
-      if (path === '/batch' && request.method === 'POST') {
-        const body = await request.json().catch(() => ({}));
-        
-        // Mock batch processing response
-        return new Response(JSON.stringify({
-          success: true,
-          message: 'Batch processed successfully (mock response)',
-          data: {
-            batch_id: `batch_${Date.now()}`,
-            documents_processed: body.documents ? body.documents.length : 0,
-            total_chunks: body.documents ? body.documents.length : 0,
-            processing_time_ms: Math.random() * 200 + 100,
-            results: body.documents ? body.documents.map((doc, index) => ({
-              document_id: `doc_${Date.now()}_${index}`,
-              status: 'processed',
-              chunks: 1
-            })) : []
-          }
+          },
+          deployment: 'Cloudflare Containers (C++ Docker)'
         }), {
           status: 200,
           headers: {
@@ -137,7 +89,7 @@ export default {
       return new Response(JSON.stringify({
         error: 'Endpoint not found',
         message: `The endpoint ${path} does not exist`,
-        available_endpoints: ['/health', '/info', '/process', '/batch']
+        available_endpoints: ['/', '/health', '/info', '/process', '/batch']
       }), {
         status: 404,
         headers: {
