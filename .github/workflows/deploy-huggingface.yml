@@ -1,0 +1,52 @@
+name: Deploy R3M to Hugging Face Spaces
+
+on:
+  push:
+    branches: [ main, master, testings2 ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Git LFS
+      uses: actions/setup-git-lfs@v4
+      
+    - name: Deploy to Hugging Face Spaces
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      run: |
+        # Create Space if it doesn't exist
+        if ! curl -s -H "Authorization: Bearer $HF_TOKEN" \
+          "https://huggingface.co/api/spaces/${{ github.repository_owner }}/r3m-api" > /dev/null; then
+          echo "Creating new Space..."
+          curl -X POST \
+            -H "Authorization: Bearer $HF_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "sdk": "docker",
+              "title": "R3M Document Processing API",
+              "description": "High-performance C++ document processing system"
+            }' \
+            "https://huggingface.co/api/spaces"
+        fi
+        
+        # Copy files to Space
+        echo "Copying files to Space..."
+        cp -r deploy/r3m-huggingface/* .
+        
+        # Configure git for HF
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
+        
+        # Add and commit files
+        git add .
+        git commit -m "Deploy R3M API to Hugging Face Spaces" || exit 0
+        
+        # Push to Hugging Face
+        git push https://$HF_TOKEN@huggingface.co/spaces/${{ github.repository_owner }}/r3m-api main 

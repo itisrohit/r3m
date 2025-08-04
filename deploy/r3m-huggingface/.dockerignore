@@ -1,0 +1,49 @@
+# Git
+.git
+.gitignore
+
+# Build artifacts
+build/
+*.o
+*.a
+*.so
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# Tests
+tests/
+test_*
+
+# Examples
+examples/
+
+# Docker
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# GitHub Actions
+.github/
+
+# Deployment
+deploy/ 
