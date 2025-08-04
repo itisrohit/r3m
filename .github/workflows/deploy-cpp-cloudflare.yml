@@ -40,8 +40,8 @@ jobs:
       run: npm install -g wrangler@latest
       
     - name: Deploy to Cloudflare Workers
-      uses: cloudflare/wrangler-action@v3
-      with:
-        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        workingDirectory: deploy/r3m-cloudflare 
+      working-directory: deploy/r3m-cloudflare
+      run: wrangler deploy src/index.js --name r3m-api --compatibility-date 2025-08-04
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }} 
