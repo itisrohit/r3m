@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@v4
       
     - name: Install Hugging Face CLI
-      run: pip install huggingface_hub
+      run: pip install huggingface_hub hf-cli
       
     - name: Deploy to Hugging Face Spaces
       env:
@@ -40,6 +40,28 @@ jobs:
         echo "Copying files to Space..."
         cp -r deploy/r3m-huggingface/* .
         
-        # Use Hugging Face CLI to upload files
-        echo "Uploading files to Hugging Face Space..."
-        huggingface-cli upload anorohit/r3m-api . --token $HF_TOKEN 
+        # Use targeted upload to avoid rate limits
+        echo "Uploading essential files to Hugging Face Space..."
+        
+        # Copy essential files to a clean directory
+        mkdir -p essential-upload
+        cp -r deploy/r3m-huggingface/* essential-upload/
+        cp -r src include configs examples tests scripts data essential-upload/ 2>/dev/null || true
+        cp CMakeLists.txt essential-upload/ 2>/dev/null || true
+        
+        cd essential-upload
+        
+        # Try targeted upload first
+        if ! hf upload anorohit/r3m-api . --token $HF_TOKEN; then
+          echo "Targeted upload failed, trying with retries..."
+          for attempt in 1 2 3; do
+            echo "Upload attempt $attempt..."
+            if hf upload anorohit/r3m-api . --token $HF_TOKEN; then
+              echo "Upload successful!"
+              break
+            else
+              echo "Upload failed, waiting 30 seconds before retry..."
+              sleep 30
+            fi
+          done
+        fi 
