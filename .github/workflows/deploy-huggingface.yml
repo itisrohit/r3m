@@ -17,26 +17,26 @@ jobs:
     - name: Install Hugging Face CLI
       run: pip install huggingface_hub hf-cli
       
-          - name: Deploy to Hugging Face Spaces
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: |
-          # Create Space if it doesn't exist
-          echo "Creating Hugging Face Space..."
-          curl -X POST \
-            -H "Authorization: Bearer $HF_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d '{
-              "id": "anorohit/r3m-api",
-              "sdk": "docker",
-              "title": "R3M Document Processing API",
-              "description": "High-performance C++ document processing system",
-              "python_version": "3.10"
-            }' \
-            "https://huggingface.co/api/spaces" || echo "Space may already exist"
-          
-          echo "Waiting for Space to be ready..."
-          sleep 10
+    - name: Deploy to Hugging Face Spaces
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      run: |
+        # Create Space if it doesn't exist
+        echo "Creating Hugging Face Space..."
+        curl -X POST \
+          -H "Authorization: Bearer $HF_TOKEN" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "id": "anorohit/r3m-api",
+            "sdk": "docker",
+            "title": "R3M Document Processing API",
+            "description": "High-performance C++ document processing system",
+            "python_version": "3.10"
+          }' \
+          "https://huggingface.co/api/spaces" || echo "Space may already exist"
+        
+        echo "Waiting for Space to be ready..."
+        sleep 10
         
         # Copy files to Space
         echo "Copying files to Space..."
