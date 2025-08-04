@@ -8,6 +8,11 @@ export DOCKER_CONTAINER=true
 export R3M_PORT=7860
 export R3M_HOST=0.0.0.0
 
-# Start the application on port 7860
-echo "Starting server on port 7860..."
-exec ./r3m --port 7860 --host 0.0.0.0 
+# Debug: Check if config file exists
+echo "Checking config file..."
+ls -la /app/configs/dev/
+cat /app/configs/dev/config.yaml
+
+# Start the application
+echo "Starting server..."
+exec ./r3m 

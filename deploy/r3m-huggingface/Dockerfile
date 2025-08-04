@@ -81,6 +81,9 @@ RUN ldconfig
 COPY --from=builder /app/configs/ /app/configs/
 COPY config.yaml /app/configs/dev/config.yaml
 
+# Debug: List the config files to verify they exist
+RUN ls -la /app/configs/dev/ && cat /app/configs/dev/config.yaml
+
 # Set environment variables for Docker container
 ENV DOCKER_CONTAINER=true
 ENV R3M_PORT=7860
@@ -100,5 +103,5 @@ EXPOSE 7860
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=5 \
     CMD curl -f http://localhost:7860/health || exit 1
 
-# Default command (Hugging Face Spaces expects port 7860)
-CMD ["./r3m", "--port", "7860", "--host", "0.0.0.0"] 
+# Default command (use startup script for debugging)
+CMD ["./start.sh"] 
