@@ -20,11 +20,10 @@ jobs:
       with:
         node-version: '18'
         cache: 'npm'
-        cache-dependency-path: deploy/r3m-cloudflare/package-lock.json
         
     - name: Install dependencies
       working-directory: deploy/r3m-cloudflare
-      run: npm ci
+      run: npm install
       
     - name: Deploy to Cloudflare Workers
       working-directory: deploy/r3m-cloudflare
